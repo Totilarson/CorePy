@@ -1,3 +1,13 @@
+#==========================================
+# Title:  PCAchemofacies.py
+# Author: Toti Larson & Esben Pedersen
+# Date:   09/16/2020
+# Description:  PCAchemofacies.py is run after initialization via settings.py and is where chemofacies analysis is performed
+# Version: 1.0
+#   Changelog:
+#==========================================
+
+# Import libraries and dependencies
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd #dataframe features
@@ -14,60 +24,64 @@ dataimport = os.path.join(settings.coredata_dir,settings.corename + settings.suf
 coredata = pd.read_csv(dataimport)
 LODT5 = pd.read_csv(settings.LOD_T5)
 
-#Sort coredata by depth and select Formation of interest
+# Sort coredata by depth and select Formation of interest
 if settings.Formation != ['all']:
     coredata = coredata[coredata['Formation'].apply(lambda x: any(s in x[:len(s)] for s in settings.Formation))]
 coredata.sort_values(by=['Depth_calculated']) #sorts coredata by depth
 
-#Add LOD to the xrf dataset and identify outliers 
-coredata[settings.elements]=np.maximum(coredata[settings.elements],LODT5[settings.elements]) #add LOD to each element
+# Add LOD to the xrf dataset and identify outliers
+coredata[settings.elements]=np.maximum(coredata[settings.elements],LODT5[settings.elements]) # Add LOD to each element
 Element_outlier=(coredata[settings.elements]).mean()+settings.outlier_multiplier*(coredata[settings.elements]).std()
 coredata['Outliers']=((coredata[settings.elements])>Element_outlier).any(axis='columns')
 
-X=(coredata[coredata['Outliers'] == False]) #excludes outliers
+# Exclude outliers
+X=(coredata[coredata['Outliers'] == False])
 
-scaler = StandardScaler() #create a standard scaler object
-pca = PCA() #create a PCA object called pca. could include pca = PCA(n_components=1)
+scaler = StandardScaler() # Create a standard scaler object
+pca = PCA() # Create a PCA object called pca. (could include pca = PCA(n_components=1))
 scaler.fit(X[settings.elements].values)
 x_new = pca.fit_transform(scaler.transform(X[settings.elements].values)) #
 features= np.arange(len(settings.elements))
 
-#plot the variance captured by principal components.
+# Plot the variance captured by principal components
 fig, ((ax4, ax5)) = plt.subplots(nrows=1, ncols=2, sharex=True, sharey=True, figsize=(10,5))
 plt.subplot(1, 2, 1)
-
 plt.plot(pca.explained_variance_ratio_.cumsum(),marker='o',linestyle='--', color = "black")
 plt.ylabel('Cumulative explained variance')
 plt.xlabel('Principle components')
 plt.axhline(y=0.75, color='red', linestyle = '--')
+
+# Plot the cumulative explained variance
 plt.subplot(1, 2, 2)
 plt.bar(features,pca.explained_variance_ratio_, color='black')
 plt.xlabel('Principle components')
 plt.ylabel('variance %')
 plt.tight_layout()
-plt.savefig(settings.output_dir + "/" + settings.corename + '_' + settings.Formation_names + '_' + 'Variance' + settings.imagesuffix,dpi = 300)
+plt.savefig(settings.output_dir + "/" + settings.corename + '_' + settings.Formation_names + '_' + 'Variance' + settings.imagesuffix,dpi = 300) # Save figure to output directory
 
 # K-means cluster analysis
-x_cluster = x_new[:, np.arange(settings.Principal_components)] #PCs used in clustering
+x_cluster = x_new[:, np.arange(settings.Principal_components)] # PCs used in clustering
 
-kmeans = KMeans(n_clusters=settings.clusters) #select the number of clusters
+kmeans = KMeans(n_clusters=settings.clusters) # Select the number of clusters
 kmeans.fit(x_cluster) #results from PCA
-Chemofacies = kmeans.predict(x_cluster)+1 #arrayt of the chemofacies classification for each row
-X['Chemofacies']=Chemofacies #makes a new column based on above conditional format
+Chemofacies = kmeans.predict(x_cluster)+1 # Array of the chemofacies classification for each row
+X['Chemofacies']=Chemofacies # Makes a new column based on conditional format (above)
 
-#scaling used for plotting
+# Scaling used for plotting
 xs = x_new[:,settings.PCA1]
 ys = x_new[:,settings.PCA2]
 scalex = 1.0/(xs.max() - xs.min())
 scaley = 1.0/(ys.max() - ys.min())
 
+
+# Plot the resultant PCA & chemofacies biplot figure
 fig, (ax1) = plt.subplots(ncols=1, figsize=(7,5))
 unique=np.arange(settings.clusters)+1
 palette = dict(zip(unique, sns.color_palette()))
 
 sns.scatterplot(x_cluster[:,settings.PCA1]*scalex, x_cluster[:, settings.PCA2]*scaley, hue=Chemofacies, s=30,palette=palette,ax=ax1,edgecolor='black', zorder=5)
 centers = kmeans.cluster_centers_
-sns.scatterplot(centers[:, settings.PCA1]*scalex, centers[:,settings.PCA2]*scaley,marker="x",s=200,facecolor="black", ax=ax1, linewidth = 2, edgecolor='black',zorder=7);
+sns.scatterplot(centers[:, settings.PCA1]*scalex, centers[:,settings.PCA2]*scaley,marker="x",s=200,facecolor="black", ax=ax1, linewidth = 2, edgecolor='black',zorder=7) # Plot markers for k-means centers
 
 n = pca.components_.shape[0]
 for i in range(n):
@@ -84,12 +98,13 @@ for i in range(n):
     plt.ylabel("PC{}".format(settings.PCA2+1))
     plt.grid(zorder=0)
 
+# Save figure to output directory
 plt.savefig(settings.output_dir + "/" + settings.corename + '_' + settings.Formation_names + '_' + 'Biplot' + settings.imagesuffix,dpi = 300)
 
 
-##Some slop here, but I wanted to convert "True/False" to "1/0" and also concatenate the outlier data (Y) to 
+##Some slop here, but I wanted to convert "True/False" to "1/0" and also concatenate the outlier data (Y) to
 # the non-outlier (X) dataset). This approach worked
-# writes a .csv file that is the original coredata_dir file and adds labeled columns for unsupervised chemofacies and outliers. 
+# writes a .csv file that is the original coredata_dir file and adds labeled columns for unsupervised chemofacies and outliers.
 Y=(coredata[coredata['Outliers'] == True])
 Y["Chemofacies"] =max(X.Chemofacies)+1
 Z=pd.concat([X, Y], ignore_index=True)
