@@ -15,4 +15,4 @@ XRF dataset, b) identifies outliers based on mean + 4 standard deviations, c)
 conducts a principal component analysis (PCA), d) runs a k-means cluster analysis on
 resutling PCA for unsupervised chamoefacies classification, e) plots PCA and cluster
 results on a biplot, and f) outputs a new dataset with cluster identifications on one 
-column,
+column.
