@@ -5,6 +5,8 @@
 # Description:  settings.py is run first and is where variables used in subsequent scripts are defined and listed
 # Folder structure (i.e., 'C:/Users/') may need to be changed depending or your system
 # Version: 1.0
+# Python Version 3.7.6
+# Operating system: Windows
 #   Changelog:
 #==========================================
 
