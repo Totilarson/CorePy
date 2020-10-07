@@ -1,5 +1,5 @@
 # CorePy
-CorePy is a series of tools written in Python that are designed to integrate and visualize geological core data.
+CorePy is a series of tools written in Python (Version 3.7.6) designed to integrate and visualize geological core data.
 This public repository hosts a series of scripts that are used to evaluate
 and cluster geological core-based X-ray fluorescence (XRF) measurements.
 These Python tools were developed by Toti Larson and Esben Pedersen at the
