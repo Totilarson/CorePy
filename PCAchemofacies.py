@@ -5,6 +5,7 @@
 # Description:  PCAchemofacies.py is run after initialization via settings.py and is where chemofacies analysis is performed
 # Version: 1.0
 # Python Version 3.7.6
+# Operating system: Windows
 # Output files: 1) One  .csv file that adds two columns to the original XRF data file (Outliers, and Chemofacies)
 #               2) Three .png files that show the PCA variance, a biplot, and a scatter plot showing the analytical outliers
 #   Changelog:
