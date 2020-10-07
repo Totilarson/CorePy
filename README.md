@@ -16,3 +16,9 @@ conducts a principal component analysis (PCA), d) runs a k-means cluster analysi
 resutling PCA for unsupervised chamoefacies classification, e) plots PCA and cluster
 results on a biplot, and f) outputs a new dataset with cluster identifications on one 
 column.
+
+
+Initial Folder structure:
+1) Set up a Folder called "CorePy" and map coredata_dir (settings) to it. 
+For example:'C:/Users/' + user + '/Box/CorePy/Coredata/CoreXRF'
+2) set up /Coredata/CoreXRF/ and place the file "Core-01" in that directory
