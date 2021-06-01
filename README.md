@@ -9,6 +9,15 @@ The primary focus of CorePy is to classify high resolution X-ray fluoresence dat
 CorePy establishes a folder structure multiple users to work on the same datasets, and also provides visualizations that are useful to validate clustering results.
 
 
+# Installation
+pip install corepytools
+
+
+# Example
+PCAexample.py shows an example that imports corepy package and an example XRF datafile called 'Public_XRF.csv'
+
+
+
 
 ## About the authors
 
@@ -45,6 +54,8 @@ sklearn.cluster import KMeans
 matplotlib.patheffects
 
 # Notes
+
+
 
 # Folder structure
 corepy-tools
