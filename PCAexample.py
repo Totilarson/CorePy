@@ -1,3 +1,6 @@
+##PCAexample.py lists the inputs used in all the functions stored under corepy
+##
+
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
@@ -5,32 +8,45 @@ import os
 import corepy
 
 
-#####  User defined variables - start
+## User defined variables - start
 
-corename = 'Public' #core name
+# Data that is specific to the core XRF data stored in the  //CoreData/CoreXRF
+corename = 'Public' #core name being studied
 
 Formation = ['Eagle Ford'] # List of strings. Filters the formation of investigation # List of strings. Filters the formation of investigation
 Formation_2=[]
 Formation_names = '-'.join(Formation+Formation_2) #this is used to make the directory specific to the formations
+
+# depending on the clustering approach there will be different categories. Here, Chemofacies_PCA is a column output in the ouut .csv file
 RockClassification = 'Chemofacies_PCA'
 Depth_model='Depth_calculated'# 'XRF_adjusted_depth' and 'Wireline_Depth' are options in the data file. 
 
+
+# the elements being evaluated can be changed. 29 are listed here. They can be removed if necessary
 elements =  ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe', 'Ba', 'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga', 'As', 'Pb', 
              'Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo']
 
 
 #statistics variables
 outlier_multiplier = 4      # how many standard deviations away from mean are included as outliers
-clusters = 4                # number of clusters to be included
-Principal_components =4     # number of principal components applied to K-means clustering algorithm
+clusters = 4                # number of K-means clusters to be used
 
+# number of principal components applied to K-means clustering algorithm. 
+Principal_components =4     # The number can range from 1 to maximum number of elements. 
+
+
+# Colorscheme helps keep a consistent color pattern across all plots
 ColorScheme=[1,     2,      3,    4,    5,      6,     7,     8,   9 , 10 ] 
 #           blue, orange, green, red, purple, brown, pink, grey, gold, teal
 
-Elements_plotted=['Ca','Al','Si','Ni','Cu','Zn','U','Mo','V','Sr']
-moving_avg=3
-XRF_resolution=2/12
 
+# plotting variable. These can be changed depending on interest. 
+Elements_plotted=['Ca','Al','Si','Ni','Cu','Zn','U','Mo','V','Sr']
+moving_avg=3 # used to smooth out high resolution data
+XRF_resolution=2/12 # used to build chemofacies stacking pattern. 2/12 refers to 2" xrf scanning resolution
+
+
+## runs all necessary functions in CorePy
 corepy.RootDir(corename, Formation_names)
 corepy.MakeXRFdf(corename,elements,outlier_multiplier,Depth_model)
 coredata=corepy.MakeXRFdf(corename,elements,outlier_multiplier,Depth_model)
@@ -47,13 +63,15 @@ dirName=corepy.RootDir(corename, Formation_names)
 coredata=corepy.WriteCSV(X,Y,dirName,corename,Formation_names,Depth_model)
 
 
-
+## I need to fix this color selection part
 corepy.ColorPalette(ColorScheme) 
 infile = open('chemocolor','rb')
 chemofacies_color= pickle.load(infile)
 infile.close()  
 
 
+
+## Plots made to evaluate chemofacies results 
 fig, ((ax1, ax2,), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2, sharex=False, sharey=False, figsize=(10,10))
 
 sns.scatterplot(x=elements[2], y=elements[3], hue=RockClassification,data=coredata, palette=chemofacies_color,ax=ax1, edgecolor='black')
