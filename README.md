@@ -35,18 +35,18 @@ corepytools.py
 
 ## Package Dependencies
 
-os
-numpy
-pandas
-seaborn
-pickle
-glob
-matplotlib.pyplot
-seaborn as sns
-sklearn.preprocessing import StandardScaler
-sklearn.decomposition import PCA
-sklearn.cluster import KMeans
-matplotlib.patheffects
+1) os
+2) numpy
+3) pandas
+4) seaborn
+5) pickle
+6) glob
+7) matplotlib.pyplot
+8) seaborn as sns
+9) sklearn.preprocessing import StandardScaler
+10) sklearn.decomposition import PCA
+11) sklearn.cluster import KMeans
+12) matplotlib.patheffects
 
 # Notes
 
