@@ -1,23 +1,18 @@
-# CorePy package
+# CorePytools package
 
-CorePy is designed to perform machine learning on data collected from geological samples of core. 
+CorePytools (CorePy) is a machine learning python package applied to data collected from geological samples of core. The primary focus of CorePy is to classify high resolution 
+X-ray fluoresence data into chemofacies using unsupervised and supervised clustering tools. CorePy establishes a folder structure for input and output data. Visualizations are used to validate clustering results.
 
-CorePy bundles a wide range of data analytical tools to interpret multivariate datasets common to geological core characterization
-
-The primary focus of CorePy is to classify high resolution X-ray fluoresence data into chemofacies using unsupervised and supervised clustering tools.
-
-CorePy establishes a folder structure multiple users to work on the same datasets, and also provides visualizations that are useful to validate clustering results.
-
+Core  box photographs can be cropped and used to visualized chemofacies results. Wireline log data can be upsampled and data integrated to chemofacies for upscaling  
 
 # Installation
 pip install corepytools
 
-
-# Example
-PCAexample.py shows an example that imports corepy package and an example XRF datafile called 'Public_XRF.csv'
-
-
-
+# Examples and data
+The authors Github account has examples and datapackages that apply corepytools.
+Corepytools builds a folder structure and looks for XRF data in the folder: **..\CorePy\CoreData\CoreXRF**
+The .csv file **Public_XRF.csv** is provided in the authors github account to show 
+the database format (required headings) that are called on with CorePy
 
 ## About the authors
 
@@ -27,26 +22,26 @@ CorePy is being developed by Toti Larson at the University of Texas at Austin, B
 
 2. **Esben Pedersen, M.S.** - Graduate student (graduated 2020) at the University of Texas at Austin. 
 
-3. **Priyanka Periwal, P.D.** - Research Science Associate at the University of Texas at Austin. 
+3. **Priyanka Periwal, Ph.D.** - Research Science Associate at the University of Texas at Austin. 
 
-4. **Ana Letícia Batista** - Undergraduate at Jackson State University (graduated 2020). 2020 Jackson School of Geosciences GeoForce Student
+4. **J. Evan Sivil** - Research Science Associate at the University of Texas at Austin. 
 
-5. **J. Evan Sivil** - Research Science Associate at the University of Texas at Austin. 
+5. **Ana Letícia Batista** - Undergraduate at Jackson State University (graduated 2020). 2020 Jackson School of Geosciences GeoForce Student
 
 ## Package Inventory
  
-CorePy.py
+corepytools.py
 
 
 ## Package Dependencies
 
 os
+numpy
+pandas
 seaborn
 pickle
-pandas
 glob
-numpy
-natplotlib.pyplot
+matplotlib.pyplot
 seaborn as sns
 sklearn.preprocessing import StandardScaler
 sklearn.decomposition import PCA
@@ -55,20 +50,22 @@ matplotlib.patheffects
 
 # Notes
 
+Install corepytools using **pip install corepytools**
+Follow over to the authors Github account to download example Python scripts that use corepytools
 
 
 # Folder structure
-corepy-tools
+corepytools
 
     |-LICENSE.txt         **MIT**
 
     |-README.md           **edited in markdown**
 
-    |-setup.py            **name=corepy-tools, package=src, python module=CorePy**
+    |-setup.py            **name=corepy-tools, package=src, python module=corepytools**
 
     |-src
 
-        |-CorePy.py    **contains functions**
+        |-corepytools    **contains functions**
     
         |-__init__.py     ** empty**
 
