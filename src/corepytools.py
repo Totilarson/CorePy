@@ -8,6 +8,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from scipy.spatial.distance import cdist
 from sklearn.cluster import KMeans
+from PIL import Image
 
 def sumdumbfun(x,y): # this is only here to test the package during development
     return x+y
@@ -15,8 +16,8 @@ def sumdumbfun(x,y): # this is only here to test the package during development
 ## RootDir establishes the export and data folder structure
 def RootDir(corename, Formation_names):
     root_dir = 'CorePy'
-    main_dir = ['CoreData', 'CoreOutput', 'CoreTubes']
-    sub_dir= ['CoreAttributes', 'CoreXRF']    
+    main_dir = ['CoreData', 'CoreOutput']
+    sub_dir= ['CoreAttributes', 'CoreXRF','CoreBoxPhotos', 'CoreTubes']    
         
     for i in range(0, len(main_dir)):
         dirName = str(root_dir) + '/' + str(main_dir[i])
@@ -130,3 +131,26 @@ def ColorPalette(ColorScheme):
     outfile = open('chemocolor','wb')
     pickle.dump(palette,outfile)
     outfile.close()
+    
+def cropCorebox(cropArea, imageFileName,imageFolder,newFolderPath):
+    imagePath = os.path.join(imageFolder, imageFileName)
+    imgOpen = Image.open(imagePath)
+    imgCrop = imgOpen.crop(cropArea)
+    croppedimagePath = os.path.join(newFolderPath, imageFileName)
+    imgCrop.save(croppedimagePath)
+    imgOpen.close()
+ 
+def ImageDir(corename):
+    root_dir = 'CorePy'
+    main_dir = ['CoreData']
+    sub_dir= ['CoreBoxPhotos','CoreTubes']
+    
+    for i in range(0, len(main_dir)):
+        dirName = str(root_dir) + '/' + str(main_dir[i])
+        if not os.path.exists(dirName):
+            os.makedirs(dirName)
+            
+    for i in range(0, len(sub_dir)):
+        dirName = str(root_dir) + '/' + str(main_dir[0]) + '/' + str(sub_dir[i])
+        if not os.path.exists(dirName):
+		        os.makedirs(dirName)
