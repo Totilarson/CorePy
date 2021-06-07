@@ -49,7 +49,7 @@ XRF_resolution=2/12 # used to build chemofacies stacking pattern. 2/12 refers to
 
 
 ## This section runs all necessary functions in CorePy
-corepy.RootDir(corename, Formation_names)
+
 corepy.MakeXRFdf(corename,elements,outlier_multiplier,Depth_model,Formation_names)
 coredata=corepy.MakeXRFdf(corename,elements,outlier_multiplier,Depth_model,Formation_names)
 

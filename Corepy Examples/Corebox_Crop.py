@@ -9,9 +9,11 @@ corenameAbrev='PC' # two letter abbreviation for subsequent core tube names
 ImageType='vis' # visible or UV images
 suffix = ".jpg"
 
+corepy.ImageDir(corename)
+
 CoreBoxPhotos= os.path.join(str('.\CorePy\CoreData\CoreBoxPhotos') + '/' + corename)
 CoreBoxPhotos_cropped= os.path.join(str('.\CorePy\CoreData\CoreBoxPhotos') + '/' + corename + "_cropped")
-CoretubeFolder = os.path.join(str('.\CorePy\CoreData\CoreBoxPhotos') + '/' + corename + "_tubes")
+CoretubeFolder = os.path.join(str('.\CorePy\CoreData\Coretubes') + '/' + corename + "_tubes_" + ImageType)
 
 
 # Makes folders if they do not exist already. 
