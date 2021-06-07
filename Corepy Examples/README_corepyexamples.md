@@ -66,6 +66,7 @@ See dependencies section
 11) sklearn.cluster import KMeans
 12) matplotlib.patheffects
 13) corepytools
+14) PIL import Image
 
 ## Lets collaborate!!!
 We are interested in adding new functionality. Any and all ideas and datasets are welcome! Send me an email!
