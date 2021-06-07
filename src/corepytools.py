@@ -144,7 +144,7 @@ def ImageDir(corename):
     root_dir = 'CorePy'
     main_dir = ['CoreData']
     sub_dir= ['CoreBoxPhotos','CoreTubes']
-    
+
     for i in range(0, len(main_dir)):
         dirName = str(root_dir) + '/' + str(main_dir[i])
         if not os.path.exists(dirName):
