@@ -2,18 +2,23 @@ import os
 import corepytools as corepy
 from PIL import Image
 
-## This section takes core box photos and crops them into uniform cropped images
+## SECTION 1: This section takes core box photos and crops them into uniform cropped images
 corename = 'Public' #core name being studied
 corenameAbrev='PC' # two letter abbreviation for subsequent core tube names
 
 ImageType='vis' # visible or UV images
 suffix = ".jpg"
 
-corepy.ImageDir(corename)
+noOfCols = 5# select number of columns in each corebox photo
+coreSize =2 # length of each coretube 
+core_depth = 3978 # top depth of starting corebox photo
+
+
+corepy.ImageDir(corename) #sets up folder structure
 
 CoreBoxPhotos= os.path.join(str('.\CorePy\CoreData\CoreBoxPhotos') + '/' + corename)
-CoreBoxPhotos_cropped= os.path.join(str('.\CorePy\CoreData\CoreBoxPhotos') + '/' + corename + "_cropped")
-CoretubeFolder = os.path.join(str('.\CorePy\CoreData\Coretubes') + '/' + corename + "_tubes_" + ImageType)
+CoreBoxPhotos_cropped= os.path.join(str('.\CorePy\CoreData\CoreBoxPhotos') + '/' + corename + "_cropped")  # new directory that will be made
+CoretubeFolder = os.path.join(str('.\CorePy\CoreData\CoreTubes') + '/' + corename + "_tubes_" + ImageType) # new directory that will be made
 
 
 # Makes folders if they do not exist already. 
@@ -28,13 +33,10 @@ listing = os.listdir(CoreBoxPhotos)
 for i in listing:
     corepy.cropCorebox((70, 125, 740, 920), i,CoreBoxPhotos,CoreBoxPhotos_cropped) #(left, top, right,bottom)
     # crop coordinates are done by trial and error
+    # change the first four numbers in the list to crop correctly
 
+## SECTION 2: This section takes uniform cropped images and cuts them into individual coretubes
 
-## This section takes uniform cropped images and cuts them into individual coretubes
-
-noOfCols = 5# select number of columns in cropped image
-coreSize =2 # length of each coretube 
-core_depth = 3978 #top depth of starting core
 
 # Crop image in respective tubes
 def cropCoretubes(imageFileName):
