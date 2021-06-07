@@ -8,6 +8,8 @@ Core  box photographs can be cropped and used to visualized chemofacies results.
 ## Installation
 pip install corepytools
 
+The folder 'Data-example' contains examples of data that are needed to run both PCAexample and Corebox_crop. Running either of these scripts will establish the folder structure. Then you need to copy-paste the folders 'CoreBoxPhotos' and CoreXRF **from** Data-examples **to** './CorePy/Coredata
+
 ## PCAexample
 This script provides an example of unsupervised clustering using principal component analysis and K-means clustering.
  after installing corepytools **pip install corepytools** run PCAexample. The first time through it will throw an error:
