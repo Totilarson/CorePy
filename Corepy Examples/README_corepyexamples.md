@@ -37,10 +37,10 @@ Different clustering algorithms will be added. Chemofacies_NN for the trained ne
 **XRF_resolution** The resolution (in inches) that the XRF data was collected. This value affects the chemofacies strat column built in the figure
 
 ## Corebox_crop
-1) This script crops corebox photographs into coretubes.Coreboxcrop. The first time through it will throw an error:
-- [WinError 3] The system cannot find the path specified: '.\\CorePy\\CoreData\\CoreBoxPhotos/Public'
+1) This script crops corebox photographs into coretubes. The first time through it will throw an error:
+ - [WinError 3] The system cannot find the path specified: '.\\CorePy\\CoreData\\CoreBoxPhotos/Public'
  
-2) he folder structure will be made and the example Corebox photos (folder called **Public** in the provided Data-examples folder ) need to be copied in the folder: .\CorePy\CoreData\CoreBoxPhotos
+2) The folder structure will be made and the example Corebox photos (folder called **Public** in the provided Data-examples folder ) need to be copied in the folder: .\CorePy\CoreData\CoreBoxPhotos
 
 3) Run Corebox_crop again and all necessary files should be in place.
 
