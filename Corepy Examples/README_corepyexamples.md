@@ -36,6 +36,16 @@ Different clustering algorithms will be added. Chemofacies_NN for the trained ne
 **moving_avg** used to smooth visualization data. can be any number
 **XRF_resolution** The resolution (in inches) that the XRF data was collected. This value affects the chemofacies strat column built in the figure
 
+## Corebox_crop
+This script crops corebox photographs into coretubes.Coreboxcrop. The first time through it will throw an error:
+ [WinError 3] The system cannot find the path specified: '.\\CorePy\\CoreData\\CoreBoxPhotos/Public'
+ 
+The folder structure will be made and the example Corebox photos (folder called **Public** in the Core data -examples folder ) need to be copied in the folder: .\CorePy\CoreData\CoreBoxPhotos
+
+Run Corebox_crop again and all necessary files should be in place.
+
+See dependencies section
+
 ## Package Dependencies
 
 1) os
