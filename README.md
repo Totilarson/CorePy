@@ -26,7 +26,7 @@ CorePy is being developed by Toti Larson at the University of Texas at Austin, B
 
 4. **J. Evan Sivil** - Research Science Associate at the University of Texas at Austin. 
 
-5. **Ana Letícia Batista** - Undergraduate at Jackson State University (graduated 2020). 2020 Jackson School of Geosciences GeoForce Student
+5. **Geoforce students** - Ana Letícia Batista (2020) - Jackson State University 
 
 ## Package Inventory
  
