@@ -9,9 +9,10 @@ from sklearn.decomposition import PCA
 from scipy.spatial.distance import cdist
 from sklearn.cluster import KMeans
 from PIL import Image
+import re
 
 def sumdumbfun(x,y): # this is only here to test the package during development
-    return x+y
+    return x*y*y
 
 ## RootDir establishes the export and data folder structure
 def RootDir(corename, Formation_names):
@@ -154,3 +155,16 @@ def ImageDir(corename):
         dirName = str(root_dir) + '/' + str(main_dir[0]) + '/' + str(sub_dir[i])
         if not os.path.exists(dirName):
 		        os.makedirs(dirName)
+                
+                
+def OutputXRF(corename,Formation_names):   # bad form here. need to link better but I don't know how to link below RootDir
+     
+    XRF_file = os.path.join(str('./CorePy/CoreOutput/') + corename + '/' + Formation_names + '/' + corename + '_' + Formation_names + '.csv')
+
+    OutputXRF=pd.read_csv(XRF_file)
+    return OutputXRF
+
+def natural_sort(file_names):
+    convert = lambda text: int(text) if text.isdigit() else text.lower()
+    alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
+    return sorted(file_names, key = alphanum_key)
