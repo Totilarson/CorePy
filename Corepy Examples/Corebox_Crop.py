@@ -1,24 +1,23 @@
 import os
 import corepytools as corepy
 from PIL import Image
+import json
 
-## SECTION 1: This section takes core box photos and crops them into uniform cropped images
-corename = 'Public' #core name being studied
-corenameAbrev='PC' # two letter abbreviation for subsequent core tube names
+CoreOfStudy = 'Public'
 
-ImageType='vis' # visible or UV images
-suffix = ".jpg"
+Corebeta=json.load(open(os.path.join(CoreOfStudy + '.json')))
 
-noOfCols = 5# select number of columns in each corebox photo
-coreSize =2 # length of each coretube 
+# Two things here that could use improvement: core_depth and the locations for the core box cropping
+
+
 core_depth = 3978 # top depth of starting corebox photo
 
 
-corepy.ImageDir(corename) #sets up folder structure
+corepy.ImageDir(Corebeta['corename']) #sets up folder structure
 
-CoreBoxPhotos= os.path.join(str('.\CorePy\CoreData\CoreBoxPhotos') + '/' + corename)
-CoreBoxPhotos_cropped= os.path.join(str('.\CorePy\CoreData\CoreBoxPhotos') + '/' + corename + "_cropped")  # new directory that will be made
-CoretubeFolder = os.path.join(str('.\CorePy\CoreData\CoreTubes') + '/' + corename + "_tubes_" + ImageType) # new directory that will be made
+CoreBoxPhotos= os.path.join(str('.\CoreData\CoreBoxPhotos') + '/' + Corebeta['corename'])
+CoreBoxPhotos_cropped= os.path.join(str('.\CoreData\CoreBoxPhotos') + '/' + Corebeta['corename'] + "_cropped")  # new directory that will be made
+CoretubeFolder = os.path.join(str('.\CoreData\CoreTubes') + '/' + Corebeta['corename'] + "_tubes_" + Corebeta['ImageType']) # new directory that will be made
 
 
 # Makes folders if they do not exist already. 
@@ -44,20 +43,20 @@ def cropCoretubes(imageFileName):
     imagePath = os.path.join(CoreBoxPhotos_cropped, imageFileName)
     imgOpen = Image.open(imagePath)
     width, height = imgOpen.size
-    core_width = width/(noOfCols)
+    core_width = width/(Corebeta['noOfCols'])
 
-    for i in range (1, noOfCols+1):
+    for i in range (1, Corebeta['noOfCols']+1):
         top_x = 0 + core_width*(i-1)
         top_y = 0
         bottom_x = core_width + core_width*(i-1)
         bottom_y = height
         imgCrop = imgOpen.crop((top_x, top_y, bottom_x, bottom_y))
-        imageName = corenameAbrev + '_' + str(core_depth) + '_' + str(core_depth + coreSize) + '.png'
+        imageName = Corebeta['corenameAbrev'] + '_' + str(core_depth) + '_' + str(core_depth + Corebeta['coretube_length']) + '.png'
         croppedimagePath = os.path.join(CoretubeFolder, imageName)
         imgCrop.save(croppedimagePath)
 
         imgCrop.close()
-        core_depth = core_depth + coreSize
+        core_depth = core_depth + Corebeta['coretube_length']
 
     imgOpen.close()
 
