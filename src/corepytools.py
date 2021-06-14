@@ -16,7 +16,7 @@ def sumdumbfun(x,y): # this is only here to test the package during development
 
 ## RootDir establishes the export and data folder structure
 def RootDir(corename, Formation_names):
-    main_dir = ['CoreData', 'CoreOutput']
+    main_dir = ['CoreData', 'CoreOutput','CoreNeuralModel']
     sub_dir= ['CoreAttributes', 'CoreXRF','CoreBoxPhotos', 'CoreTubes']    
         
     for i in range(0, len(main_dir)):
@@ -121,6 +121,7 @@ def Elbow_method(x_new,Principal_components):
 
 def WriteCSV(coredata_no_outliers,coredata_outliers,dirName,corename,Formation_names,Depth_model):
     coredata=pd.concat([coredata_no_outliers, coredata_outliers], ignore_index=True)
+    coredata['Chemofacies_train']=''
     coredata.to_csv  (os.path.join(dirName + '/' + corename + '_' + Formation_names + '.csv'))
     coredata = coredata.sort_values([Depth_model])
     return coredata 
