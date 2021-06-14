@@ -16,29 +16,28 @@ def sumdumbfun(x,y): # this is only here to test the package during development
 
 ## RootDir establishes the export and data folder structure
 def RootDir(corename, Formation_names):
-    root_dir = 'CorePy'
     main_dir = ['CoreData', 'CoreOutput']
     sub_dir= ['CoreAttributes', 'CoreXRF','CoreBoxPhotos', 'CoreTubes']    
         
     for i in range(0, len(main_dir)):
-        dirName = str(root_dir) + '/' + str(main_dir[i])
+        dirName = str(main_dir[i])
         if not os.path.exists(dirName):
             os.makedirs(dirName)
     		      
     # builds the necessary subdirectory folders
 
     for i in range(0, len(sub_dir)):
-        dirName = str(root_dir) + '/' + str(main_dir[0]) + '/' + str(sub_dir[i])
+        dirName =  str(main_dir[0]) + '/' + str(sub_dir[i])
         if not os.path.exists(dirName):
 		        os.makedirs(dirName)
  
     for i in range(0, len(corename)):
-        dirName = str(root_dir) + '/' + str(main_dir[1]) + '/' + str(corename) 
+        dirName =  str(main_dir[1]) + '/' + str(corename)
         if not os.path.exists(dirName):
 		        os.makedirs(dirName)
 
     for i in range(0, len(Formation_names)):
-        dirName = str(root_dir) + '/' + str(main_dir[1]) + '/' + str(corename) + '/' + str(Formation_names) 
+        dirName =  str(main_dir[1]) + '/' + str(corename) + '/' + str(Formation_names) 
         if not os.path.exists(dirName):
 		        os.makedirs(dirName)
         return dirName        # this is needed to direct output files
@@ -50,9 +49,9 @@ def movingaverage(interval, moving_avg):
                 
 
 def MakeXRFdf(corename,elements,outlier_multiplier,Depth_model,Formation_names):   # bad form here. need to link better but I don't know how to link below RootDir
-     
-    XRF_file = os.path.join(str('./CorePy/Coredata/CoreXRF/') + corename + '_XRF.csv')
-    LODT5 = pd.read_csv(os.path.join(str('./CorePy/Coredata/CoreXRF/') + 'T5iLOD_XRF.csv'))
+
+    XRF_file = os.path.join(str('./Coredata/CoreXRF/') + corename + '_XRF.csv')
+    LODT5 = pd.read_csv(os.path.join(str('./Coredata/CoreXRF/') + 'T5iLOD_XRF.csv'))
 
     files=glob.glob(XRF_file)
 
@@ -142,25 +141,23 @@ def cropCorebox(cropArea, imageFileName,imageFolder,newFolderPath):
     imgOpen.close()
  
 def ImageDir(corename):
-    root_dir = 'CorePy'
     main_dir = ['CoreData']
     sub_dir= ['CoreBoxPhotos','CoreTubes']
 
     for i in range(0, len(main_dir)):
-        dirName = str(root_dir) + '/' + str(main_dir[i])
+        dirName =  str(main_dir[i])
         if not os.path.exists(dirName):
             os.makedirs(dirName)
             
     for i in range(0, len(sub_dir)):
-        dirName = str(root_dir) + '/' + str(main_dir[0]) + '/' + str(sub_dir[i])
+        dirName = str(main_dir[0]) + '/' + str(sub_dir[i])
         if not os.path.exists(dirName):
 		        os.makedirs(dirName)
                 
                 
 def OutputXRF(corename,Formation_names):   # bad form here. need to link better but I don't know how to link below RootDir
      
-    XRF_file = os.path.join(str('./CorePy/CoreOutput/') + corename + '/' + Formation_names + '/' + corename + '_' + Formation_names + '.csv')
-
+    XRF_file = os.path.join(str('./CoreOutput/') + corename + '/' + Formation_names + '/' + corename + '_' + Formation_names + '.csv')
     OutputXRF=pd.read_csv(XRF_file)
     return OutputXRF
 
