@@ -166,3 +166,6 @@ def natural_sort(file_names):
     convert = lambda text: int(text) if text.isdigit() else text.lower()
     alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
     return sorted(file_names, key = alphanum_key)
+
+def Formation_names(Formation, Formation_2):
+    Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"])
