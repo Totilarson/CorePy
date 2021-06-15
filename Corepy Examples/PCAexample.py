@@ -17,11 +17,7 @@ infile = open('chemocolor','rb')
 chemofacies_color= pickle.load(infile)
 infile.close()  
 
-#chemofacies_color2=json.load(open('ColorScheme.json'))
-
-Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"]) # Would like to have Formation_names defined in Corebeta
-
-
+Formation_names=corepy.Formation_names(Corebeta["Formation"],Corebeta["Formation_2"])
 ## This section runs all necessary functions in CorePy
 corepy.RootDir(Corebeta["corename"], Formation_names)
 corepy.MakeXRFdf(Corebeta["corename"],Corebeta["elements"],Corebeta["outlier_multiplier"],Corebeta["Depth_model"],Formation_names)

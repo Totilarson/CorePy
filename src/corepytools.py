@@ -168,4 +168,5 @@ def natural_sort(file_names):
     return sorted(file_names, key = alphanum_key)
 
 def Formation_names(Formation, Formation_2):
-    Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"])
+    Formation_names = '-'.join(Formation +Formation_2)
+    return Formation_names
