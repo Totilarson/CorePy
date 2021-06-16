@@ -7,7 +7,7 @@ X-ray fluoresence data into chemofacies using unsupervised and supervised cluste
 ## Corepy Examples
 - This folder has several python scripts that are used for various functions.
  - **Corebeta.py** - lists all key parameters and variables used for each core in subsequent python scripts. outputs a .json file used in Corepy  
- - **PCAexample** - takes input XRF data and conducts principal component analysis. Outputs a .csv file with PCA-kmeans clusters. Unsupervised clustering
+ - **PCAexample** -  Unsupervised clustering. takes input XRF data and conducts principal component analysis. Outputs a .csv file with PCA-kmeans clusters.
  - **Corebox_crop** - takes corebox images and crops them into core tubes with depth registration
  - **Corepy_plotting** - makes various cross plots and depth profiles (chemofacies and element concentrations) to evaluate clustering results
  - **Coreimage** - overlays chemofacies cluster results on core box images  
