@@ -22,6 +22,7 @@ X-ray fluoresence data into chemofacies using unsupervised and supervised cluste
 - The folder structure will be made and the example .csv files (Public_XRF.csv and T5iLOD_XRF.csv) need to be copied to the folder: .\CorePy\CoreData\CoreXRF
 - Run PCAexample again and all necessary files should be in place.
 - **Core variables** - all variable are stored in **Corebeta.py** Notes are included in Corebeta.py 
+- Cloning the Corepy repo should take care of this.
 
 ## Corebox_crop.py
 - This script crops corebox photographs into coretubes. The first time through it will throw an error:
@@ -30,6 +31,7 @@ X-ray fluoresence data into chemofacies using unsupervised and supervised cluste
 - The folder structure will be made and the example Corebox photos (folder called **Public** in the provided Data-examples folder ) need to be copied in the folder: .\CorePy\CoreData\CoreBoxPhotos
 
 - Run Corebox_crop again and all necessary files should be in place.
+- Cloning the Corepy repo should take care of this.
 
 - Now the folder **Public_cropped** should have cropped core box photographs and the **Public_tubes_vis** folder should have coretubes 
 See dependencies section
