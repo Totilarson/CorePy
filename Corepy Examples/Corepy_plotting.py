@@ -5,9 +5,11 @@ import os
 import corepytools as corepy
 import matplotlib.patheffects as PathEffects
 import json
+import pandas as pd
 
 
 CoreOfStudy = 'Public'
+
 
 Corebeta=json.load(open(os.path.join(CoreOfStudy + '.json')))
 
@@ -22,7 +24,11 @@ infile.close()
 
 Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"]) # Would like to have Formation_names defined in Corebeta
 
-coredata = corepy.OutputXRF(Corebeta['corename'],Formation_names)
+#coredata = corepy.OutputXRF(Corebeta['corename'],Formation_names) # This directs to the output file
+
+NeuralModel_TrainingDataSet = os.path.join(str('./CoreNeuralModel') + '/' + Formation_names  + '_TrainingDataset.csv')
+coredata = pd.read_csv(NeuralModel_TrainingDataSet).sort_values(by=[Corebeta["Depth_model"]], ascending=False) # this links to the training dataset
+ # This directs to the training dataset
 coredata=coredata.sort_values(by=[Corebeta['Depth_model']])
 
 

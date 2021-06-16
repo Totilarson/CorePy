@@ -7,6 +7,7 @@ import pickle
 import math
 import corepytools as corepy
 import json
+import pandas as pd
 
 CoreOfStudy = 'Public'
 
@@ -23,6 +24,11 @@ infile.close()
 
 ## Import datafiles
 coredata = corepy.OutputXRF(Corebeta['corename'],Formation_names)
+
+NeuralModel_TrainingDataSet = os.path.join(str('./CoreNeuralModel') + '/' + Formation_names  + '_TrainingDataset.csv')
+coredata = pd.read_csv(NeuralModel_TrainingDataSet).sort_values(by=[Corebeta["Depth_model"]], ascending=False) # this links to the training dataset
+
+
 Tubes_dir = os.path.join(str('./CoreData/CoreTubes') + '/' + Corebeta['corename'] + '_tubes_vis')
 dirName=corepy.RootDir(Corebeta['corename'], Formation_names) 
 
