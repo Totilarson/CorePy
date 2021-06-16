@@ -41,8 +41,15 @@ See dependencies section
 ## Corepy_plotting.py
 - Once PCAexample.py or the Neural Model scripts (**NN_model_build** and **NN_model_apply.py**) are run there are chemofacies columns in the output spread sheets. In the Corebeta.py script you can select which chemofacies you want plotted (i.e., Chemofacies_PCA, Chemofacies_Train, or Chemofacies_NN)
 
-## NN_model_build.py and NN_model_apply.py
-- more notes soon
+## NN_model_build.py
+- training data sets are built to be Formation-specific and should not be easily overwritten. There is a separate folder **"CoreNeuralModel"** where the Fomration-specific training datasets are stored.
+-  Copy a .csv file here and populate the column **"Chemofacies_train"**. These values can be obtained from unsupervised or supervised approaches, but will form the basis of the Neural Model.
+-  The training dataset file name should include only the Formation names and '_Trainingdataset.csv' . **For example: Eagle Ford_TrainingDataset.csv**
+-  There are several strategies that can be used to edit the training dataset and look at the model results
+
+## NN_model_apply.py
+- This executes the Neural Network model that is run off the Formation-specific training dataset (saved in folder **"CoreNeuralModel"**)
+- A separate .csv output file is built and it contains several columns including CHemofacies_NN and the probability
 
 ## Package Dependencies
 
