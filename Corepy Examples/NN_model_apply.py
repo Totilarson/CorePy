@@ -3,7 +3,7 @@ import numpy as np
 import os
 from sklearn.preprocessing import StandardScaler
 import pickle
-import seaborn as sns
+#import seaborn as sns
 import json
 import corepytools as corepy
 
@@ -44,3 +44,5 @@ data=pd.DataFrame(np.concatenate((chemo_predict,chemo_prob),axis=1),columns = Pr
 
 Z=pd.concat([coredata, data], ignore_index=False)
 Z = coredata.merge(data, left_index=True, right_index=True)
+
+Z.to_csv (os.path.join(dirName + '/' +  CoreOfStudy + '_' + Formation_names + '_NeuralModel.csv' ))
