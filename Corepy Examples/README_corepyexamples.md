@@ -36,6 +36,12 @@ See dependencies section
 
 - The trial and error portion of this script is knowing where to crop each core box photo. the line: corepy.cropCorebox((70, 125, 740, 920),...) gives the coordinates used for this example. These coordinates will have to be adjusted for other photos 
 
+## Corepy_plotting.py
+- Once PCAexample.py or the Neural Model scripts (**NN_model_build** and **NN_model_apply.py**) are run there are chemofacies columns in the output spread sheets. In the Corebeta.py script you can select which chemofacies you want plotted (i.e., Chemofacies_PCA, Chemofacies_Train, or Chemofacies_NN)
+
+## NN_model_build.py and NN_model_apply.py
+- more notes soon
+- 
 ## Package Dependencies
 
 1) os
