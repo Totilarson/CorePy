@@ -1,6 +1,7 @@
 ## CorePytools package
 CorePytools (CorePy) is a machine learning python package applied to data collected from geological samples of core. The primary focus of CorePy is to classify high resolution 
 X-ray fluoresence data into chemofacies using unsupervised and supervised clustering tools. CorePy establishes a folder structure for input and output data. Visualizations are used to validate clustering results. There are a lot of dependencies to run corepytools and scripts. See dependencies section.
+
 **pip install corepytools**
 
 ## Corepy Examples
