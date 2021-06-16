@@ -41,7 +41,7 @@ See dependencies section
 
 ## NN_model_build.py and NN_model_apply.py
 - more notes soon
-- 
+
 ## Package Dependencies
 
 1) os
