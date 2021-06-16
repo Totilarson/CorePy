@@ -34,7 +34,8 @@ X-ray fluoresence data into chemofacies using unsupervised and supervised cluste
 - Cloning the Corepy repo should take care of this.
 
 - Now the folder **Public_cropped** should have cropped core box photographs and the **Public_tubes_vis** folder should have coretubes 
-See dependencies section
+
+- See dependencies section
 
 - The trial and error portion of this script is knowing where to crop each core box photo. the line: corepy.cropCorebox((70, 125, 740, 920),...) gives the coordinates used for this example. These coordinates will have to be adjusted for other photos 
 
