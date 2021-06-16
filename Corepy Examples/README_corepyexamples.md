@@ -1,25 +1,24 @@
 ## CorePytools package
-
+- **Installation-** pip install corepytools
 CorePytools (CorePy) is a machine learning python package applied to data collected from geological samples of core. The primary focus of CorePy is to classify high resolution 
-X-ray fluoresence data into chemofacies using unsupervised and supervised clustering tools. CorePy establishes a folder structure for input and output data. Visualizations are used to validate clustering results.
+X-ray fluoresence data into chemofacies using unsupervised and supervised clustering tools. CorePy establishes a folder structure for input and output data. Visualizations are used to validate clustering results. There are a lot of dependencies to run corepytools and scripts. See dependencies section.
 
-Core  box photographs can be cropped and used to visualized chemofacies results. Wireline log data can be upsampled and data integrated to chemofacies for upscaling  
+## Corepy Examples
+- This folder has several python scripts that are used for various functions.
+ - **Corebeta.py** - lists all key parameters and variables used for each core in subsequent python scripts. outputs a .json file used throughout Corepy  
+ - **PCAexample** - takes input XRF data and conducts principal component analysis. Output a .csv file with PCA-kmeans clusters. Strictly unsupervised clustering
+ - **Corebox_crop** - takes corebox images and crops them into core tubes with depth registration
+ - **Corepy_plotting** - makes various cross plots and depth profiles (chemofacies and element concentrations) to evaluate clustering results
+ - **Coreimage** - overlays chemofacies cluster results on core box images  
 
-## Installation
-pip install corepytools
-
-The folder 'Data-example' contains examples of data that are needed to run both PCAexample and Corebox_crop. Running either of these scripts will establish the folder structure. Then you need to copy-paste the folders 'CoreBoxPhotos' and CoreXRF **from** Data-examples **to** './CorePy/Coredata
+## Data Examples
+- contains examples of data that are needed to run both PCAexample and Corebox_crop. Running either of these scripts will establish the folder structure. Then you need to copy-paste the folders 'CoreBoxPhotos' and CoreXRF **from** Data-examples **to** './CorePy/Coredata
 
 ## PCAexample
-This script provides an example of unsupervised clustering using principal component analysis and K-means clustering.
- after installing corepytools **pip install corepytools** run PCAexample. The first time through it will throw an error:
+- The first time through it will throw an error:
  **Error**: [Errno 2] No such file or directory: './CorePy/Coredata/CoreXRF/T5iLOD_XRF.csv'
- 
-The folder structure will be made and the example .csv files (Public_XRF.csv and T5iLOD_XRF.csv) need to be copied to the folder: .\CorePy\CoreData\CoreXRF
-
-Run PCAexample again and all necessary files should be in place.
-
-There are a lot of dependencies to run corepytools and PCAexample. See dependencies section
+- The folder structure will be made and the example .csv files (Public_XRF.csv and T5iLOD_XRF.csv) need to be copied to the folder: .\CorePy\CoreData\CoreXRF
+- Run PCAexample again and all necessary files should be in place.
 
 ## PCAexample variables
 I tried to keep this as simple as possible, but there are a lot of variables to consider when using core data. First, understand how the data is stored
