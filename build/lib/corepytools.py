@@ -121,9 +121,9 @@ def Elbow_method(x_new,Principal_components):
 
 def WriteCSV(coredata_no_outliers,coredata_outliers,dirName,corename,Formation_names,Depth_model):
     coredata=pd.concat([coredata_no_outliers, coredata_outliers], ignore_index=True)
+    coredata['Chemofacies_train']=''
     coredata.to_csv  (os.path.join(dirName + '/' + corename + '_' + Formation_names + '.csv'))
     coredata = coredata.sort_values([Depth_model])
-    coredata['Chemofacies_train']=''
     return coredata 
 
 # builds a color dict used in all plots for each chemofacies
@@ -166,3 +166,7 @@ def natural_sort(file_names):
     convert = lambda text: int(text) if text.isdigit() else text.lower()
     alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
     return sorted(file_names, key = alphanum_key)
+
+def Formation_names(Formation, Formation_2):
+    Formation_names = '-'.join(Formation +Formation_2)
+    return Formation_names
