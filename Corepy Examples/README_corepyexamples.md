@@ -1,55 +1,56 @@
 ## CorePytools package
-
 CorePytools (CorePy) is a machine learning python package applied to data collected from geological samples of core. The primary focus of CorePy is to classify high resolution 
-X-ray fluoresence data into chemofacies using unsupervised and supervised clustering tools. CorePy establishes a folder structure for input and output data. Visualizations are used to validate clustering results.
+X-ray fluoresence data into chemofacies using unsupervised and supervised clustering tools. CorePy establishes a folder structure for input and output data. Visualizations are used to validate clustering results. There are a lot of dependencies to run corepytools and scripts. See dependencies section.
 
-Core  box photographs can be cropped and used to visualized chemofacies results. Wireline log data can be upsampled and data integrated to chemofacies for upscaling  
+- **pip install corepytools**
 
-## Installation
-pip install corepytools
+## Corepy Examples
+- This folder has several python scripts that are used for various functions.
+ - **Corebeta.py** - lists all key parameters and variables used for each core in subsequent python scripts. outputs a .json file used in Corepy  
+ - **PCAexample.py** -  Unsupervised clustering. Takes input XRF data and conducts principal component analysis. Outputs a .csv file with PCA-kmeans clusters.
+ - **Corebox_crop.py** - Takes corebox images and crops them into depth registered core tubes
+ - **Corepy_plotting.py** - Makes cross plots and depth profiles (chemofacies and element concentrations) to evaluate clustering results
+ - **Coreimage.py** - overlays chemofacies cluster results on core box images  
 
-The folder 'Data-example' contains examples of data that are needed to run both PCAexample and Corebox_crop. Running either of these scripts will establish the folder structure. Then you need to copy-paste the folders 'CoreBoxPhotos' and CoreXRF **from** Data-examples **to** './CorePy/Coredata
+## Data Examples
+- contains examples of data that are needed to run both PCAexample.py and Corebox_crop.py. Running either of these scripts will establish the folder structure. Then you need to copy-paste the folders 'CoreBoxPhotos' and CoreXRF **from** Data-examples **to** './CorePy/Coredata.
+- Cloning the Corepy repo should take care of this.
 
-## PCAexample
-This script provides an example of unsupervised clustering using principal component analysis and K-means clustering.
- after installing corepytools **pip install corepytools** run PCAexample. The first time through it will throw an error:
+## PCAexample.py
+- The first time through it may throw an error:
  **Error**: [Errno 2] No such file or directory: './CorePy/Coredata/CoreXRF/T5iLOD_XRF.csv'
- 
-The folder structure will be made and the example .csv files (Public_XRF.csv and T5iLOD_XRF.csv) need to be copied to the folder: .\CorePy\CoreData\CoreXRF
+- The folder structure will be made and the example .csv files (Public_XRF.csv and T5iLOD_XRF.csv) need to be copied to the folder: .\CorePy\CoreData\CoreXRF
+- Run PCAexample again and all necessary files should be in place.
+- **Core variables** - all variable are stored in **Corebeta.py** Notes are included in Corebeta.py 
+- Cloning the Corepy repo should take care of this.
 
-Run PCAexample again and all necessary files should be in place.
-
-There are a lot of dependencies to run corepytools and PCAexample. See dependencies section
-
-## PCAexample variables
-I tried to keep this as simple as possible, but there are a lot of variables to consider when using core data. First, understand how the data is stored
-in the Public_XRF.csv file. 
-** Depth_model** There are different depth models (Depth_calculated, XRF_adjusted_depth, and Wireline_depth) that can be chosen.
-
-**Formation_names** The last two columns in Puclic_XRF.csv have Formation and sub-Formation names. This function is used to isolate data from a specific formation.
-An output folder is made for the Formation selected.
-**RockClassification** CorePy is a clustering algorithm, and uses multiple types of clustering. This example is unsupervised PCA, so the Chemofacies_PCA is built as a column in the output .csv file.
-Different clustering algorithms will be added. Chemofacies_NN for the trained neural network model results.
-**elements** XRF generally includes 30 elemental concentrations, but the users can select to remove sepcific elements if interested. Add/remove elements as necessary
-**outlier_multiplier** = 4 ## outlier_multiplier refers to how many standard deviations away from mean are included as outliers
-**clusters** = 4 ## clusters refers to the number of K-means clusters to be used. Use whatever you would like
-**Principal_components** = 4 ## Principal_components refers to the number (n) of principal components applied to K-means clustering algorithm (zero through n). See results of elebow method to decide
-**Elements_plotted**=['Ca','Al','Si','K','Mg','Mo','V','Ni']
-**moving_avg** used to smooth visualization data. can be any number
-**XRF_resolution** The resolution (in inches) that the XRF data was collected. This value affects the chemofacies strat column built in the figure
-
-## Corebox_crop
-1) This script crops corebox photographs into coretubes. The first time through it will throw an error:
+## Corebox_crop.py
+- This script crops corebox photographs into coretubes. The first time through it will throw an error:
  - [WinError 3] The system cannot find the path specified: '.\\CorePy\\CoreData\\CoreBoxPhotos/Public'
  
-2) The folder structure will be made and the example Corebox photos (folder called **Public** in the provided Data-examples folder ) need to be copied in the folder: .\CorePy\CoreData\CoreBoxPhotos
+- The folder structure will be made and the example Corebox photos (folder called **Public** in the provided Data-examples folder ) need to be copied in the folder: .\CorePy\CoreData\CoreBoxPhotos
 
-3) Run Corebox_crop again and all necessary files should be in place.
+- Run Corebox_crop again and all necessary files should be in place.
+- Cloning the Corepy repo should take care of this.
 
-4) Now the folder **Public_cropped** should have cropped core box photographs and the **Public_tubes_vis** folder should have coretubes 
-See dependencies section
+- Now the folder **Public_cropped** should have cropped core box photographs and the **Public_tubes_vis** folder should have coretubes 
 
-5) The trial and error portion of this script is knowing where to crop each core box photo. the line: corepy.cropCorebox((70, 125, 740, 920),...) gives the coordinates used for this example. These coordinates will have to be adjusted for other photos 
+- See dependencies section
+
+- The trial and error portion of this script is knowing where to crop each core box photo. the line: corepy.cropCorebox((70, 125, 740, 920),...) gives the coordinates used for this example. These coordinates will have to be adjusted for other photos 
+
+## Corepy_plotting.py
+- Once PCAexample.py or the Neural Model scripts (**NN_model_build** and **NN_model_apply.py**) are run there are chemofacies columns in the output spread sheets. In the Corebeta.py script you can select which chemofacies you want plotted (i.e., Chemofacies_PCA, Chemofacies_Train, or Chemofacies_NN)
+
+## NN_model_build.py
+- training data sets are built to be Formation-specific and should not be easily overwritten. There is a separate folder **"CoreNeuralModel"** where the Fomration-specific training datasets are stored.
+-  Copy a .csv file here and populate the column **"Chemofacies_train"**. These values can be obtained from unsupervised or supervised approaches, but will form the basis of the Neural Model.
+-  The training dataset file name should include only the Formation names and '_Trainingdataset.csv' . **For example: Eagle Ford_TrainingDataset.csv**
+-  There are several strategies that can be used to edit the training dataset and look at the model results
+
+## NN_model_apply.py
+- This executes the Neural Network model that is run off the Formation-specific training dataset (saved in folder **"CoreNeuralModel"**)
+- A separate .csv output file is built and it contains several columns including CHemofacies_NN and the probability
 
 ## Package Dependencies
 

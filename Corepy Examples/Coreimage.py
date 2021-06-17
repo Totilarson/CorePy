@@ -7,8 +7,9 @@ import pickle
 import math
 import corepytools as corepy
 import json
+import pandas as pd
 
-CoreOfStudy = 'Public'
+CoreOfStudy = 'CincoSaus'
 
 Corebeta=json.load(open(os.path.join(CoreOfStudy + '.json')))
 
@@ -23,6 +24,7 @@ infile.close()
 
 ## Import datafiles
 coredata = corepy.OutputXRF(Corebeta['corename'],Formation_names)
+
 Tubes_dir = os.path.join(str('./CoreData/CoreTubes') + '/' + Corebeta['corename'] + '_tubes_vis')
 dirName=corepy.RootDir(Corebeta['corename'], Formation_names) 
 
@@ -42,7 +44,7 @@ def chunks(l, n):
         yield l[i:i+chunksize]
 
 a=list(chunks(file_names, chunksize)) #a list of files in each chunk
-file_names=a[0] #manually select which chuck to process
+file_names=a[1] #manually select which chuck to process
 rows=math.ceil(len(file_names)/Corebeta['noOfCols']) # rows is re-written here to use number of rows in the chunked files
 
 fig, axs = plt.subplots(nrows=rows, ncols=Corebeta['noOfCols'], figsize=(10,10*rows),sharey=True)

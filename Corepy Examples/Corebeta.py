@@ -1,16 +1,17 @@
 import json
 import seaborn as sns
+import os
 
 Corebeta = {
 
-"corename" : 'Public', #core name being studied
-"corenameAbrev" : 'PC', # two letter abbreviation for subsequent core tube names
+"corename" : 'CincoSaus', #core name being studied
+"corenameAbrev" : 'CS', # two letter abbreviation for subsequent core tube names
 "Depth_model" : 'Depth_calculated' ,        # 'XRF_adjusted_depth' and 'Wireline_Depth' are options in the data file. 
 
 "Formation" : ['Eagle Ford'], # Filter the Formation column by specific formations
 "Formation_2" : [] ,        # This function is not built in yet, but can be used to sample members within a formation 
 
-"RockClassification" : 'Chemofacies_PCA',   # A column in the output .csv file will have this title
+"RockClassification" : 'Chemofacies_NN',   # A column in the output .csv file will have this title
 "Depth_model" : 'Depth_calculated',         #'XRF_adjusted_depth' and 'Wireline_Depth' are options in the data file. 
 "coretube_length" : 2,      # length of each coretube 
 'noOfCols' :  5,            # select number of columns in each corebox photo
@@ -33,10 +34,14 @@ Corebeta = {
 'elements' :   ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe', 'Ba', 'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga', 'As', 'Pb','Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo'],
 
 }
+#os.path.join(Corebeta["corename"] + '.json')
 
 
-with open('Corebeta.json', 'w') as f:
-    json.dump(Corebeta, f)
+#with open('Corebeta.json', 'w') as f:
+ #   json.dump(Corebeta, f)
+    
+with open(os.path.join(Corebeta["corename"] + '.json'), 'w') as f:
+    json.dump(Corebeta, f)    
 
     
 palette = dict(zip(Corebeta["ColorScheme"], sns.color_palette()))
@@ -44,3 +49,9 @@ palette = dict(zip(Corebeta["ColorScheme"], sns.color_palette()))
 with open('ColorScheme.json', 'w') as f:
     json.dump(palette, f)
     
+    
+    
+    
+#import PCAexample.py
+
+import Corepy_plotting.py

@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import os
 import json
 
-CoreOfStudy = 'Public'
+CoreOfStudy = 'CincoSaus'
 
 
 ## Importing core data
@@ -23,7 +23,7 @@ NeuralModel_TrainingDataSet = pd.read_csv(NeuralModel_TrainingDataSet).sort_valu
 
 
 # Making training dataset for Neural model
-y=NeuralModel_TrainingDataSet['Chemofacies_Train']
+y=NeuralModel_TrainingDataSet['Chemofacies_train']
 X = NeuralModel_TrainingDataSet[Corebeta["elements"]].values #converts X from a df to an array
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20,random_state=0)
 
@@ -58,7 +58,7 @@ chemo_prob=mlp.predict_proba(X_total)
 
 ## Issues here. THe number of Probabilities should be dependant on on number of chemifacies defined for Formation
 
-Chemofacies_count=np.sort(NeuralModel_TrainingDataSet['Chemofacies_Train'].unique())
+Chemofacies_count=np.sort(NeuralModel_TrainingDataSet['Chemofacies_train'].unique())
 
 Prediction_matrix_headings=['Chemo_pred']
 

@@ -5,9 +5,11 @@ import os
 import corepytools as corepy
 import matplotlib.patheffects as PathEffects
 import json
+import pandas as pd
 
 
-CoreOfStudy = 'Public'
+CoreOfStudy = 'CincoSaus'
+
 
 Corebeta=json.load(open(os.path.join(CoreOfStudy + '.json')))
 
@@ -22,7 +24,9 @@ infile.close()
 
 Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"]) # Would like to have Formation_names defined in Corebeta
 
-coredata = corepy.OutputXRF(Corebeta['corename'],Formation_names)
+coredata = corepy.OutputXRF(Corebeta['corename'],Formation_names) # This directs to the output file
+
+# This directs to the training dataset
 coredata=coredata.sort_values(by=[Corebeta['Depth_model']])
 
 
