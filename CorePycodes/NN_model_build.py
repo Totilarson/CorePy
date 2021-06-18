@@ -14,11 +14,13 @@ import json
 
 CoreOfStudy = 'CincoSaus'
 
-
+Root_path = os.path.dirname(os.getcwd())
 ## Importing core data
 Corebeta=json.load(open(os.path.join(CoreOfStudy + '.json')))
 Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"]) # Would like to have Formation_names defined in Corebeta
-NeuralModel_TrainingDataSet = os.path.join(str('./CoreNeuralModel') + '/' + Formation_names  + '_TrainingDataset.csv')
+
+Root_path = os.path.dirname(os.getcwd())
+NeuralModel_TrainingDataSet = os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + Formation_names  + '_TrainingDataset.csv')
 NeuralModel_TrainingDataSet = pd.read_csv(NeuralModel_TrainingDataSet).sort_values(by=[Corebeta["Depth_model"]], ascending=False)
 
 
@@ -68,7 +70,7 @@ for i in range(len(Chemofacies_count)):
 
 data=pd.DataFrame(np.concatenate((chemo_predict,chemo_prob),axis=1),columns = Prediction_matrix_headings)
 
-NN_file=os.path.join('NN_model_' + Formation_names)
+NN_file=os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + 'NN_model_' + Formation_names)
 
 outfile = open(NN_file,'wb')
 pickle.dump(mlp,outfile)

@@ -15,10 +15,11 @@ core_depth = 3978 # top depth of starting corebox photo
 
 corepy.ImageDir(Corebeta['corename']) #sets up folder structure
 
-CoreBoxPhotos= os.path.join(str('.\CoreData\CoreBoxPhotos') + '/' + Corebeta['corename'])
-CoreBoxPhotos_cropped= os.path.join(str('.\CoreData\CoreBoxPhotos') + '/' + Corebeta['corename'] + "_cropped")  # new directory that will be made
-CoretubeFolder = os.path.join(str('.\CoreData\CoreTubes') + '/' + Corebeta['corename'] + "_tubes_" + Corebeta['ImageType']) # new directory that will be made
+Root_path = os.path.dirname(os.getcwd())
+CoreBoxPhotos= os.path.join(Root_path + '/CoreData/CoreBoxPhotos/' + Corebeta['corename'])
 
+CoreBoxPhotos_cropped= os.path.join(Root_path + '/CoreData/CoreBoxPhotos/' + '/' + Corebeta['corename'] + "_cropped")  # new directory that will be made
+CoretubeFolder = os.path.join(Root_path + '/CoreData/CoreTubes/' + '/' + Corebeta['corename'] + "_tubes_" + Corebeta['ImageType']) # new directory that will be made
 
 # Makes folders if they do not exist already. 
 if not os.path.exists(CoreBoxPhotos_cropped):

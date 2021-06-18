@@ -8,7 +8,7 @@ import json
 import pandas as pd
 
 
-CoreOfStudy = 'CincoSaus'
+CoreOfStudy = 'Public'
 
 
 Corebeta=json.load(open(os.path.join(CoreOfStudy + '.json')))

@@ -1,0 +1,8 @@
+LICENSE.txt
+README.md
+setup.py
+src/corepytools.py
+src/corepytools.egg-info/PKG-INFO
+src/corepytools.egg-info/SOURCES.txt
+src/corepytools.egg-info/dependency_links.txt
+src/corepytools.egg-info/top_level.txt

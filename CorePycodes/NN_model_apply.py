@@ -7,13 +7,18 @@ import pickle
 import json
 import corepytools as corepy
 
-CoreOfStudy = 'CincoSaus'
+CoreOfStudy = 'Public'
 
+
+Root_path = os.path.dirname(os.getcwd())
 ## Importing core data
 Corebeta=json.load(open(os.path.join(CoreOfStudy + '.json')))
 Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"]) # Would like to have Formation_names defined in Corebeta
+
 dirName=corepy.RootDir(Corebeta["corename"], Formation_names) 
-NN_file=os.path.join('NN_model_' + Formation_names)
+
+
+NN_file=os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + 'NN_model_' + Formation_names)
 
 infile = open(NN_file,'rb')
 NN_model= pickle.load(infile)
@@ -45,5 +50,4 @@ data=pd.DataFrame(np.concatenate((chemo_predict,chemo_prob),axis=1),columns = Pr
 Z=pd.concat([coredata, data], ignore_index=False)
 Z = coredata.merge(data, left_index=True, right_index=True)
 
-#Z.to_csv (os.path.join(dirName + '/' +  CoreOfStudy + '_' + Formation_names + '_NeuralModel.csv' ))
 Z.to_csv (os.path.join(dirName + '/' +  CoreOfStudy + '_' + Formation_names + '.csv'))

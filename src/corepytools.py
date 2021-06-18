@@ -29,7 +29,7 @@ def RootDir(corename, Formation_names):
     # builds the necessary subdirectory folders
 
     for i in range(0, len(CoreData_dir)):
-        #dirName =  str(Root_path + '/' + str(main_dir[i]))
+
         dirName =  str(Root_path + '/' + main_dir[0]) + '/' + str(CoreData_dir[i])
         if not os.path.exists(dirName):
 		        os.makedirs(dirName)
@@ -52,10 +52,11 @@ def movingaverage(interval, moving_avg):
                 
 
 def MakeXRFdf(corename,elements,outlier_multiplier,Depth_model,Formation_names):   # bad form here. need to link better but I don't know how to link below RootDir
-
-    XRF_file = os.path.join(str('./Coredata/CoreXRF/') + corename + '_XRF.csv')
-    LODT5 = pd.read_csv(os.path.join(str('./Coredata/CoreXRF/') + 'T5iLOD_XRF.csv'))
-
+    
+    Root_path = os.path.dirname(os.getcwd())
+    XRF_file = os.path.join( Root_path + '/CoreData/CoreXRF/' + corename + '_XRF.csv')
+    LODT5 = pd.read_csv(os.path.join( Root_path + '/CoreData/CoreXRF/' + 'T5iLOD_XRF.csv'))
+    
     files=glob.glob(XRF_file)
 
     for file in files:
@@ -109,7 +110,6 @@ def Kmeans_cluster(x_new,coredata_no_outliers,Principal_components, clusters,PC1
     coredata_no_outliers['Chemofacies_PCA']=Chemofacies_PCA #makes a new column based on above conditional format
     coredata_no_outliers['PCA1']=x_new[:,PC1] #Adds PCA1 to coredata file for reference
     coredata_no_outliers['PCA2']=x_new[:,PC2] #Adds PCA2 to coredata file for reference
-    #features= np.arange(len(elements))
     return coredata_no_outliers
 
 def Elbow_method(x_new,Principal_components):
@@ -145,23 +145,27 @@ def cropCorebox(cropArea, imageFileName,imageFolder,newFolderPath):
     imgOpen.close()
  
 def ImageDir(corename):
+    Root_path = os.path.dirname(os.getcwd())
+    
     main_dir = ['CoreData']
     sub_dir= ['CoreBoxPhotos','CoreTubes']
 
     for i in range(0, len(main_dir)):
-        dirName =  str(main_dir[i])
+        dirName =  str(Root_path + '/' + str(main_dir[i]))
+
         if not os.path.exists(dirName):
             os.makedirs(dirName)
             
     for i in range(0, len(sub_dir)):
-        dirName = str(main_dir[0]) + '/' + str(sub_dir[i])
+        dirName = str(Root_path + '/' + main_dir[0]) + '/' + str(sub_dir[i])
         if not os.path.exists(dirName):
 		        os.makedirs(dirName)
                 
                 
 def OutputXRF(corename,Formation_names):   # bad form here. need to link better but I don't know how to link below RootDir
-     
-    XRF_file = os.path.join(str('./CoreOutput/') + corename + '/' + Formation_names + '/' + corename + '_' + Formation_names + '.csv')
+    Root_path = os.path.dirname(os.getcwd())
+    dirName= str(Root_path + '/CoreOutput/' + corename + '/' + Formation_names + '/')
+    XRF_file = os.path.join(dirName + corename + '_' + Formation_names + '.csv')
     OutputXRF=pd.read_csv(XRF_file)
     return OutputXRF
 

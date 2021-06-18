@@ -4,14 +4,14 @@ import os
 
 Corebeta = {
 
-"corename" : 'CincoSaus', #core name being studied
-"corenameAbrev" : 'CS', # two letter abbreviation for subsequent core tube names
+"corename" : 'Public', #core name being studied
+"corenameAbrev" : 'PC', # two letter abbreviation for subsequent core tube names
 "Depth_model" : 'Depth_calculated' ,        # 'XRF_adjusted_depth' and 'Wireline_Depth' are options in the data file. 
 
 "Formation" : ['Eagle Ford'], # Filter the Formation column by specific formations
 "Formation_2" : [] ,        # This function is not built in yet, but can be used to sample members within a formation 
 
-"RockClassification" : 'Chemofacies_NN',   # A column in the output .csv file will have this title
+"RockClassification" : 'Chemofacies_PCA',   # A column in the output .csv file will have this title
 "Depth_model" : 'Depth_calculated',         #'XRF_adjusted_depth' and 'Wireline_Depth' are options in the data file. 
 "coretube_length" : 2,      # length of each coretube 
 'noOfCols' :  5,            # select number of columns in each corebox photo
@@ -54,4 +54,4 @@ with open('ColorScheme.json', 'w') as f:
     
 #import PCAexample.py
 
-import Corepy_plotting.py
+#import Corepy_plotting.py

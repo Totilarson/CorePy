@@ -7,7 +7,7 @@ import matplotlib.patheffects as PathEffects
 import json
 
 
-CoreOfStudy = 'CincoSaus'
+CoreOfStudy = 'Public'
 
 Corebeta=json.load(open(os.path.join(CoreOfStudy + '.json')))
 
