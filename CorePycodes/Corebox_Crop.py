@@ -5,7 +5,8 @@ import json
 
 CoreOfStudy = 'Public'
 
-Corebeta=json.load(open(os.path.join(CoreOfStudy + '.json')))
+Root_path = os.path.dirname(os.getcwd())
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy + '.json')))
 
 # Two things here that could use improvement: core_depth and the locations for the core box cropping
 

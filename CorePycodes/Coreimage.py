@@ -9,10 +9,12 @@ import corepytools as corepy
 import json
 import pandas as pd
 
-CoreOfStudy = 'CincoSaus'
+CoreOfStudy = 'Public'
 
-Corebeta=json.load(open(os.path.join(CoreOfStudy + '.json')))
+Root_path = os.path.dirname(os.getcwd())
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy + '.json')))
 
+Root_path = os.path.dirname(os.getcwd())
 
 Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"]) # this is used to make the directory specific to the formations
 
@@ -25,7 +27,9 @@ infile.close()
 ## Import datafiles
 coredata = corepy.OutputXRF(Corebeta['corename'],Formation_names)
 
-Tubes_dir = os.path.join(str('./CoreData/CoreTubes') + '/' + Corebeta['corename'] + '_tubes_vis')
+Tubes_dir = os.path.join(Root_path +   str('/CoreData/CoreTubes') + '/' + Corebeta['corename'] + '_tubes_vis')
+
+
 dirName=corepy.RootDir(Corebeta['corename'], Formation_names) 
 
 
@@ -44,7 +48,7 @@ def chunks(l, n):
         yield l[i:i+chunksize]
 
 a=list(chunks(file_names, chunksize)) #a list of files in each chunk
-file_names=a[1] #manually select which chuck to process
+file_names=a[0] #manually select which chuck to process
 rows=math.ceil(len(file_names)/Corebeta['noOfCols']) # rows is re-written here to use number of rows in the chunked files
 
 fig, axs = plt.subplots(nrows=rows, ncols=Corebeta['noOfCols'], figsize=(10,10*rows),sharey=True)

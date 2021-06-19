@@ -39,15 +39,19 @@ Corebeta = {
 
 #with open('Corebeta.json', 'w') as f:
  #   json.dump(Corebeta, f)
-    
-with open(os.path.join(Corebeta["corename"] + '.json'), 'w') as f:
+ 
+Root_path = os.path.dirname(os.getcwd())
+
+with open(os.path.join(Root_path + '/CoreData/CoreBeta/'   + Corebeta["corename"] + '.json'), 'w') as f:    
+#with open(os.path.join(Corebeta["corename"] + '.json'), 'w') as f:
     json.dump(Corebeta, f)    
 
     
 palette = dict(zip(Corebeta["ColorScheme"], sns.color_palette()))
 
-with open('ColorScheme.json', 'w') as f:
-    json.dump(palette, f)
+#with open(os.path.join(Root_path + '/CoreData/CoreBeta/'   + Corebeta["corename"] + '_Colorscheme.json'), 'w') as f:
+#with open('ColorScheme.json', 'w') as f:
+  #  json.dump(palette, f)
     
     
     

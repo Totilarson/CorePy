@@ -19,7 +19,7 @@ def RootDir(corename, Formation_names):
     Root_path = os.path.dirname(os.getcwd())
     
     main_dir = ['CoreData','CoreOutput']    # make it so CorePyCodes is version controlled
-    CoreData_dir= ['CoreAttributes', 'CoreXRF','CoreBoxPhotos', 'CoreTubes','CoreNeuralModel']   
+    CoreData_dir= ['CoreAttributes', 'CoreXRF','CoreBoxPhotos', 'CoreTubes','CoreNeuralModel','CoreBeta']   
         
     for i in range(0, len(main_dir)):
         dirName =  str(Root_path + '/' + str(main_dir[i]))

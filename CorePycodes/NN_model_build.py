@@ -12,11 +12,12 @@ import matplotlib.pyplot as plt
 import os
 import json
 
-CoreOfStudy = 'CincoSaus'
+CoreOfStudy = 'Public'
 
 Root_path = os.path.dirname(os.getcwd())
-## Importing core data
-Corebeta=json.load(open(os.path.join(CoreOfStudy + '.json')))
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy + '.json')))
+
+
 Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"]) # Would like to have Formation_names defined in Corebeta
 
 Root_path = os.path.dirname(os.getcwd())
