@@ -35,11 +35,6 @@ Corebeta = {
 'elements' :   ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe', 'Ba', 'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga', 'As', 'Pb','Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo'],
 
 }
-#os.path.join(Corebeta["corename"] + '.json')
-
-
-#with open('Corebeta.json', 'w') as f:
- #   json.dump(Corebeta, f)
 
 Formation_names=corepy.Formation_names(Corebeta["Formation"],Corebeta["Formation_2"])
 corepy.RootDir(Corebeta["corename"], Formation_names)
