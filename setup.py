@@ -5,7 +5,7 @@ with open ("README.md", "r") as fh:
     
 setup(   # lines of configuration
       name='corepytools',             #name is what you PIP install and what you will upload it as. Not the same as py_modules
-      version='0.0.9',
+      version='0.0.10',
       description='CorePy: XRF clustering tools to interpret and visualize geological core data',
       long_description=long_description,
       long_description_content_type="text/markdown",

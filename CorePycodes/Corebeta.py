@@ -1,6 +1,7 @@
 import json
 import seaborn as sns
 import os
+import corepytools as corepy
 
 Corebeta = {
 
@@ -39,7 +40,11 @@ Corebeta = {
 
 #with open('Corebeta.json', 'w') as f:
  #   json.dump(Corebeta, f)
- 
+
+Formation_names=corepy.Formation_names(Corebeta["Formation"],Corebeta["Formation_2"])
+corepy.RootDir(Corebeta["corename"], Formation_names)
+
+
 Root_path = os.path.dirname(os.getcwd())
 
 with open(os.path.join(Root_path + '/CoreData/CoreBeta/'   + Corebeta["corename"] + '.json'), 'w') as f:    
