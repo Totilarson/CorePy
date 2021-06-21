@@ -7,9 +7,9 @@ import matplotlib.patheffects as PathEffects
 import json
 
 
-CoreOfStudy = 'Public'
+CoreOfStudy = 'LloydHurt'
 Root_path = os.path.dirname(os.getcwd())
-Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy + '.json')))
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy  +'.json')))
 
 ## I need to fix this color selection part
 #corepy.ColorPalette(Corebeta['ColorScheme']) # I want to change color to json using chemofacies_color=json.load(open('ColorScheme.json'))

@@ -8,7 +8,7 @@ import json
 import pandas as pd
 
 
-CoreOfStudy = 'Public'
+CoreOfStudy = 'TiptonJonas'
 
 
 Root_path = os.path.dirname(os.getcwd())

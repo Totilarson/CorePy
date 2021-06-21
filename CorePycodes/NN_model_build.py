@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import os
 import json
 
-CoreOfStudy = 'Public'
+CoreOfStudy = 'CincoSaus'
 
 Root_path = os.path.dirname(os.getcwd())
 Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy + '.json')))
