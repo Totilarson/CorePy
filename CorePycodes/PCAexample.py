@@ -11,10 +11,6 @@ CoreOfStudy = 'LloydHurt'
 Root_path = os.path.dirname(os.getcwd())
 Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy  +'.json')))
 
-## I need to fix this color selection part
-#corepy.ColorPalette(Corebeta['ColorScheme']) # I want to change color to json using chemofacies_color=json.load(open('ColorScheme.json'))
-
-
 infile = open('chemocolor','rb')
 chemofacies_color= pickle.load(infile)
 infile.close()  
