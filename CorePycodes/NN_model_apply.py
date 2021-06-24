@@ -7,7 +7,7 @@ import pickle
 import json
 import corepytools as corepy
 
-CoreOfStudy = 'LloydHurt'
+CoreOfStudy = 'Valcher'
 
 
 Root_path = os.path.dirname(os.getcwd())

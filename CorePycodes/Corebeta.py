@@ -5,18 +5,16 @@ import corepytools as corepy
 
 Corebeta = {
 
-"corename" : 'Medina', #core name being studied
-"corenameAbrev" : 'MU', # two letter abbreviation for subsequent core tube names
+"corename" : 'Rogers', #core name being studied
+"corenameAbrev" : 'RG', # two letter abbreviation for subsequent core tube names
 "Depth_model" : 'Depth_calculated' ,        # 'XRF_adjusted_depth' and 'Wireline_Depth' are options in the data file. 
-"API" : 42123338730000,
+"County" : "Lee",
+"API" : [],
 "Formation" : ['Austin Chalk'], # Filter the Formation column by specific formations
 "Formation_2" : [] ,        # This function is not built in yet, but can be used to sample members within a formation 
-
 "RockClassification" : 'Chemofacies_NN',   # A column in the output .csv file will have this title
-"Depth_model" : 'Depth_calculated',         #'XRF_adjusted_depth' and 'Wireline_Depth' are options in the data file. 
 "coretube_length" : 2,      # length of each coretube 
 'noOfCols' :  5,            # select number of columns in each corebox photo
-
 'outlier_multiplier' : 4,   # outlier_multiplier refers to how many standard deviations away from mean are included as outliers
 'clusters' : 4,             # clusters refers to the number of K-means clusters to be used
 'Principal_components' : 4, # Principal_components refers to the number (n) of principal components applied to K-means clustering algorithm (zero through n)
@@ -48,4 +46,3 @@ with open(os.path.join(Root_path + '/CoreData/CoreBeta/'   + Corebeta["corename"
 
     
 palette = dict(zip(Corebeta["ColorScheme"], sns.color_palette()))
-
