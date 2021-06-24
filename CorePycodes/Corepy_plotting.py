@@ -8,8 +8,7 @@ import json
 import pandas as pd
 
 
-CoreOfStudy = 'TiptonJonas'
-
+CoreOfStudy = 'Valcher'
 
 Root_path = os.path.dirname(os.getcwd())
 Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy + '.json')))
@@ -148,3 +147,20 @@ plt.xlabel(Corebeta["Elements_plotted"][7], fontsize=18)
 
 
 plt.savefig(os.path.join(dirName + '/' + Corebeta["corename"] + '_' + Formation_names + '_Elementlog' + '.png'),dpi = 300)
+
+
+plt.subplot(1, 1, 1)
+for i in range(len(coredata)):
+    Q = [0, 0, coredata[Corebeta["RockClassification"]][i], coredata[Corebeta["RockClassification"]][i]]
+    Z = [coredata[Corebeta["Depth_model"]][i]+Corebeta["XRF_resolution"], coredata[Corebeta["Depth_model"]][i], coredata[Corebeta["Depth_model"]][i], coredata[Corebeta["Depth_model"]][i]+Corebeta["XRF_resolution"]]
+       
+    plt.fill(Q, Z,c=chemofacies_color[coredata[Corebeta["RockClassification"]][i]], linewidth=0.0)
+    plt.ylim((max(coredata[Corebeta["Depth_model"]]),min(coredata[Corebeta["Depth_model"]])))
+    plt.xlim((0,6))
+    plt.yticks([])
+    plt.xticks([])
+    
+bottom_core = str(round(max(coredata[Corebeta["Depth_model"]])))
+top_core = str(round(min(coredata[Corebeta["Depth_model"]])))
+
+plt.savefig(os.path.join(Root_path + '/CoreOutput/CrossSection/' + Formation_names + '/'  + Corebeta["corename"] + '_' + Formation_names +  '_' + top_core + '_' + bottom_core + '_' + '.png'),dpi = 600)
