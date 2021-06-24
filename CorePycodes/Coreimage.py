@@ -9,7 +9,7 @@ import corepytools as corepy
 import json
 import pandas as pd
 
-CoreOfStudy = 'Public'
+CoreOfStudy = 'Hendershot'
 
 Root_path = os.path.dirname(os.getcwd())
 Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy + '.json')))
@@ -68,14 +68,14 @@ for i in range(rows):
         photo_top=float(depths[1]) #1
         photo_bottom=float(depths[2]) #2
 
-        XX = coredata     [coredata     [Corebeta['Depth_model']].between(photo_top, (photo_bottom))] # this should be working now
+        XX = coredata     [coredata     [Corebeta['Photo_depth']].between(photo_top, (photo_bottom))] # this should be working now
                 
         # makes sure the rectangels are the same width
         arr = np.array(img) #converts the img to an array for pixel size information
         pixel_width=np.shape(arr)[1]*0.8
         pixel_height=np.shape(arr)[0]*0.8
 
-        sticker_depth   = XX[Corebeta['Depth_model']].values #depth of each sticker minus the top box depth
+        sticker_depth   = XX[Corebeta['Photo_depth']].values #depth of each sticker minus the top box depth
         pixel_depth     =(sticker_depth-photo_top)   / ((photo_top + Corebeta['coretube_length'])-photo_top)*len(arr) # convert sticker depth to pixel depth
 
         photo_number=photo_number+1 # this loops the images
