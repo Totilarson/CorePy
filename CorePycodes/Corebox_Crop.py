@@ -3,7 +3,7 @@ import corepytools as corepy
 from PIL import Image
 import json
 
-CoreOfStudy = 'Public'
+CoreOfStudy = 'TiptonJonas'
 
 Root_path = os.path.dirname(os.getcwd())
 Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy + '.json')))
