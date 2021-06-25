@@ -9,14 +9,13 @@ import corepytools as corepy
 import json
 import pandas as pd
 
-CoreOfStudy = 'Hendershot'
+#CoreOfStudy = 'Hendershot'
 
 Root_path = os.path.dirname(os.getcwd())
-Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy + '.json')))
+Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['CoreOfStudy']  +'.json')))
 
-Root_path = os.path.dirname(os.getcwd())
-
-Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"]) # this is used to make the directory specific to the formations
+Formation_names = '-'.join(Run_settings["Formation"]+Run_settings["Formation_2"]) # Would like to have Formation_names defined in Corebeta
 
 
 #pipes the color dict file for consistent chemofacies coloring
@@ -25,12 +24,12 @@ chemofacies_color= pickle.load(infile)
 infile.close()
 
 ## Import datafiles
-coredata = corepy.OutputXRF(Corebeta['corename'],Formation_names)
+coredata = corepy.OutputXRF(Run_settings["CoreOfStudy"],Formation_names)
 
-Tubes_dir = os.path.join(Root_path +   str('/CoreData/CoreTubes') + '/' + Corebeta['corename'] + '_tubes_vis')
+Tubes_dir = os.path.join(Root_path +   str('/CoreData/CoreTubes') + '/' + Run_settings["CoreOfStudy"] + '_tubes_vis')
 
 
-dirName=corepy.RootDir(Corebeta['corename'], Formation_names) 
+dirName=corepy.RootDir(Run_settings["CoreOfStudy"], Formation_names) 
 
 
 #makes a list of the file names and sorts them top to bottom so they are called correctly in the loop
@@ -49,13 +48,13 @@ def chunks(l, n):
 
 a=list(chunks(file_names, chunksize)) #a list of files in each chunk
 file_names=a[0] #manually select which chuck to process
-rows=math.ceil(len(file_names)/Corebeta['noOfCols']) # rows is re-written here to use number of rows in the chunked files
+rows=math.ceil(len(file_names)/Run_settings['noOfCols']) # rows is re-written here to use number of rows in the chunked files
 
-fig, axs = plt.subplots(nrows=rows, ncols=Corebeta['noOfCols'], figsize=(10,10*rows),sharey=True)
+fig, axs = plt.subplots(nrows=rows, ncols=Run_settings['noOfCols'], figsize=(10,10*rows),sharey=True)
 photo_number=0 # starts counting photos at 0 in the file_names folder
 
 for i in range(rows):
-    for j in range(Corebeta['noOfCols']):
+    for j in range(Run_settings['noOfCols']):
         photofile = file_names[photo_number]
         
         image=os.path.join(Tubes_dir,photofile)
@@ -82,7 +81,7 @@ for i in range(rows):
 
         for k in range(len(pixel_depth)):
 
-            rect = patches.Rectangle((pixel_width*0.9-50  ,  pixel_depth[k])  ,  pixel_width*0.15  ,  pixel_height*0.02  ,linewidth=1 ,edgecolor='w',facecolor=chemofacies_color[XX[Corebeta['RockClassification']].values[k]])
+            rect = patches.Rectangle((pixel_width*0.9-50  ,  pixel_depth[k])  ,  pixel_width*0.15  ,  pixel_height*0.02  ,linewidth=1 ,edgecolor='w',facecolor=chemofacies_color[XX[Run_settings['RockClassification']].values[k]])
             axs[i,j].add_patch(rect) # Add the patch to the Axes
 
-plt.savefig(os.path.join(dirName + '/' + Corebeta['corename'] + '_' + Formation_names +  '_' + str(photo_top) + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names +  '_' + str(photo_top) + '.png'),dpi = 300)

@@ -12,22 +12,23 @@ import matplotlib.pyplot as plt
 import os
 import json
 
-CoreOfStudy = 'CincoSaus'
+
 
 Root_path = os.path.dirname(os.getcwd())
-Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy + '.json')))
+Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['CoreOfStudy']  +'.json')))
 
 
-Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"]) # Would like to have Formation_names defined in Corebeta
+Formation_names = '-'.join(Run_settings["Formation"]+Run_settings["Formation_2"]) # Would like to have Formation_names defined in Corebeta
 
 Root_path = os.path.dirname(os.getcwd())
 NeuralModel_TrainingDataSet = os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + Formation_names  + '_TrainingDataset.csv')
-NeuralModel_TrainingDataSet = pd.read_csv(NeuralModel_TrainingDataSet).sort_values(by=[Corebeta["Depth_model"]], ascending=False)
+NeuralModel_TrainingDataSet = pd.read_csv(NeuralModel_TrainingDataSet).sort_values(by=[Run_settings["Depth_model"]], ascending=False)
 
 
 # Making training dataset for Neural model
 y=NeuralModel_TrainingDataSet['Chemofacies_train']
-X = NeuralModel_TrainingDataSet[Corebeta["elements"]].values #converts X from a df to an array
+X = NeuralModel_TrainingDataSet[Run_settings["elements"]].values #converts X from a df to an array
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20,random_state=0)
 
 

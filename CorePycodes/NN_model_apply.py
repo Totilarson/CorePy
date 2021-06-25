@@ -11,11 +11,12 @@ CoreOfStudy = 'Valcher'
 
 
 Root_path = os.path.dirname(os.getcwd())
-Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy + '.json')))
+Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['CoreOfStudy']  +'.json')))
 
-Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"]) # Would like to have Formation_names defined in Corebeta
+Formation_names = '-'.join(Run_settings["Formation"]+Run_settings["Formation_2"]) # Would like to have Formation_names defined in Corebeta
 
-dirName=corepy.RootDir(Corebeta["corename"], Formation_names) 
+dirName=corepy.RootDir(Run_settings["CoreOfStudy"], Formation_names) 
 
 
 NN_file=os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + 'NN_model_' + Formation_names)
@@ -24,9 +25,9 @@ infile = open(NN_file,'rb')
 NN_model= pickle.load(infile)
 infile.close()
 
-coredata = corepy.OutputXRF(Corebeta['corename'],Formation_names)
+coredata = corepy.OutputXRF(Run_settings["CoreOfStudy"],Formation_names)
 
-X = coredata[Corebeta["elements"]].values #makes an array of elements in coredata df
+X = coredata[Run_settings["elements"]].values #makes an array of elements in coredata df
 
 # scale the data
 scaler = StandardScaler()
@@ -41,7 +42,7 @@ chemo_prob=NN_model.predict_proba(X_total)
 
 Root_path = os.path.dirname(os.getcwd())
 NeuralModel_TrainingDataSet = os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + Formation_names  + '_TrainingDataset.csv')
-NeuralModel_TrainingDataSet = pd.read_csv(NeuralModel_TrainingDataSet).sort_values(by=[Corebeta["Depth_model"]], ascending=False)
+NeuralModel_TrainingDataSet = pd.read_csv(NeuralModel_TrainingDataSet).sort_values(by=[Run_settings["Depth_model"]], ascending=False)
 Chemofacies_count=np.sort(NeuralModel_TrainingDataSet['Chemofacies_train'].unique())
 
 
@@ -59,4 +60,4 @@ data=pd.DataFrame(np.concatenate((chemo_predict,chemo_prob),axis=1),columns = Pr
 Z=pd.concat([coredata, data], ignore_index=False)
 Z = coredata.merge(data, left_index=True, right_index=True)
 
-Z.to_csv (os.path.join(dirName + '/' +  CoreOfStudy + '_' + Formation_names + '.csv'))
+Z.to_csv (os.path.join(dirName + '/' +  Run_settings["CoreOfStudy"] + '_' + Formation_names + '.csv'))

@@ -8,10 +8,12 @@ Veritical_factor=50 # adjust this value if the widht/height ratios get crazy
 Maximum_length=25000
 
 #mylist = os.listdir(settings.crossection_dir)
-CoreOfStudy = 'LloydHurt'
+
 Root_path = os.path.dirname(os.getcwd())
-Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy + '.json')))
-Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"]) # Would like to have Formation_names defined in Corebeta
+Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['CoreOfStudy']  +'.json')))
+
+Formation_names = '-'.join(Run_settings["Formation"]+Run_settings["Formation_2"]) # Would like to have Formation_names defined in Corebeta
 
 crossection_dir = os.path.join(Root_path + '/CoreOutput/CrossSection/' + Formation_names + '/')
 mylist = os.listdir(crossection_dir)

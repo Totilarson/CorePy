@@ -11,6 +11,7 @@ import pandas as pd
 CoreOfStudy = 'Valcher'
 
 Root_path = os.path.dirname(os.getcwd())
+Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
 Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  CoreOfStudy + '.json')))
 
 
@@ -24,32 +25,32 @@ infile.close()
 
 #chemofacies_color2=json.load(open('ColorScheme.json'))
 
-Formation_names = '-'.join(Corebeta["Formation"]+Corebeta["Formation_2"]) # Would like to have Formation_names defined in Corebeta
+Formation_names = '-'.join(Run_settings["Formation"] + Run_settings["Formation_2"]) # Would like to have Formation_names defined in Corebeta
 
-coredata = corepy.OutputXRF(Corebeta['corename'],Formation_names) # This directs to the output file
+coredata = corepy.OutputXRF(Run_settings['CoreOfStudy'],Formation_names) # This directs to the output file
 
 # This directs to the training dataset
-coredata=coredata.sort_values(by=[Corebeta['Depth_model']])
+coredata=coredata.sort_values(by=[Run_settings['Depth_model']])
 
 
-dirName=corepy.RootDir(Corebeta['corename'], Formation_names) 
+dirName=corepy.RootDir(Run_settings['CoreOfStudy'], Formation_names) 
 
 ## Plots made to evaluate chemofacies results 
 fig, ((ax1, ax2,), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2, sharex=False, sharey=False, figsize=(10,10))
 
-sns.scatterplot(x=Corebeta["Elements_plotted"][1], y=Corebeta["Elements_plotted"][2], hue=Corebeta["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax1, edgecolor='black')
+sns.scatterplot(x=Run_settings["Elements_plotted"][1], y=Run_settings["Elements_plotted"][2], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax1, edgecolor='black')
 ax1.legend([])
 
-sns.scatterplot(x=Corebeta["Elements_plotted"][1], y=Corebeta["Elements_plotted"][3], hue=Corebeta["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax2, edgecolor='black')
+sns.scatterplot(x=Run_settings["Elements_plotted"][1], y=Run_settings["Elements_plotted"][3], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax2, edgecolor='black')
 ax2.legend([])
 
-sns.scatterplot(x=Corebeta["Elements_plotted"][0], y=Corebeta["Elements_plotted"][4], hue=Corebeta["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax3, edgecolor='black')
+sns.scatterplot(x=Run_settings["Elements_plotted"][0], y=Run_settings["Elements_plotted"][4], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax3, edgecolor='black')
 ax3.legend([])
 
-sns.scatterplot(x=Corebeta["Elements_plotted"][1], y=Corebeta["Elements_plotted"][5], hue=Corebeta["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax4, edgecolor='black')
+sns.scatterplot(x=Run_settings["Elements_plotted"][1], y=Run_settings["Elements_plotted"][5], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax4, edgecolor='black')
 ax4.legend([])
 
-plt.savefig(os.path.join(dirName + '/' + Corebeta["corename"] + '_' + Formation_names + '_CrossPlot' + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_CrossPlot' + '.png'),dpi = 300)
 
 
 ##### Plot 2 plotted with respect to depth
@@ -58,109 +59,109 @@ fig, axs = plt.subplots(nrows=1, ncols=5, figsize=(15,15),sharey=True)
 
 plt.subplot(1, 9, 1)
 for i in range(len(coredata)):
-    Q = [0, 0, coredata[Corebeta["RockClassification"]][i], coredata[Corebeta["RockClassification"]][i]]
-    Z = [coredata[Corebeta["Depth_model"]][i]+Corebeta["XRF_resolution"], coredata[Corebeta["Depth_model"]][i], coredata[Corebeta["Depth_model"]][i], coredata[Corebeta["Depth_model"]][i]+Corebeta["XRF_resolution"]]
+    Q = [0, 0, coredata[Run_settings["RockClassification"]][i], coredata[Run_settings["RockClassification"]][i]]
+    Z = [coredata[Run_settings["Depth_model"]][i]+Corebeta["XRF_resolution"], coredata[Run_settings["Depth_model"]][i], coredata[Run_settings["Depth_model"]][i], coredata[Run_settings["Depth_model"]][i]+Corebeta["XRF_resolution"]]
        
-    plt.fill(Q, Z,c=chemofacies_color[coredata[Corebeta["RockClassification"]][i]], linewidth=0.0)
-    plt.ylim((max(coredata[Corebeta["Depth_model"]]),min(coredata[Corebeta["Depth_model"]])))
+    plt.fill(Q, Z,c=chemofacies_color[coredata[Run_settings["RockClassification"]][i]], linewidth=0.0)
+    plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
     plt.xlim((0,6))
     plt.xlabel("RockClass", fontsize=18)
-    plt.ylabel(Corebeta["Depth_model"], fontsize=18)
+    plt.ylabel(Run_settings["Depth_model"], fontsize=18)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)  
     
     
 plt.subplot(1,9,2)
-y_av = corepy.movingaverage(coredata[Corebeta["Elements_plotted"][0]], Corebeta["moving_avg"])
-axs=plt.plot(y_av,coredata[Corebeta["Depth_model"]], color='blue')
+y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][0]], Run_settings["moving_avg"])
+axs=plt.plot(y_av,coredata[Run_settings["Depth_model"]], color='blue')
 #plt.xlim([25,40])
-plt.ylim((max(coredata[Corebeta["Depth_model"]]),min(coredata[Corebeta["Depth_model"]])))
+plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
 plt.yticks([])
 plt.xticks(fontsize=14)
-plt.xlabel(Corebeta["Elements_plotted"][0], fontsize=18)
-plt.xlabel(os.path.join(Corebeta["Elements_plotted"][0]), fontsize=18)
+plt.xlabel(Run_settings["Elements_plotted"][0], fontsize=18)
+plt.xlabel(os.path.join(Run_settings["Elements_plotted"][0]), fontsize=18)
     
 
 plt.subplot(1, 9, 3)
-y_av = corepy.movingaverage(coredata[Corebeta["Elements_plotted"][1]], Corebeta["moving_avg"])
-axs=plt.plot(y_av,coredata[Corebeta["Depth_model"]], color='blue')
+y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][1]], Run_settings["moving_avg"])
+axs=plt.plot(y_av,coredata[Run_settings["Depth_model"]], color='blue')
 #plt.xlim([0,10])
-plt.ylim((max(coredata[Corebeta["Depth_model"]]),min(coredata[Corebeta["Depth_model"]])))
+plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
 plt.yticks([])
 plt.xticks(fontsize=14)
-plt.xlabel(Corebeta["Elements_plotted"][1], fontsize=18)
+plt.xlabel(Run_settings["Elements_plotted"][1], fontsize=18)
 
 plt.subplot(1,9, 4)
-y_av = corepy.movingaverage(coredata[Corebeta["Elements_plotted"][2]], Corebeta["moving_avg"])
-axs=plt.plot(y_av,coredata[Corebeta["Depth_model"]], color='blue')
+y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][2]], Run_settings["moving_avg"])
+axs=plt.plot(y_av,coredata[Run_settings["Depth_model"]], color='blue')
 #plt.xlim([0,10])
-plt.ylim((max(coredata[Corebeta["Depth_model"]]),min(coredata[Corebeta["Depth_model"]])))
+plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
 plt.yticks([])
 plt.xticks(fontsize=14)
-plt.xlabel(Corebeta["Elements_plotted"][2], fontsize=18)
+plt.xlabel(Run_settings["Elements_plotted"][2], fontsize=18)
 
 
 plt.subplot(1, 9, 5)
-y_av = corepy.movingaverage(coredata[Corebeta["Elements_plotted"][3]], Corebeta["moving_avg"])
-axs=plt.plot(y_av,coredata[Corebeta["Depth_model"]], color='blue')
-plt.ylim((max(coredata[Corebeta["Depth_model"]]),min(coredata[Corebeta["Depth_model"]])))
+y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][3]], Run_settings["moving_avg"])
+axs=plt.plot(y_av,coredata[Run_settings["Depth_model"]], color='blue')
+plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
 #plt.xlim([0,175])
 plt.yticks([])
 plt.xticks(fontsize=14)
-plt.xlabel(Corebeta["Elements_plotted"][3], fontsize=18)
+plt.xlabel(Run_settings["Elements_plotted"][3], fontsize=18)
 
 plt.subplot(1,9,6)
-y_av = corepy.movingaverage(coredata[Corebeta["Elements_plotted"][4]], Corebeta["moving_avg"])
-axs=plt.plot(y_av,coredata[Corebeta["Depth_model"]], color='blue')
-plt.ylim((max(coredata[Corebeta["Depth_model"]]),min(coredata[Corebeta["Depth_model"]])))
+y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][4]], Run_settings["moving_avg"])
+axs=plt.plot(y_av,coredata[Run_settings["Depth_model"]], color='blue')
+plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
 #plt.xlim([0,250])
 plt.yticks([])
 plt.xticks(fontsize=14)
-plt.xlabel(Corebeta["Elements_plotted"][4], fontsize=18)
+plt.xlabel(Run_settings["Elements_plotted"][4], fontsize=18)
 
 plt.subplot(1, 9, 7)
-y_av = corepy.movingaverage(coredata[Corebeta["Elements_plotted"][5]], Corebeta["moving_avg"])
-axs=plt.plot(y_av,coredata[Corebeta["Depth_model"]], color='blue')
-plt.ylim((max(coredata[Corebeta["Depth_model"]]),min(coredata[Corebeta["Depth_model"]])))
+y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][5]], Run_settings["moving_avg"])
+axs=plt.plot(y_av,coredata[Run_settings["Depth_model"]], color='blue')
+plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
 #plt.xlim([0,250])
 plt.yticks([])
 plt.xticks(fontsize=14)
-plt.xlabel(Corebeta["Elements_plotted"][5], fontsize=18)
+plt.xlabel(Run_settings["Elements_plotted"][5], fontsize=18)
 
 plt.subplot(1,9,8)
-y_av = corepy.movingaverage(coredata[Corebeta["Elements_plotted"][6]], Corebeta["moving_avg"])
-axs=plt.plot(y_av,coredata[Corebeta["Depth_model"]], color='blue')
-plt.ylim((max(coredata[Corebeta["Depth_model"]]),min(coredata[Corebeta["Depth_model"]])))
+y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][6]], Run_settings["moving_avg"])
+axs=plt.plot(y_av,coredata[Run_settings["Depth_model"]], color='blue')
+plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
 #plt.xlim([0,500])
 plt.yticks([])
 plt.xticks(fontsize=14)
-plt.xlabel(Corebeta["Elements_plotted"][6], fontsize=18)
+plt.xlabel(Run_settings["Elements_plotted"][6], fontsize=18)
 
 plt.subplot(1,9,9)
-y_av = corepy.movingaverage(coredata[Corebeta["Elements_plotted"][7]], Corebeta["moving_avg"])
-axs=plt.plot(y_av,coredata[Corebeta["Depth_model"]], color='blue')
-plt.ylim((max(coredata[Corebeta["Depth_model"]]),min(coredata[Corebeta["Depth_model"]])))
+y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][7]], Run_settings["moving_avg"])
+axs=plt.plot(y_av,coredata[Run_settings["Depth_model"]], color='blue')
+plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
 #plt.xlim([0,500])
 plt.yticks([])
 plt.xticks(fontsize=14)
-plt.xlabel(Corebeta["Elements_plotted"][7], fontsize=18)
+plt.xlabel(Run_settings["Elements_plotted"][7], fontsize=18)
 
 
-plt.savefig(os.path.join(dirName + '/' + Corebeta["corename"] + '_' + Formation_names + '_Elementlog' + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_Elementlog' + '.png'),dpi = 300)
 
 
 plt.subplot(1, 1, 1)
 for i in range(len(coredata)):
-    Q = [0, 0, coredata[Corebeta["RockClassification"]][i], coredata[Corebeta["RockClassification"]][i]]
-    Z = [coredata[Corebeta["Depth_model"]][i]+Corebeta["XRF_resolution"], coredata[Corebeta["Depth_model"]][i], coredata[Corebeta["Depth_model"]][i], coredata[Corebeta["Depth_model"]][i]+Corebeta["XRF_resolution"]]
+    Q = [0, 0, coredata[Run_settings["RockClassification"]][i], coredata[Run_settings["RockClassification"]][i]]
+    Z = [coredata[Run_settings["Depth_model"]][i]+Corebeta["XRF_resolution"], coredata[Run_settings["Depth_model"]][i], coredata[Run_settings["Depth_model"]][i], coredata[Run_settings["Depth_model"]][i]+Corebeta["XRF_resolution"]]
        
-    plt.fill(Q, Z,c=chemofacies_color[coredata[Corebeta["RockClassification"]][i]], linewidth=0.0)
-    plt.ylim((max(coredata[Corebeta["Depth_model"]]),min(coredata[Corebeta["Depth_model"]])))
+    plt.fill(Q, Z,c=chemofacies_color[coredata[Run_settings["RockClassification"]][i]], linewidth=0.0)
+    plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
     plt.xlim((0,6))
     plt.yticks([])
     plt.xticks([])
     
-bottom_core = str(round(max(coredata[Corebeta["Depth_model"]])))
-top_core = str(round(min(coredata[Corebeta["Depth_model"]])))
+bottom_core = str(round(max(coredata[Run_settings["Depth_model"]])))
+top_core = str(round(min(coredata[Run_settings["Depth_model"]])))
 
-plt.savefig(os.path.join(Root_path + '/CoreOutput/CrossSection/' + Formation_names + '/'  + Corebeta["corename"] + '_' + Formation_names +  '_' + top_core + '_' + bottom_core + '_' + '.png'),dpi = 600)
+plt.savefig(os.path.join(Root_path + '/CoreOutput/CrossSection/' + Formation_names + '/'  + Run_settings["CoreOfStudy"] + '_' + Formation_names +  '_' + top_core + '_' + bottom_core + '_' + '.png'),dpi = 600)
