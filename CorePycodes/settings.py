@@ -4,9 +4,9 @@ import seaborn as sns
 import pickle
 
 Run_settings = {
-"CoreOfStudy" : 'LazyA',
+"CoreOfStudy" : 'Public',
 "Depth_model" : 'Depth_calculated' ,        # 'XRF_adjusted_depth' and 'Wireline_Depth' are options in the data file. 
-"Formation" : ['Eagle Ford'], # Filter the Formation column by specific formations
+"Formation" : ['Public Formation'], # Filter the Formation column by specific formations
 "Formation_2" : [] ,        # This function is not built in yet, but can be used to sample members within a formation 
 "RockClassification" : 'Chemofacies_NN',   # A column in the output .csv file will have this title
 
