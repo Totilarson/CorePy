@@ -5,13 +5,12 @@ import os
 
 Corebeta = {
 
-"corename" : 'Public', #core name being studied
+"corename" : 'PGEBrowne', #core name being studied
 "Photo_depth" : 'Depth_calculated' ,
-"corenameAbrev" : 'PC', # two letter abbreviation for subsequent core tube names
-"County" : "Maverick",
-"API": [], 
+"corenameAbrev" : 'LA', # two letter abbreviation for subsequent core tube names
+"County" : "Webb",
+"API": 42479407170000, 
 "coretube_length" : 2,      # length of each coretube 
-'noOfCols' :  5,            # select number of columns in each corebox photo
 'XRF_resolution' : 2/12,    # used to build chemofacies stacking pattern. 2/12 refers to 2" xrf scanning resolution
 
 # For plotting purposes PC1 and PC2 are used to plot PCA results and also add two columns onto the output .csv datafile

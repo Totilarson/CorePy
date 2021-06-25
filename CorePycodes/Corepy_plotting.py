@@ -160,7 +160,8 @@ for i in range(len(coredata)):
     plt.yticks([])
     plt.xticks([])
     
+    
 bottom_core = str(round(max(coredata[Run_settings["Depth_model"]])))
 top_core = str(round(min(coredata[Run_settings["Depth_model"]])))
-
+plt.tight_layout()
 plt.savefig(os.path.join(Root_path + '/CoreOutput/CrossSection/' + Formation_names + '/'  + Run_settings["CoreOfStudy"] + '_' + Formation_names +  '_' + top_core + '_' + bottom_core + '_' + '.png'),dpi = 600)

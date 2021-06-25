@@ -53,6 +53,10 @@ cnf_matrix = metrics.confusion_matrix(y_test, y_pred)
 sns.heatmap(cnf_matrix, annot=True)
 plt.show()
 
+#fig, ((ax1)) = plt.subplots(nrows=1, ncols=1, figsize=(5,5)) #sharex=True, sharey=True,
+#plt.subplot(1,1, 1)
+#plt.savefig(os.path.join(dirName + '/' + Run_settings['CoreOfStudy'] + '_' + Formation_names + '_PCA' + '.png'),dpi = 300)
+
 #####run the model across the entire dataset to add a column of predicted chemofacies to the exported data sheet
 
 chemo_predict=mlp.predict(X_total) #scaled original dataset. 

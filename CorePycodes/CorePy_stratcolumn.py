@@ -5,7 +5,7 @@ import json
 from PIL import Image
 
 Veritical_factor=50 # adjust this value if the widht/height ratios get crazy
-Maximum_length=25000
+Maximum_length=25000 # would like to re-evaluate why these two values are needed
 
 #mylist = os.listdir(settings.crossection_dir)
 
