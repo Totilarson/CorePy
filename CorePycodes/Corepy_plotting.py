@@ -18,6 +18,8 @@ Formation_names = '-'.join(Run_settings["Formation"]+Run_settings["Formation_2"]
 #corepy.ColorPalette(Corebeta['ColorScheme']) # I want to change color to json using chemofacies_color=json.load(open('ColorScheme.json'))
 
 
+   #C:\Users\larsont\Box\GitRepos\CorePy\CoreData\CoreNeuralModel
+
 infile = open('chemocolor','rb')
 chemofacies_color= pickle.load(infile)
 infile.close()  
@@ -27,6 +29,12 @@ infile.close()
 Formation_names = '-'.join(Run_settings["Formation"] + Run_settings["Formation_2"]) # Would like to have Formation_names defined in Corebeta
 
 coredata = corepy.OutputXRF(Run_settings['CoreOfStudy'],Formation_names) # This directs to the output file
+
+
+# use this coredata to visualize the training datasets
+#coredata = (os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + Formation_names + '_TrainingDataset.csv'))
+#coredata=pd.read_csv(coredata)
+
 
 # This directs to the training dataset
 coredata=coredata.sort_values(by=[Run_settings['Depth_model']])
@@ -165,3 +173,10 @@ bottom_core = str(round(max(coredata[Run_settings["Depth_model"]])))
 top_core = str(round(min(coredata[Run_settings["Depth_model"]])))
 plt.tight_layout()
 plt.savefig(os.path.join(Root_path + '/CoreOutput/CrossSection/' + Formation_names + '/'  + Run_settings["CoreOfStudy"] + '_' + Formation_names +  '_' + top_core + '_' + bottom_core + '_' + '.png'),dpi = 600)
+
+
+
+fig, (ax1) = plt.subplots(ncols=1, figsize=(5,5))
+sns.boxplot(x=Run_settings["RockClassification"], y=coredata[Run_settings["Elements_plotted"][8]], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=coredata,ax=ax1)
+plt.ylim([0,75])
+ax1.legend([])
