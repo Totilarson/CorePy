@@ -3,58 +3,69 @@ import json
 import seaborn as sns
 import pickle
 
+#Run settings creates a dict file that is used in all subsequent python scripts
+# For unsupervised classificaiton, Chemofacies_PCA is used.
+# For supervised classification, a training dataset is required
+
 Run_settings = {
-"CoreOfStudy" : 'Public',
-"Depth_model" : 'Depth_calculated' ,        # 'XRF_adjusted_depth' and 'Wireline_Depth' are options in the data file. 
-"Formation" : ['Public Formation'], # Filter the Formation column by specific formations
-"Formation_2" : [] ,        # This function is not built in yet, but can be used to sample members within a formation 
-"RockClassification" : 'Chemofacies_NN',   # A column in the output .csv file will have this title
+# CoreOfStudy, Depth_model, Formation, Formation_2 define core name (.csv file), Formation (column in .csv file), and Depth_model for plotting (column in.csv file)    
+"CoreOfStudy" : 'LloydHurt',
+"Depth_model" : 'Wireline_Depth',        # 'XRF_adjusted_depth', 'Depth_calculated' and 'Wireline_Depth' are options in the data file. 
+"Formation" : ['Austin Chalk'], # Filter the Formation column by specific formations 'Austin Chalk', 'Eagle Ford', 'Wolfcamp', Bone Spring'
+"Formation_2" : [] , # Leave blank for now.  This function can be used to sample members within a formation.
 
+#RockClassification and Electrofacies are used for plotting. These are outputs in csv file from machine learning classifications
+# both XGBoost  (Chemofacies_XGB) and Neural Network (Chemofacies_NN) classifications are calculated. 
+#User can chose which to apply to figures adn subsequent calculations
+"RockClassification" : 'Chemofacies_NN',   # Chemofacies_PCA, Chemofacies_NN, Chemofacies_XGB, and Chemofacies_train are options
+"Electrofacies" : "Electrofacies_XGB",
+
+# 'elements and Elements_plotted needs to be reconsidered
+# 'elements' lists all the elements used in PCA and machine learning classifications. Can be changed depending on what is available or selected
+# 'Elements_plotted' is a plotting variable. These can be changed depending on interest, but the sorting of elements does matter for plots.
+'elements' :   ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe', 'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga','Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo'],
+'Elements_plotted' :  ['Ca','Al','Si', 'K', 'Mg', 'Mo','V','Ni','Cu','Sr','Mn','Cr','Ti', 'Zr'], 
+
+
+# statistic variables
 'outlier_multiplier' : 4,   # outlier_multiplier refers to how many standard deviations away from mean are included as outliers
-'clusters' : 4,             # clusters refers to the number of K-means clusters to be used
+'clusters' : 4,             # clusters refers to the number of K-means clusters to be calculated
 'Principal_components' : 4, # Principal_components refers to the number (n) of principal components applied to K-means clustering algorithm (zero through n)
-
-
-'noOfCols' :  5,            # select number of columns in each corebox photo
-'ImageType' : 'vis',        # visible or UV images
-'moving_avg' : 3,           # used to smooth out XRF data
-# For plotting purposes PC1 and PC2 are used to plot PCA results and also add two columns onto the output .csv datafile
 'PC1' :  0,       # For plotting purposes PC1 and PC2 are used to plot PCA results and also add two columns onto the output .csv datafile
 'PC2' :  1,       # For plotting purposes PC1 and PC2 are used to plot PCA results and also add two columns onto the output .csv datafile
- # this is used to make the directory specific to the formations
-#'ColorScheme' :  [1,     2,      3,    4,     7,      5,      6,     8,     999,   9999], #Austin Chalk
-#'ColorScheme' :  [7   ,2      ,1    ,10      ,4      ,8      ,3    ,6       ,9     ,5 ],  #Bone Spring
-'ColorScheme' :  [10    ,4      ,2    ,1      ,3      ,20     ,5     ,999    ,999    ,999], #Eagle Ford
-#                blue, orange, green, red,   purple, brown,  pink,  grey,    gold,   teal
-'Elements_plotted' :  ['Ca','Al','Si','K','Mg','Mo','V','Ni'], # plotting variable. These can be changed depending on interest. 
-'elements' :   ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe', 'Ba', 'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga', 'As', 'Pb','Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo'],
+'moving_avg' : 3,           # used to smooth out XRF data
+
+
+# noOfCols and ImageType are for original core photographs
+'noOfCols' :  5,            # select number of columns in each corebox photo
+'ImageType' : 'vis',        # visible or UV images
 }
 
+
+# This section creates a colorscheme in the dict file that is formation specific
+# Additional formation names can be added as the project requires
+if Run_settings['Formation'] == ['Austin Chalk']:
+    Run_settings['ColorScheme'] = [1,     2,      3,    4,     7,      5,      6,     8,     999,   9999] #Austin Chalk
+if Run_settings['Formation'] == ['Eagle Ford']:
+    Run_settings['ColorScheme'] =  [5    ,4      ,2    ,1      ,3      ,6     ,999     ,999    ,999    ,999] #Eagle Ford
+if Run_settings['Formation'] == ['Wolfcamp']:
+    Run_settings['ColorScheme'] =  [1,     0,      2,    5,    6,    8,      4,     3,     9     ,7]  #Wolfcamp
+if Run_settings['Formation'] == ['Bone Spring']:    
+    Run_settings['ColorScheme'] =  [0   ,1      ,4    ,3      ,2      ,8      ,7    ,5       ,6     ,9 ]  #Bone Spring
+if Run_settings['Formation'] == ['Bone Spring_Lime']:
+    Run_settings['ColorScheme'] = [0   ,1      ,4    ,3      ,2      ,7      ,6    ,999       ,5     ,8 ]  #Bone Spring_Lime
+
+# This is an additional function that is not applied yet. Can be expanded to included FOrmation_2, but not used yet
+# 
 Run_settings['Formation_names'] = str(Run_settings['Formation'])
 
-Root_path = os.path.dirname(os.getcwd())
 
+# This section creates a json file for ColorScheme called 'chemocolor' that is applied across all plots
+#Chemocolor is stored in the same folder as the CorePy codes (see directory below)
+Root_path = os.path.dirname(os.getcwd())
 with open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings'  + '.json'), 'w') as f:    
     json.dump(Run_settings, f)
-    
 palette = dict(zip(Run_settings["ColorScheme"], sns.color_palette()))
-
 outfile = open('chemocolor','wb')
 pickle.dump(palette,outfile)
 outfile.close()
-
-
-
-
-
-# First step is to run Corebeta.py to make a json file for the core of interest
-
-# Decide which model you want. General path is:
-    # 1) run PCAexample to set up folder structure and run outlier tests
-    # 2) run Corepy_plotting
-
-#import PCAexample
-#import NN_model_build
-#import NN_model_apply
-#import Corepy_plotting
-
