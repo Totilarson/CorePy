@@ -5,14 +5,7 @@ import json
 from scipy.interpolate import interp1d
 import numpy as np
 import pandas as pd
-#import matplotlib.pyplot as plt
 
-#import pickle
-#import seaborn as sns
-
-#infile = open('chemocolor','rb')
-#chemofacies_color= pickle.load(infile)
-#infile.close()  
 
 # WirelineImport.py imports .las files using lasio
 # Coredata has to be depth corrected with data in coredata['Wireline_Depth']
