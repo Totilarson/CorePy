@@ -1,20 +1,24 @@
 # CorePytools package
 
-CorePytools (CorePy) is a machine learning python package applied to data collected from geological samples of core. The primary focus of CorePy is to classify high resolution 
-X-ray fluoresence data into chemofacies using unsupervised and supervised clustering tools. CorePy establishes a folder structure for input and output data. Visualizations are used to validate clustering results.
-
-Corebox photographs can be cropped and used to visualized chemofacies results. Wireline log data can be upsampled and data integrated to chemofacies for upscaling  
-
-New line added
+CorePytools (CorePy) is a machine learning python package applied to data collected from geological samples of core. 
+- The primary focus of CorePy is to classify high resolution X-ray fluoresence data into chemofacies 
+- unsupervised and supervised clustering tools are applied
+- CorePy establishes a folder structure for input and output data. Visualizations are used to validate clustering results.
 
 # Installation
 pip install corepytools
 
-# Examples and data
-The authors Github account has examples and datapackages that apply corepytools.
-Corepytools builds a folder structure and looks for XRF data in the folder: **..\CorePy\CoreData\CoreXRF**
-The .csv file **Public_XRF.csv** is provided in the authors github account to show 
-the database format (required headings) that are called on with CorePy
+# Running Corepytools and CorePy scripts
+1) fork the CorePy repo to your github account
+2) make a local clone:
+ - command line: `git clone https://github.com/Totilarson/CorePy.git` 
+3) Navigate to the local repo //CorePy/ and inspect folders 'CoreData' and 'CorePycodes'
+4) In //CorePy/CorePycodes open 'settings.py' and 'PCAexample'
+- 'settings.py' contains variables for all the Python scripts
+ - "CoreOfStudy", "Depth_model", "Formation", and "RockClassification" should match values in Public_XRF.csv datafile
+ - initially open 'settings' and 'PCAexample'
+ - Running PCAexample.py will build additional output folders and run PCA-Kmeans.
+ - Output files can be viewed and the results .csv includes additional columns of data
 
 ## About the authors
 
