@@ -17,7 +17,7 @@ Run_settings = {
 #RockClassification and Electrofacies are used for plotting. These are outputs in csv file from machine learning classifications
 # both XGBoost  (Chemofacies_XGB) and Neural Network (Chemofacies_NN) classifications are calculated. 
 #User can chose which to apply to figures adn subsequent calculations
-"RockClassification" : 'Chemofacies_NN',   # Chemofacies_PCA, Chemofacies_NN, Chemofacies_XGB, and Chemofacies_train are options
+"RockClassification" : 'Chemofacies_PCA',   # Chemofacies_PCA, Chemofacies_NN, Chemofacies_XGB, and Chemofacies_train are options
 "Electrofacies" : 'Electrofacies_NN', # 'Electrofacies_XGB' or 'Electrofacies_NN'
 
 # 'elements and Elements_plotted needs to be reconsidered
