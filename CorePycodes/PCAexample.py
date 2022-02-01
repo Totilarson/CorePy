@@ -12,12 +12,9 @@ import json
 # outputs: a folder CoreOutput/CoreName/Formation, a summary plot, and a csv file with columns added to input csv file
 # outliers are identified (csv column), values are replaced with detection limits, Kmeans cluster are identified (csv column), PCA1 and PCA2 values are added
 
-# 1) Define root path, 2) load Run_settings file for input variables
+# Root_path, Run_settings, and Corebeta and the two .json core settings files with all input parameters
 Root_path = os.path.dirname(os.getcwd())
 Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
-
-#loads the Corebeta .json file that provides information specific to each core
-#Corebeta are .json files for each core name. MOre information about these .json files in CorePy description
 Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['CoreOfStudy']  +'.json')))
 
 # Formation_names is an expansion idea to select sub-Formations
@@ -25,14 +22,15 @@ Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_
 # For now Formation_names is Run_settings["Formation"]
 Formation_names=corepy.Formation_names(Run_settings["Formation"],Run_settings["Formation_2"])
 
-# RootDir(corename, Formation_names) established the output folder structure
-dirName=corepy.RootDir(Corebeta["corename"], Formation_names) 
+
 
 # loads the color palette into a dict called "chemofacies_color
 infile = open('chemocolor','rb')
 chemofacies_color= pickle.load(infile)
 infile.close()  
 
+# RootDir(corename, Formation_names) established the output folder structure
+dirName=corepy.RootDir(Corebeta["corename"], Formation_names) 
 
  
 # This section runs all necessary functions stored in CorePy
