@@ -1,32 +1,43 @@
 # CorePytools package
-
-CorePytools (CorePy) is a machine learning python package applied to data collected from geological samples of core. 
+```
+CorePytools (CorePy) applies machine learning cluster algorithms to geological samples of core. 
 - The primary focus of CorePy is to classify high resolution X-ray fluoresence data into chemofacies 
 - unsupervised and supervised clustering tools are applied
-- CorePy establishes a folder structure for input and output data. Visualizations are used to validate clustering results.
+- Folder structures are developed to simplify working on multiple cores and formations
+- Visualizations are used to validate clustering results.
+```
 
 # Installation
+```
 pip install corepytools
-
+- corepytools includes commonly applied functions that are called by different Python scripts
+- corepytools is a dependency 
+```
 # Running Corepytools and CorePy 
 ```
 1) fork the CorePy repo to your github account
 2) make a local clone:
  - command line: `git clone https://github.com/Totilarson/CorePy.git` 
- - if it is necessary to delete the local clone us: 'rm -rf .git*'
+ - if it is necessary to delete the local clone use: 'rm -rf .git*'
 3) Navigate to the local repo //CorePy/ and inspect folders 'CoreData' and 'CorePycodes'
 4) In //CorePy/CorePycodes open 'settings.py' and 'PCAexample'
 - 'settings.py' contains variables for all the Python scripts
  - "CoreOfStudy", "Depth_model", "Formation", and "RockClassification" should match values in Public_XRF.csv datafile
 ```
-# Settings.py and PCAexample
+
+# Data examples
 ```
-1) Run Settings.py and PCAexample.py 
- - Running PCAexample.py will build additional output folders and run PCA-Kmeans.
- - Output files can be viewed and the results .csv includes additional columns of data
+- CoreData folder contains an example of a high reoslution XRF dataset and corebox photographs
+- Naming patterns for core box sticker location, wireline depths, and elemental concentrations are shown 
 ```
 
-#CorePy_plotting.py 
+# Settings.py and PCAexample
+```
+- Running PCAexample.py will build additional output folders and run PCA-Kmeans.
+- Output files are in output folder. CSV file includes additional columns of data
+```
+
+# CorePy_plotting.py 
 ```
 1) provides additional elemenal plotting
  - elemental cross plots. Elements are selected from Run_settings['Elements_plotted']
@@ -36,7 +47,14 @@ pip install corepytools
  - Depth referenced chemostrat column output in a folder //CorePy/CoreOutput/CrossSection/
 ``` 
  
+# NN_Build.py and NN_apply.py
+```
+- these scripts build and apply results from supervised chemfoacies classifications
+- An example training dataset is included in //CorePy/CoreData/CoreNeuralModel
+- model parameters are output _XGB and __NN files in //CorePy/CoreData/CoreNeuralModel
+- output .csv file has additional classification columns
 
+```
 ## About the authors
 
 CorePy is being developed by Toti Larson at the University of Texas at Austin, Bureau of Economic Geology, Mudrocks Systems Research Laboratory (MSRL) research consortium.
