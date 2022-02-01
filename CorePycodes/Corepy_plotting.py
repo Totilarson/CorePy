@@ -36,6 +36,9 @@ coredata = corepy.OutputXRF(Run_settings['CoreOfStudy'],Formation_names)
 coredata=coredata.sort_values(by=[Run_settings['Depth_model']]) #sorts data by depth
 
 
+#attributeimport  = (os.path.join(dirName + '/' +  Run_settings["CoreOfStudy"] + '_' + Formation_names + '_Attribute.csv'))
+#attributedata=pd.read_csv(attributeimport)
+
 ## Plots made to evaluate chemofacies results 
 fig, ((ax1, ax2,), (ax3, ax4), (ax5, ax6)) = plt.subplots(nrows=3, ncols=2, sharex=False, sharey=False, figsize=(10,15))
 
@@ -136,40 +139,20 @@ plt.xticks(fontsize=14)
 plt.xlabel('Ni/Al', fontsize=18)
 
 plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_Elementlog_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
-plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_Elementlog_' + Run_settings["RockClassification"] + '.eps'),foprmat='eps', dpi = 600)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_Elementlog_' + Run_settings["RockClassification"] + '.eps'),format='eps', dpi = 600)
 
 
-fig, axs = plt.subplots(nrows=1, ncols=1)
-plt.subplot(1, 1, 1)
-for i in range(len(coredata)):
-    Q = [0, 0, coredata[Run_settings["RockClassification"]][i], coredata[Run_settings["RockClassification"]][i]]
-    Z = [coredata[Run_settings["Depth_model"]][i]+Corebeta["XRF_resolution"], coredata[Run_settings["Depth_model"]][i], coredata[Run_settings["Depth_model"]][i], coredata[Run_settings["Depth_model"]][i]+Corebeta["XRF_resolution"]]
-       
-    plt.fill(Q, Z,c=chemofacies_color[coredata[Run_settings["RockClassification"]][i]], linewidth=0.0)
-    plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
-    plt.xlim((0,6))
-    plt.yticks([])
-    plt.xticks([])
-    
-bottom_core = str(round(max(coredata[Run_settings["Depth_model"]])))
-top_core = str(round(min(coredata[Run_settings["Depth_model"]])))
-plt.tight_layout()
-plt.savefig(os.path.join(Root_path + '/CoreOutput/CrossSection/' + Formation_names + '/'  + Run_settings["CoreOfStudy"] + '_' + Formation_names +  '_' + top_core + '_' + bottom_core + '_' + '.png'),dpi = 600)
-
-
-fig, (ax1,ax2,ax3,ax4,ax5,ax6,ax7,ax8) = plt.subplots(ncols=8, figsize=(30,5))
+fig, (ax1,ax2,ax3,ax4,ax5) = plt.subplots(ncols=5, figsize=(25,5))
 sns.boxplot(x=Run_settings["RockClassification"], y=coredata[Run_settings["Elements_plotted"][0]], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=coredata,ax=ax1,dodge =False,width=0.75)
 sns.boxplot(x=Run_settings["RockClassification"], y=coredata[Run_settings["Elements_plotted"][1]], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=coredata,ax=ax2,dodge =False,width=0.75)
 sns.boxplot(x=Run_settings["RockClassification"], y=coredata[Run_settings["Elements_plotted"][2]], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=coredata,ax=ax3,dodge =False,width=0.75)
 sns.boxplot(x=Run_settings["RockClassification"], y=coredata[Run_settings["Elements_plotted"][3]], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=coredata,ax=ax4,dodge =False,width=0.75)
 sns.boxplot(x=Run_settings["RockClassification"], y=coredata[Run_settings["Elements_plotted"][4]], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=coredata,ax=ax5,dodge =False,width=0.75)
-sns.boxplot(x=Run_settings["RockClassification"], y=coredata[Run_settings["Elements_plotted"][5]], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=coredata,ax=ax6,dodge =False,width=0.75)
 ax1.legend([])
 ax2.legend([])
 ax3.legend([])
 ax4.legend([])
 ax5.legend([])
-ax6.legend([])
 plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_MajorElementBoxplot_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
 
 fig, (ax1,ax2,ax3,ax4,ax5) = plt.subplots(ncols=5, figsize=(25,5))
@@ -188,16 +171,15 @@ plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + For
 fig, (ax1) = plt.subplots(ncols=1, figsize=(5,5))
 
 
-
 # Pie chart calculation and plotting for chemofacies
 
 
-#coredata_pie=(coredata[coredata['Formation'] == Formation_names])
+coredata_pie=(coredata[coredata['Formation'] == Formation_names])
 
-#coredata_pie=(coredata[coredata['Formation_2'] == 'AC-B1'])
+#coredata_pie=(coredata[coredata['Formation_2'] == 'AC-D'])
 
 
-coredata_pie=coredata[Run_settings["RockClassification"]].value_counts()
+coredata_pie=coredata_pie[Run_settings["RockClassification"]].value_counts()
 
 coredata_pie = pd.DataFrame(coredata_pie)
 coredata_pie.reset_index(inplace=True)
@@ -216,5 +198,22 @@ plt.pie(coredata_pie.Count,colors=[chemofacies_color[key] for key in coredata_pi
         )
 
 plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_PieChart_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_PieChart_' + Run_settings["RockClassification"] + '.eps'),format='eps', dpi = 600)
 
 
+fig, axs = plt.subplots(nrows=1, ncols=1)
+plt.subplot(1, 1, 1)
+for i in range(len(coredata)):
+    Q = [0, 0, coredata[Run_settings["RockClassification"]][i], coredata[Run_settings["RockClassification"]][i]]
+    Z = [coredata[Run_settings["Depth_model"]][i]+Corebeta["XRF_resolution"], coredata[Run_settings["Depth_model"]][i], coredata[Run_settings["Depth_model"]][i], coredata[Run_settings["Depth_model"]][i]+Corebeta["XRF_resolution"]]
+       
+    plt.fill(Q, Z,c=chemofacies_color[coredata[Run_settings["RockClassification"]][i]], linewidth=0.0)
+    plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
+    plt.xlim((0,6))
+    plt.yticks([])
+    plt.xticks([])
+    
+bottom_core = str(round(max(coredata[Run_settings["Depth_model"]])))
+top_core = str(round(min(coredata[Run_settings["Depth_model"]])))
+plt.tight_layout()
+plt.savefig(os.path.join(Root_path + '/CoreOutput/CrossSection/' + Formation_names + '/'  + Run_settings["CoreOfStudy"] + '_' + Formation_names +  '_' + top_core + '_' + bottom_core + '_' + '.png'),dpi = 600)
