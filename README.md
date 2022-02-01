@@ -8,17 +8,34 @@ CorePytools (CorePy) is a machine learning python package applied to data collec
 # Installation
 pip install corepytools
 
-# Running Corepytools and CorePy scripts
+# Running Corepytools and CorePy 
+```
 1) fork the CorePy repo to your github account
 2) make a local clone:
  - command line: `git clone https://github.com/Totilarson/CorePy.git` 
+ - if it is necessary to delete the local clone us: 'rm -rf .git*'
 3) Navigate to the local repo //CorePy/ and inspect folders 'CoreData' and 'CorePycodes'
 4) In //CorePy/CorePycodes open 'settings.py' and 'PCAexample'
 - 'settings.py' contains variables for all the Python scripts
  - "CoreOfStudy", "Depth_model", "Formation", and "RockClassification" should match values in Public_XRF.csv datafile
- - initially open 'settings' and 'PCAexample'
+```
+# Settings.py and PCAexample
+```
+1) Run Settings.py and PCAexample.py 
  - Running PCAexample.py will build additional output folders and run PCA-Kmeans.
  - Output files can be viewed and the results .csv includes additional columns of data
+```
+
+#CorePy_plotting.py 
+```
+1) provides additional elemenal plotting
+ - elemental cross plots. Elements are selected from Run_settings['Elements_plotted']
+ - elements plotted with respect to depth: Depth model selected by: Run_settings['Depth_model']
+ - element box plots. majors and trace
+ - pie chart of chemofacies abundance
+ - Depth referenced chemostrat column output in a folder //CorePy/CoreOutput/CrossSection/
+``` 
+ 
 
 ## About the authors
 
