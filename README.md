@@ -35,6 +35,14 @@ pip install corepytools
 ```
 - Running PCAexample.py will build additional output folders and run PCA-Kmeans.
 - Output files are in output folder. CSV file includes additional columns of data
+- Settings.py writes a Run_settings.json file that is accessed by other scripts
+```
+
+# CoreBeta file
+```
+- <corename>.json files are stored for each core in //CorePy/CoreData/CoreBeta
+- files provide core-specific data that is referenced in each script
+- Wireline scripts also write data to the .jsom file
 ```
 
 # CorePy_plotting.py 
@@ -55,6 +63,15 @@ pip install corepytools
 - output .csv file has additional classification columns
 
 ```
+
+# Coreimage.py
+```
+- Designed to overlay chemofacies results on corebox photographs
+- Requires coreboxphotographs be converted to 'coretubes'
+- Coretubes are created from Corebox_Crop.py
+- Coretubes are depth registered and in folder //CorePy/CoreData/CoreTubes/
+
+```
 ## About the authors
 
 CorePy is being developed by Toti Larson at the University of Texas at Austin, Bureau of Economic Geology, Mudrocks Systems Research Laboratory (MSRL) research consortium.
@@ -71,7 +88,6 @@ CorePy is being developed by Toti Larson at the University of Texas at Austin, B
 
 ## Package Inventory
  
-corepytools.py
 
 
 ## Package Dependencies
@@ -88,6 +104,16 @@ corepytools.py
 10) sklearn.decomposition import PCA
 11) sklearn.cluster import KMeans
 12) matplotlib.patheffects
+13) json
+14) corepytools
+15) from sklearn.model_selection import train_test_split
+16) from sklearn.preprocessing import StandardScaler
+17) from sklearn.neural_network import MLPClassifier
+18) from sklearn.metrics import classification_report, confusion_matrix
+19) from sklearn import metrics
+20) import matplotlib.pyplot as plt
+21) matplotlib.patches as patches
+
 
 # Notes
 
@@ -109,5 +135,3 @@ corepytools
         |-corepytools    **contains functions**
     
         |-__init__.py     ** empty**
-
-
