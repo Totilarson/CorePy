@@ -45,7 +45,7 @@ pip install corepytools
 - Wireline scripts also write data to the .jsom file
 ```
 
-# Corebox_Crop.pyCoreBeta file
+# Corebox_Crop.py
 ```
 - This code does take trial and error to get the bounding parameters correct
 - line 38 "corepy.cropCorebox((70, 125, 740, 920)" those four values are to be adjusted
