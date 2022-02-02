@@ -37,8 +37,8 @@ Run_settings = {
 
 
 # noOfCols and ImageType are for original core photographs
-'noOfCols' :  7,            # select number of columns in each corebox photo
-'ImageType' : 'vis',        # visible or UV images
+#'noOfCols' :  7,            # select number of columns in each corebox photo
+#'ImageType' : 'vis',        # visible or UV images
 }
 
 

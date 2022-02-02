@@ -23,7 +23,7 @@ Root_path = os.path.dirname(os.getcwd())
 CoreBoxPhotos= os.path.join(Root_path + '/CoreData/CoreBoxPhotos/' + Run_settings['CoreOfStudy'])
 
 CoreBoxPhotos_cropped= os.path.join(Root_path + '/CoreData/CoreBoxPhotos/' + '/' + Corebeta['corename'] + "_cropped")  # new directory that will be made
-CoretubeFolder = os.path.join(Root_path + '/CoreData/CoreTubes/' + '/' + Run_settings['CoreOfStudy'] + "_tubes_" + Run_settings['ImageType']) # new directory that will be made
+CoretubeFolder = os.path.join(Root_path + '/CoreData/CoreTubes/' + '/' + Run_settings['CoreOfStudy'] + "_tubes_" + Corebeta['ImageType']) # new directory that will be made
 
 # Makes folders if they do not exist already. 
 if not os.path.exists(CoreBoxPhotos_cropped):
@@ -48,9 +48,9 @@ def cropCoretubes(imageFileName):
     imagePath = os.path.join(CoreBoxPhotos_cropped, imageFileName)
     imgOpen = Image.open(imagePath)
     width, height = imgOpen.size
-    core_width = width/(Run_settings['noOfCols'])
+    core_width = width/(Corebeta['noOfCols'])
 
-    for i in range (1, Run_settings['noOfCols']+1):
+    for i in range (1, Corebeta['noOfCols']+1):
         top_x = 0 + core_width*(i-1)
         top_y = 0
         bottom_x = core_width + core_width*(i-1)
