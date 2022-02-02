@@ -88,6 +88,15 @@ pip install corepytools
 - output is a .csv file that merges XRF and attribute data
 ```
 
+# Core_attribute.py
+```
+- This is a plotting function and develops descriptive stats for each chemofacies based on attributes
+- Core_attribute.py is run after Attribubte_merge.py
+- output is a .csv file with descriptive statistics
+- Box plots and depth plots show attribute results with respect to chemofacies
+- It is necessasry to add "Attribute_plotted" to the core .json file
+```
+
 ## About the authors
 
 CorePy is being developed by Toti Larson at the University of Texas at Austin, Bureau of Economic Geology, Mudrocks Systems Research Laboratory (MSRL) research consortium.
