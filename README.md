@@ -80,6 +80,14 @@ pip install corepytools
 - Coretubes are depth registered and in folder //CorePy/CoreData/CoreTubes/
 
 ```
+
+# Attribute_merge.py
+```
+- Merges attribute data from //CorePy/CoreData/CoreAttributes/<core name> with XRF output file
+- The files are merged based on Core-box-inch input from the XRF and attribute files
+- output is a .csv file that merges XRF and attribute data
+```
+
 ## About the authors
 
 CorePy is being developed by Toti Larson at the University of Texas at Austin, Bureau of Economic Geology, Mudrocks Systems Research Laboratory (MSRL) research consortium.
