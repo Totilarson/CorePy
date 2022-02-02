@@ -33,7 +33,7 @@ Run_settings = {
 'Principal_components' : 4, # Principal_components refers to the number (n) of principal components applied to K-means clustering algorithm (zero through n)
 'PC1' :  0,       # For plotting purposes PC1 and PC2 are used to plot PCA results and also add two columns onto the output .csv datafile
 'PC2' :  1,       # For plotting purposes PC1 and PC2 are used to plot PCA results and also add two columns onto the output .csv datafile
-'moving_avg' : 3,           # used to smooth out XRF data
+'moving_avg' : 3,           # used to smooth out attribute data in Core_attribute.py
 
 
 # noOfCols and ImageType are for original core photographs
