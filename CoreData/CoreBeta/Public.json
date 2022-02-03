@@ -10,6 +10,6 @@
 "RockClassification": "Chemofacies_PCA", 
 "coretube_length": 2, "noOfCols": 5,
 "Photo_depth": "Depth_calculated", 
+"Attribute_plotted": ["TOC", "Quartz", "Calcite", "Dolomite", "2_1 clay minerals"], 
 "XRF_resolution": 0.16666666666666666, 
 "ImageType": "vis"}
-
