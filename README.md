@@ -12,6 +12,31 @@ CorePytools (CorePy) applies machine learning cluster algorithms to geological s
 pip install corepytools
 - corepytools includes commonly applied functions that are called by different Python scripts
 - corepytools is a dependency 
+- Additional notes and tips about GitHub and steps I use are here: https://github.com/Totilarson/MyCheatSheet 
+
+# Package Dependencies
+
+1) os
+2) numpy
+3) pandas
+4) seaborn
+5) pickle
+6) glob
+7) matplotlib.pyplot
+8) seaborn as sns
+9) sklearn.preprocessing import StandardScaler
+10) sklearn.decomposition import PCA
+11) sklearn.cluster import KMeans
+12) matplotlib.patheffects
+13) json
+14) corepytools
+15) from sklearn.model_selection import train_test_split
+16) from sklearn.preprocessing import StandardScaler
+17) from sklearn.neural_network import MLPClassifier
+18) from sklearn.metrics import classification_report, confusion_matrix
+19) from sklearn import metrics
+20) import matplotlib.pyplot as plt
+21) matplotlib.patches as patches
 ```
 # Running Corepytools and CorePy 
 ```
@@ -113,31 +138,6 @@ CorePy is being developed by Toti Larson at the University of Texas at Austin, B
 
 ## Package Inventory
  
-
-
-## Package Dependencies
-
-1) os
-2) numpy
-3) pandas
-4) seaborn
-5) pickle
-6) glob
-7) matplotlib.pyplot
-8) seaborn as sns
-9) sklearn.preprocessing import StandardScaler
-10) sklearn.decomposition import PCA
-11) sklearn.cluster import KMeans
-12) matplotlib.patheffects
-13) json
-14) corepytools
-15) from sklearn.model_selection import train_test_split
-16) from sklearn.preprocessing import StandardScaler
-17) from sklearn.neural_network import MLPClassifier
-18) from sklearn.metrics import classification_report, confusion_matrix
-19) from sklearn import metrics
-20) import matplotlib.pyplot as plt
-21) matplotlib.patches as patches
 
 
 # Notes
