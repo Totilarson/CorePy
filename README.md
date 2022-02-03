@@ -13,9 +13,9 @@ pip install corepytools
 - corepytools includes commonly applied functions that are called by different Python scripts
 - corepytools is a dependency 
 - Additional notes and tips about GitHub and steps I use are here: https://github.com/Totilarson/MyCheatSheet 
-
+```
 # Package Dependencies
-
+```
 1) os
 2) numpy
 3) pandas
@@ -49,20 +49,17 @@ pip install corepytools
 - 'settings.py' contains variables for all the Python scripts
  - "CoreOfStudy", "Depth_model", "Formation", and "RockClassification" should match values in Public_XRF.csv datafile
 ```
-
 # Data examples
 ```
 - CoreData folder contains an example of a high reoslution XRF dataset and corebox photographs
 - Naming patterns for core box sticker location, wireline depths, and elemental concentrations are shown 
 ```
-
 # Settings.py and PCAexample
 ```
 - Running PCAexample.py will build additional output folders and run PCA-Kmeans.
 - Output files are in output folder. CSV file includes additional columns of data
 - Settings.py writes a Run_settings.json file that is accessed by other scripts
 ```
-
 # CoreBeta file
 ```
 - <corename>.json files are stored for each core in //CorePy/CoreData/CoreBeta
@@ -147,16 +144,22 @@ Follow over to the authors Github account to download example Python scripts tha
 
 
 # Folder structure
-corepytools
+CorePy
 
     |-LICENSE.txt         **MIT**
 
     |-README.md           **edited in markdown**
 
-    |-setup.py            **name=corepy-tools, package=src, python module=corepytools**
+    |-gitignore          
 
-    |-src
+    |CoreData
 
-        |-corepytools    **contains functions**
+        |CoreAttributes
+        |CoreBeta
+        |CoreBoxPhotos
+        |CoreNeuralModel
+        |CoreXRF
     
-        |-__init__.py     ** empty**
+    |CoreOutput
+    
+    |CorePycodes
