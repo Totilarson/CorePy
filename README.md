@@ -9,11 +9,16 @@ CorePytools (CorePy) applies machine learning cluster algorithms to geological s
 
 # Installation
 ```
-pip install corepytools
+1) pip install corepytools
 - corepytools includes commonly applied functions that are called by different Python scripts
-- corepytools is a dependency 
-- Additional notes and tips about GitHub and steps I use are here: https://github.com/Totilarson/MyCheatSheet 
+2) Additional notes and tips about GitHub and steps I use are here: https://github.com/Totilarson/MyCheatSheet 
+- fork the CorePy repo to your github account
+- make a local clone:
+ - command line: `git clone https://github.com/Totilarson/CorePy.git` 
+ - if it is necessary to delete the local clone use: 'rm -rf .git*'
+3) Navigate to the local repo //CorePy/ and inspect folders 'CoreData' and 'CorePycodes'
 ```
+
 # Package Dependencies
 ```
 1) os
@@ -38,17 +43,7 @@ pip install corepytools
 20) import matplotlib.pyplot as plt
 21) matplotlib.patches as patches
 ```
-# Running Corepytools and CorePy 
-```
-1) fork the CorePy repo to your github account
-2) make a local clone:
- - command line: `git clone https://github.com/Totilarson/CorePy.git` 
- - if it is necessary to delete the local clone use: 'rm -rf .git*'
-3) Navigate to the local repo //CorePy/ and inspect folders 'CoreData' and 'CorePycodes'
-4) In //CorePy/CorePycodes open 'settings.py' and 'PCAexample'
-- 'settings.py' contains variables for all the Python scripts
- - "CoreOfStudy", "Depth_model", "Formation", and "RockClassification" should match values in Public_XRF.csv datafile
-```
+
 # Data examples
 ```
 - CoreData folder contains an example of a high reoslution XRF dataset and corebox photographs
@@ -56,6 +51,9 @@ pip install corepytools
 ```
 # Settings.py and PCAexample
 ```
+1) In //CorePy/CorePycodes open 'settings.py' and 'PCAexample'
+- 'settings.py' contains variables for all the Python scripts
+ - "CoreOfStudy", "Depth_model", "Formation", and "RockClassification" should match values in Public_XRF.csv datafile
 - Running PCAexample.py will build additional output folders and run PCA-Kmeans.
 - Output files are in output folder. CSV file includes additional columns of data
 - Settings.py writes a Run_settings.json file that is accessed by other scripts
