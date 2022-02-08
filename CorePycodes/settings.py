@@ -35,10 +35,27 @@ Run_settings = {
 'PC2' :  1,       # For plotting purposes PC1 and PC2 are used to plot PCA results and also add two columns onto the output .csv datafile
 'moving_avg' : 3,           # used to smooth out attribute data in Core_attribute.py
 
+# Machine learning clustering parameters
 
-# noOfCols and ImageType are for original core photographs
-#'noOfCols' :  7,            # select number of columns in each corebox photo
-#'ImageType' : 'vis',        # visible or UV images
+## Machine learning test-train split
+'TrainingData_test_size' : 0.3,
+'TrainingData_random_state' : 0,
+
+## Neural Network Machine Learning Parameters 
+'NN_HiddenLayer_size' : (10,10,10), # number of hidden layers and nodes in the hidden layers
+'random_state' : 1,
+'activation' : 'relu', # activation{‘identity’, ‘logistic’, ‘tanh’, ‘relu’}
+'solver' :'sgd',  # solver{‘lbfgs’, ‘sgd’, ‘adam’} 
+'max_iter': 2000,
+
+## XGBoost Machine Learning Parameters 
+'max_depth': 10,  # the maximum depth of each tree. too high and will overfit. Noticed with Iris dataset that if the number is less than the number of features it skips a feature
+'eta': 0.3,  # the training step for each iteration
+'silent': 1,  # logging mode - quiet
+'objective': 'multi:softprob',  # error evaluation for multiclass training
+'num_class': 9, # the number of classes that exist in this datset
+'num_round' : 5,  # the number of training iterations
+
 }
 
 
