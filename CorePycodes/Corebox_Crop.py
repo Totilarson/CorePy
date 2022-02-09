@@ -3,19 +3,15 @@ import corepytools as corepy
 from PIL import Image
 import json
 
-
+# Two things here that could use improvement: core_depth and the locations for the core box cropping
+# look at the four coordinates in the corepy.cropCorebox command
+core_depth = 3978 # top depth of starting corebox photo
 
 Root_path = os.path.dirname(os.getcwd())
 Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
 Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['CoreOfStudy']  +'.json')))
 
 Formation_names = '-'.join(Run_settings["Formation"]+Run_settings["Formation_2"]) # Would like to have Formation_names defined in Corebeta
-
-# Two things here that could use improvement: core_depth and the locations for the core box cropping
-
-
-core_depth = 3978 # top depth of starting corebox photo
-
 
 corepy.ImageDir(Run_settings['CoreOfStudy']) #sets up folder structure
 
