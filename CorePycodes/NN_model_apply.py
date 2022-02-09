@@ -12,7 +12,6 @@ import xgboost as xgb
 # File dependencies2: 3) Formation-specific _Training_Dataset.csv in \CoreData\CoreNeuralModel 
 # Output: adds columns 'Chemofacies_NN' and 'Chemofacies_XGB' to .csv file in CoreOutput/CoreName/Formation
 
-# this is totally amazing
 
 # 1) Define root path, 2) load Run_settings file for input variables
 Root_path = os.path.dirname(os.getcwd())
