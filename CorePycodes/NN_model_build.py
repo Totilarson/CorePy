@@ -46,7 +46,7 @@ y=NeuralModel_TrainingDataSet['Chemofacies_train']
 X = NeuralModel_TrainingDataSet[Run_settings["elements"]].values #converts X from a df to an array
 
 # options for NN model reagrding test size split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30,random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = Run_settings['TrainingData_test_size'], random_state = Run_settings['TrainingData_random_state'])  ### move this to settings 
 
 
 # scale the data
@@ -56,14 +56,11 @@ X_train = scaler.transform(X_train)
 X_test = scaler.transform(X_test)
 X_total = scaler.transform(X)
 
-# apply the neural network to the scaled data
-# solver{‘lbfgs’, ‘sgd’, ‘adam’}  sgd: stochastic gradient descent. adam: stochastic gradient-based optimizer. lbfgs: an optimizer in the family of quasi-Newton methods
-# activation{‘identity’, ‘logistic’, ‘tanh’, ‘relu’}
-
-
 # sklearn.neural_network.MLPClassifer
 scaler = StandardScaler()
-mlp = MLPClassifier(hidden_layer_sizes=(10,10,10),random_state=1,activation = 'relu',solver='sgd', max_iter=2000)
+mlp = MLPClassifier(hidden_layer_sizes = Run_settings['NN_HiddenLayer_size'] ,random_state =  Run_settings['random_state'] ,  activation = 'relu', solver='sgd', max_iter=2000) 
+
+
 mlp.fit(X_train, y_train)
 
 
@@ -96,15 +93,8 @@ pickle.dump(mlp,outfile)
 outfile.close()
 
 
-
-
-
-
-
 ##### XGBoost model######
 
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30,random_state=0)
 feature_names = Run_settings["elements"] # feature names
 
 
@@ -112,13 +102,15 @@ feature_names = Run_settings["elements"] # feature names
 dtrain = xgb.DMatrix(X_train, label=y_train,feature_names=feature_names)
 dtest = xgb.DMatrix(X_test, label=y_test,feature_names=feature_names)
 
+
 param = {
-    'max_depth': 10,  # the maximum depth of each tree. too high and will overfit. Noticed with Iris dataset that if the number is less than the number of features it skips a feature
-    'eta': 0.3,  # the training step for each iteration
-    'silent': 1,  # logging mode - quiet
-    'objective': 'multi:softprob',  # error evaluation for multiclass training
-    'num_class': 9}  # the number of classes that exist in this datset
-num_round = 5  # the number of training iterations
+    'max_depth': Run_settings['max_depth'],  # the maximum depth of each tree. too high and will overfit. Noticed with Iris dataset that if the number is less than the number of features it skips a feature
+    'eta': Run_settings['eta'],  # the training step for each iteration
+    'silent': Run_settings['silent'],  # logging mode - quiet
+    'objective': Run_settings['objective'],  # error evaluation for multiclass training
+    'num_class': Run_settings['num_class']}  # the number of classes that exist in this datset
+num_round = Run_settings['num_round']  # the number of training iterations
+
 
 XGB_model = xgb.train(param, dtrain, num_round) #XGBoost model 
 
