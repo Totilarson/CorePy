@@ -57,6 +57,7 @@ CorePytools (CorePy) applies machine learning cluster algorithms to geological s
 - Running PCAexample.py will build additional output folders and run PCA-Kmeans.
 - Output files are in output folder. CSV file includes additional columns of data
 - Settings.py writes a Run_settings.json file that is accessed by other scripts
+- Machine learning parameters for Neural model and XGBoost clustering have been added to settings
 ```
 # CoreBeta file
 ```
