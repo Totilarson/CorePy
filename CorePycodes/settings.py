@@ -46,7 +46,7 @@ Run_settings = {
 'random_state' : 1,
 'activation' : 'relu', # activation{‘identity’, ‘logistic’, ‘tanh’, ‘relu’}
 'solver' :'sgd',  # solver{‘lbfgs’, ‘sgd’, ‘adam’} 
-'max_iter': 2000,
+'max_iter': 2000, # not sure if this should be changed
 
 ## XGBoost Machine Learning Parameters 
 'max_depth': 10,  # the maximum depth of each tree. too high and will overfit. Noticed with Iris dataset that if the number is less than the number of features it skips a feature
