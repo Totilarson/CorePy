@@ -46,7 +46,7 @@ y=NeuralModel_TrainingDataSet['Chemofacies_train']
 X = NeuralModel_TrainingDataSet[Run_settings["elements"]].values #converts X from a df to an array
 
 # options for NN model reagrding test size split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = Run_settings['TrainingData_test_size'], random_state = Run_settings['TrainingData_random_state'])  ### move this to settings 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = Run_settings['NN_TrainingData_test_size'], random_state = Run_settings['NN_TrainingData_random_state'])  ### move this to settings 
 
 
 # scale the data
@@ -94,6 +94,7 @@ outfile.close()
 
 
 ##### XGBoost model######
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = Run_settings['XGB_TrainingData_test_size'], random_state = Run_settings['XGB_TrainingData_random_state'])  ### move this to settings 
 
 feature_names = Run_settings["elements"] # feature names
 

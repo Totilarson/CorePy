@@ -17,7 +17,7 @@ Run_settings = {
 #RockClassification and Electrofacies are used for plotting. These are outputs in csv file from machine learning classifications
 # both XGBoost  (Chemofacies_XGB) and Neural Network (Chemofacies_NN) classifications are calculated. 
 #User can chose which to apply to figures adn subsequent calculations
-"RockClassification" : 'Chemofacies_PCA',   # Chemofacies_PCA, Chemofacies_NN, Chemofacies_XGB, and Chemofacies_train are options
+"RockClassification" : 'Chemofacies_XGB',   # Chemofacies_PCA, Chemofacies_NN, Chemofacies_XGB, and Chemofacies_train are options
 "Electrofacies" : 'Electrofacies_NN', # 'Electrofacies_XGB' or 'Electrofacies_NN'
 
 # 'elements and Elements_plotted needs to be reconsidered
@@ -37,16 +37,16 @@ Run_settings = {
 
 # Machine learning clustering parameters
 
-## Machine learning test-train split
-'TrainingData_test_size' : 0.3,
-'TrainingData_random_state' : 0,
-
 ## Neural Network Machine Learning Parameters 
 'NN_HiddenLayer_size' : (10,10,10), # number of hidden layers and nodes in the hidden layers
 'random_state' : 1,
 'activation' : 'relu', # activation{‘identity’, ‘logistic’, ‘tanh’, ‘relu’}
 'solver' :'sgd',  # solver{‘lbfgs’, ‘sgd’, ‘adam’} 
-'max_iter': 2000, # not sure if this should be changed
+'max_iter': 2000,
+'NN_TrainingData_test_size' : 0.3,
+'NN_TrainingData_random_state' : 0,
+
+
 
 ## XGBoost Machine Learning Parameters 
 'max_depth': 10,  # the maximum depth of each tree. too high and will overfit. Noticed with Iris dataset that if the number is less than the number of features it skips a feature
@@ -56,6 +56,8 @@ Run_settings = {
 'num_class': 9, # the number of classes that exist in this datset
 'num_round' : 5,  # the number of training iterations
 
+'XGB_TrainingData_test_size' : 0.30,
+'XGB_TrainingData_random_state' :0
 }
 
 
