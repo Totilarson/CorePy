@@ -49,21 +49,44 @@ CorePytools (CorePy) applies machine learning cluster algorithms to geological s
 - CoreData folder contains an example of a high reoslution XRF dataset and corebox photographs
 - Naming patterns for core box sticker location, wireline depths, and elemental concentrations are shown 
 ```
-# Settings.py and PCAexample
+# Settings.py
 ```
-1) In //CorePy/CorePycodes open 'settings.py' and 'PCAexample'
+1) In //CorePy/CorePycodes open 'settings.py'
 - 'settings.py' contains variables for all the Python scripts
- - "CoreOfStudy", "Depth_model", "Formation", and "RockClassification" should match values in Public_XRF.csv datafile
-- Running PCAexample.py will build additional output folders and run PCA-Kmeans.
-- Output files are in output folder. CSV file includes additional columns of data
-- Settings.py writes a Run_settings.json file that is accessed by other scripts
-- Machine learning parameters for Neural model and XGBoost clustering have been added to settings
+- "CoreOfStudy", "Depth_model", "Formation", and "RockClassification" should match values in Public_XRF.csv datafile
+- machine learning parameters are stored here
+- 'chemocolor' is generated here. It makes formation-specific color schemes. If you add a new formation you have to add its colorscheme here 
 ```
 # CoreBeta file
 ```
 - <corename>.json files are stored for each core in //CorePy/CoreData/CoreBeta
 - files provide core-specific data that is referenced in each script
 - Wireline scripts also write data to the .jsom file
+```
+# Attribute_merge.py
+```
+- 
+- Merges attribute data from //CorePy/CoreData/CoreAttributes/<core name> with XRF input file
+- The files are merged based on Core-box-inch input from the XRF and attribute files
+- output is a .csv file that merges XRF and attribute data
+- if no attribute data is in folder it will skip over it
+- Running Attirbute_merge.py will build additional output folders
+```
+# PCAexample
+```
+- Running PCAexample.py will run PCA-Kmeans.
+- Output files are in output folder. CSV file includes additional columns of data
+- Settings.py writes a Run_settings.json file that is accessed by other scripts
+- Machine learning parameters for Neural model and XGBoost clustering have been added to settings
+```
+
+# NN_Build.py and NN_apply.py
+```
+- these scripts build and apply results from supervised chemfoacies classifications
+- An example training dataset is included in //CorePy/CoreData/CoreNeuralModel
+- model parameters are output _XGB and __NN files in //CorePy/CoreData/CoreNeuralModel
+- output .csv file has additional classification columns
+
 ```
 
 # Corebox_Crop.py
@@ -83,15 +106,7 @@ CorePytools (CorePy) applies machine learning cluster algorithms to geological s
  - pie chart of chemofacies abundance
  - Depth referenced chemostrat column output in a folder //CorePy/CoreOutput/CrossSection/
 ``` 
- 
-# NN_Build.py and NN_apply.py
-```
-- these scripts build and apply results from supervised chemfoacies classifications
-- An example training dataset is included in //CorePy/CoreData/CoreNeuralModel
-- model parameters are output _XGB and __NN files in //CorePy/CoreData/CoreNeuralModel
-- output .csv file has additional classification columns
 
-```
 
 # Coreimage.py
 ```
@@ -102,12 +117,6 @@ CorePytools (CorePy) applies machine learning cluster algorithms to geological s
 
 ```
 
-# Attribute_merge.py
-```
-- Merges attribute data from //CorePy/CoreData/CoreAttributes/<core name> with XRF output file
-- The files are merged based on Core-box-inch input from the XRF and attribute files
-- output is a .csv file that merges XRF and attribute data
-```
 
 # Core_attribute.py
 ```
