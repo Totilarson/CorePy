@@ -26,7 +26,7 @@ Formation_names = '-'.join(Run_settings["Formation"] + Run_settings["Formation_2
 # import the files with attributes
 coredata = corepy.OutputXRF(Run_settings['CoreOfStudy'],Formation_names) # This directs to the output file
 
-attributeimport  = (os.path.join(dirName + '/' +  Run_settings["CoreOfStudy"] + '_' + Formation_names + '_Attribute.csv'))
+attributeimport  = (os.path.join(dirName + '/' +  Run_settings["CoreOfStudy"] + '_' + Formation_names + '.csv'))
 attributedata=pd.read_csv(attributeimport)
 
 

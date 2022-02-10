@@ -32,12 +32,12 @@ infile.close()
 # RootDir(corename, Formation_names) established the output folder structure
 dirName=corepy.RootDir(Corebeta["corename"], Formation_names) 
 
- 
+coredata = corepy.OutputXRF(Run_settings["CoreOfStudy"],Formation_names)
 # This section runs all necessary functions stored in CorePy
 # coredata is a dataframe from an input .csv file ( _XRF). detection limits and outlier identification is performed 
-corepy.RootDir(Run_settings['CoreOfStudy'], Formation_names)
-corepy.MakeXRFdf(Run_settings['CoreOfStudy'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
-coredata=corepy.MakeXRFdf(Run_settings['CoreOfStudy'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
+#corepy.RootDir(Run_settings['CoreOfStudy'], Formation_names)
+#corepy.MakeXRFdf(Run_settings['CoreOfStudy'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
+#coredata=corepy.MakeXRFdf(Run_settings['CoreOfStudy'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
 
 # TESTING: Training datasets can be substituted for coredata by using these two lines
 #coredata_Training = (os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + Formation_names + '_TrainingDataset.csv'))
