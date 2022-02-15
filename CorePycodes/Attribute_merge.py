@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import json
 import corepytools as corepy
-import sys
+#import sys
 import lasio
 from scipy.interpolate import interp1d
 import numpy as np

@@ -21,6 +21,8 @@ CorePytools (CorePy) applies machine learning cluster algorithms to geological s
 
 # Package Dependencies
 ```
+Install packages with pip: -r requirements.txt
+
 1) os
 2) numpy
 3) pandas
