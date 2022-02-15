@@ -1,49 +1,29 @@
-# CorePytools package
+# CorePy package
 ```
-CorePytools (CorePy) applies machine learning cluster algorithms to geological samples of core. 
+CorePy is a data analytics tool designed to integrate core-based geological data for machine learning characterization 
 - The primary focus of CorePy is to classify high resolution X-ray fluoresence data into chemofacies 
 - unsupervised and supervised clustering tools are applied
 - Folder structures are developed to simplify working on multiple cores and formations
-- Visualizations are used to validate clustering results.
+- Visualizations are used to validate clustering results
+- CorePy consists of individual scripts and Pip install python package called corepytools
 ```
 
 # Installation
 ```
-1) pip install corepytools
-- corepytools includes commonly applied functions that are called by different Python scripts
-2) Additional notes and tips about GitHub and steps I use are here: https://github.com/Totilarson/MyCheatSheet 
+1) Additional notes and tips about GitHub and steps I use are here: https://github.com/Totilarson/MyCheatSheet 
 - fork the CorePy repo to your github account
 - make a local clone:
  - command line: `git clone https://github.com/Totilarson/CorePy.git` 
  - if it is necessary to delete the local clone use: 'rm -rf .git*'
-3) Navigate to the local repo //CorePy/ and inspect folders 'CoreData' and 'CorePycodes'
+2) Navigate to the local repo //CorePy/ and inspect folders 'CoreData' and 'CorePycodes'
+3) 'pip install -r requirements.txt' this will install all the necessary dependencies
+
 ```
 
 # Package Dependencies
 ```
 Install packages with pip: -r requirements.txt
 
-1) os
-2) numpy
-3) pandas
-4) seaborn
-5) pickle
-6) glob
-7) matplotlib.pyplot
-8) seaborn as sns
-9) sklearn.preprocessing import StandardScaler
-10) sklearn.decomposition import PCA
-11) sklearn.cluster import KMeans
-12) matplotlib.patheffects
-13) json
-14) corepytools
-15) from sklearn.model_selection import train_test_split
-16) from sklearn.preprocessing import StandardScaler
-17) from sklearn.neural_network import MLPClassifier
-18) from sklearn.metrics import classification_report, confusion_matrix
-19) from sklearn import metrics
-20) import matplotlib.pyplot as plt
-21) matplotlib.patches as patches
 ```
 
 # Data examples
