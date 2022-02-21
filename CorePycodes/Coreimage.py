@@ -22,7 +22,7 @@ Root_path = os.path.dirname(os.getcwd())
 Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
 #loads the Corebeta .json file that provides information specific to each core
 #Corebeta are .json files for each core name. MOre information about these .json files in CorePy description
-Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['CoreOfStudy']  +'.json')))
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
 # Formation_names is an expansion idea to select sub-Formations
 # Creates a str variable to select Formation-specific rows from csv input file. 
 # For now Formation_names isRun_settings["Formation"]
@@ -34,13 +34,13 @@ chemofacies_color= pickle.load(infile)
 infile.close()
  
 # RootDir(corename, Formation_names) established the output folder structure
-dirName=corepy.RootDir(Corebeta["corename"], Formation_names) 
+dirName=corepy.RootDir(Corebeta["Lease_Name"], Formation_names) 
 
 
 # Import datafiles
 # Coredata for XRF files and core tube photos. Directories were created by corepytools
-coredata = corepy.OutputXRF(Run_settings["CoreOfStudy"],Formation_names)
-Tubes_dir = os.path.join(Root_path +   str('/CoreData/CoreTubes') + '/' + Run_settings["CoreOfStudy"] + '_tubes_vis')
+coredata = corepy.OutputXRF(Run_settings["Lease_Name"],Formation_names)
+Tubes_dir = os.path.join(Root_path +   str('/CoreData/CoreTubes') + '/' + Run_settings["Lease_Name"] + '_tubes_vis')
 
 #makes a list of the file names and sorts them top to bottom so they are called correctly in the loop
 file_names=corepy.natural_sort(os.listdir(Tubes_dir))
@@ -100,7 +100,7 @@ for h in range(len(a)):
                 rect = patches.Rectangle((pixel_width*0.9-50  ,  pixel_depth[k])  ,  pixel_width*0.15  ,  pixel_height*0.02  ,linewidth=1 ,edgecolor='w',facecolor=chemofacies_color[XX[Run_settings['RockClassification']].values[k]])
                 axs[i,j].add_patch(rect) # Add the patch to the Axes
 
-    plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names +  '_' + str(photo_top) + '.png'),dpi = 300)
+    plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names +  '_' + str(photo_top) + '.png'),dpi = 300)
     #plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names +  '_' + str(photo_top) + '.eps'),format='eps',dpi = 600)
     
 #plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names +  '_' + str(photo_top) + '.png'),dpi = 300)

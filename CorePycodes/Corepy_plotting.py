@@ -13,7 +13,7 @@ Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_sett
  
 #loads the Corebeta .json file that provides information specific to each core
 #Corebeta are .json files for each core name. MOre information about these .json files in CorePy description
-Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['CoreOfStudy']  +'.json')))
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
 
 # Formation_names is an expansion idea to select sub-Formations
 # Creates a str variable to select Formation-specific rows from csv input file. 
@@ -26,10 +26,10 @@ chemofacies_color= pickle.load(infile)
 infile.close()
  
 # RootDir(corename, Formation_names) established the output folder structure
-dirName=corepy.RootDir(Corebeta["corename"], Formation_names) 
+dirName=corepy.RootDir(Corebeta["Lease_Name"], Formation_names) 
 
 # import XRF file from core output folder. OutputXRF(corename,Formation_names)
-coredata = corepy.OutputXRF(Run_settings['CoreOfStudy'],Formation_names) 
+coredata = corepy.OutputXRF(Run_settings['Lease_Name'],Formation_names) 
 # use this to import the training dataset. Need to set 
 #coredata=pd.read_csv((os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + Formation_names + '_TrainingDataset.csv')))
 
@@ -60,8 +60,8 @@ ax5.legend([])
 sns.scatterplot(x=Run_settings["Elements_plotted"][1], y=Run_settings["Elements_plotted"][8], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax6, edgecolor='black')
 ax6.legend([])
 
-plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_CrossPlot_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
-plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_CrossPlot_' + Run_settings["RockClassification"] + '.eps'),format='eps',dpi = 600)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_CrossPlot_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_CrossPlot_' + Run_settings["RockClassification"] + '.eps'),format='eps',dpi = 600)
 
 
 ##### Plot 2 plotted with respect to depth
@@ -138,8 +138,8 @@ plt.xticks(fontsize=14)
 
 plt.xlabel('Ni/Al', fontsize=18)
 
-plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_Elementlog_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
-plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_Elementlog_' + Run_settings["RockClassification"] + '.eps'),format='eps', dpi = 600)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_Elementlog_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_Elementlog_' + Run_settings["RockClassification"] + '.eps'),format='eps', dpi = 600)
 
 
 fig, (ax1,ax2,ax3,ax4,ax5) = plt.subplots(ncols=5, figsize=(25,5))
@@ -153,7 +153,7 @@ ax2.legend([])
 ax3.legend([])
 ax4.legend([])
 ax5.legend([])
-plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_MajorElementBoxplot_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_MajorElementBoxplot_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
 
 fig, (ax1,ax2,ax3,ax4,ax5) = plt.subplots(ncols=5, figsize=(25,5))
 sns.boxplot(x=Run_settings["RockClassification"], y=coredata[Run_settings["Elements_plotted"][5]], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=coredata,ax=ax1,dodge =False,width=0.75)
@@ -166,7 +166,7 @@ ax2.legend([])
 ax3.legend([])
 ax4.legend([])
 ax5.legend([])
-plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_TraceElementBoxplot_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_TraceElementBoxplot_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
 
 fig, (ax1) = plt.subplots(ncols=1, figsize=(5,5))
 
@@ -197,8 +197,8 @@ plt.pie(coredata_pie.Count,colors=[chemofacies_color[key] for key in coredata_pi
         #pctdistance=1.2,
         )
 
-plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_PieChart_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
-plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_PieChart_' + Run_settings["RockClassification"] + '.eps'),format='eps', dpi = 600)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_PieChart_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_PieChart_' + Run_settings["RockClassification"] + '.eps'),format='eps', dpi = 600)
 
 
 fig, axs = plt.subplots(nrows=1, ncols=1)
@@ -216,4 +216,4 @@ for i in range(len(coredata)):
 bottom_core = str(round(max(coredata[Run_settings["Depth_model"]])))
 top_core = str(round(min(coredata[Run_settings["Depth_model"]])))
 plt.tight_layout()
-plt.savefig(os.path.join(Root_path + '/CoreOutput/CrossSection/' + Formation_names + '/'  + Run_settings["CoreOfStudy"] + '_' + Formation_names +  '_' + top_core + '_' + bottom_core + '_' + '.png'),dpi = 600)
+plt.savefig(os.path.join(Root_path + '/CoreOutput/CrossSection/' + Formation_names + '/'  + Run_settings["Lease_Name"] + '_' + Formation_names +  '_' + top_core + '_' + bottom_core + '_' + '.png'),dpi = 600)

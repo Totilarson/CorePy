@@ -10,12 +10,12 @@ import json
 
 Root_path = os.path.dirname(os.getcwd())
 Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
-Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['CoreOfStudy']  +'.json')))
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
 
 
 Formation_names = '-'.join(Run_settings["Formation"]+Run_settings["Formation_2"]) # Would like to have Formation_names defined in Corebeta
 
-dirName=corepy.RootDir(Run_settings["CoreOfStudy"], Formation_names) 
+dirName=corepy.RootDir(Run_settings["Lease_Name"], Formation_names) 
 
 infile = open('chemocolor','rb')
 chemofacies_color= pickle.load(infile)
@@ -24,9 +24,9 @@ infile.close()
 Formation_names = '-'.join(Run_settings["Formation"] + Run_settings["Formation_2"]) # Would like to have Formation_names defined in Corebeta
 
 # import the files with attributes
-coredata = corepy.OutputXRF(Run_settings['CoreOfStudy'],Formation_names) # This directs to the output file
+coredata = corepy.OutputXRF(Run_settings['Lease_Name'],Formation_names) # This directs to the output file
 
-attributeimport  = (os.path.join(dirName + '/' +  Run_settings["CoreOfStudy"] + '_' + Formation_names + '.csv'))
+attributeimport  = (os.path.join(dirName + '/' +  Run_settings["Lease_Name"] + '_' + Formation_names + '.csv'))
 attributedata=pd.read_csv(attributeimport)
 
 
@@ -48,8 +48,8 @@ ax3.legend([])
 ax4.legend([])
 ax5.legend([])
 
-plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_AttributeBoxplot' + '.png'),dpi = 300)
-plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_AttributeBoxplot' + '.eps'),format='eps',dpi = 600)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_AttributeBoxplot' + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_AttributeBoxplot' + '.eps'),format='eps',dpi = 600)
 
 
 # This section defines descriptive statistics for each chemofacies. Median, Q3, and Q1
@@ -74,7 +74,7 @@ Attribute_corelog = pd.merge(Attribute_corelog, Q3_calc, left_on=Run_settings["R
 Attribute_corelog = pd.merge(Attribute_corelog, Q1_calc, left_on=Run_settings["RockClassification"],right_index=True,)
 Attribute_corelog = Attribute_corelog.sort_values([Run_settings['Depth_model']])
 
-Attribute_corelog.to_csv (os.path.join(dirName + '/' +  Run_settings['CoreOfStudy'] + '_' + Formation_names + '_Attribute_statistics.csv'))
+Attribute_corelog.to_csv (os.path.join(dirName + '/' +  Run_settings['Lease_Name'] + '_' + Formation_names + '_Attribute_statistics.csv'))
 
 
 
@@ -205,5 +205,5 @@ plt.xticks(fontsize=14)
 plt.xlabel(attribute_plotted[4], fontsize=18)
 plt.ylabel('')
 
-plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_Attributelog' + '.png'),dpi = 300)
-plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names + '_Attributelog' + '.eps'),format='eps',dpi = 600)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_Attributelog' + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_Attributelog' + '.eps'),format='eps',dpi = 600)

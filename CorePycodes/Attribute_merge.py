@@ -17,7 +17,7 @@ import numpy as np
 # Root_path, Run_settings, and Corebeta and the two .json core settings files with all input parameters
 Root_path = os.path.dirname(os.getcwd())
 Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
-Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['CoreOfStudy']  +'.json')))
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
 
 # Formation_names is an expansion idea to select sub-Formations
 # Creates a str variable to select Formation-specific rows from csv input file. 
@@ -25,16 +25,16 @@ Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_
 Formation_names=corepy.Formation_names(Run_settings["Formation"],Run_settings["Formation_2"])
 
 # RootDir(corename, Formation_names) established the output folder structure
-dirName=corepy.RootDir(Corebeta["corename"], Formation_names) 
-corepy.RootDir(Run_settings['CoreOfStudy'], Formation_names)
-corepy.MakeXRFdf(Run_settings['CoreOfStudy'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
-coredata=corepy.MakeXRFdf(Run_settings['CoreOfStudy'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
+dirName=corepy.RootDir(Corebeta["Lease_Name"], Formation_names) 
+corepy.RootDir(Run_settings['Lease_Name'], Formation_names)
+corepy.MakeXRFdf(Run_settings['Lease_Name'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
+coredata=corepy.MakeXRFdf(Run_settings['Lease_Name'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
 
 # write .csv file here  in case there is no attribute data
-coredata.to_csv (os.path.join(dirName + '/' +  Run_settings["CoreOfStudy"] + '_' + Formation_names + '.csv'))
+coredata.to_csv (os.path.join(dirName + '/' +  Run_settings["Lease_Name"] + '_' + Formation_names + '.csv'))
 
 # Searches for all csv files in attribute folder. The attribute data have to be depth references (core, box, inch) to match
-Attribute_dir = os.path.join(Root_path + '/CoreData/CoreAttributes/'   +  Run_settings['CoreOfStudy'])
+Attribute_dir = os.path.join(Root_path + '/CoreData/CoreAttributes/'   +  Run_settings['Lease_Name'])
 
 
 #Not all core have attribute data. This if state ends this script if there is no attribute fodler for the core
@@ -55,7 +55,7 @@ if str(os.path.isdir(Attribute_dir)) == 'True':
         Merged_file.drop([col for col in Merged_file.columns if 'drop' in col], axis=1, inplace=True)
 
 
-    Merged_file.to_csv (os.path.join(dirName + '/' +  Run_settings["CoreOfStudy"] + '_' + Formation_names + '.csv'))
+    Merged_file.to_csv (os.path.join(dirName + '/' +  Run_settings["Lease_Name"] + '_' + Formation_names + '.csv'))
     
     coredata=Merged_file
 
@@ -81,7 +81,7 @@ if str(os.path.isfile(LAS_file_path)) == 'True':
 
 
     Corebeta['WirelineLogs'] = las.keys()
-    with open(os.path.join(Root_path + '/CoreData/CoreBeta/'   + Run_settings['CoreOfStudy']  + '.json'), 'w') as f:    
+    with open(os.path.join(Root_path + '/CoreData/CoreBeta/'   + Run_settings['Lease_Name']  + '.json'), 'w') as f:    
         json.dump(Corebeta, f)  
 
     df=pd.DataFrame(coredata['Wireline_Depth'])
@@ -100,4 +100,6 @@ if str(os.path.isfile(LAS_file_path)) == 'True':
         df[Corebeta['WirelineLogs'][i]] =  new_data[:, [1]]
 
     CoreWirelinedata = (pd.merge(coredata, df, on='Wireline_Depth')) # merge orriginal coredata XRF file with new wireline log values
-    CoreWirelinedata.to_csv (os.path.join(dirName + '/' +  Run_settings['CoreOfStudy'] + '_' + Formation_names + '.csv'))
+    CoreWirelinedata.to_csv (os.path.join(dirName + '/' +  Run_settings['Lease_Name'] + '_' + Formation_names + '.csv'))
+    
+    

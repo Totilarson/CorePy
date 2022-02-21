@@ -19,7 +19,7 @@ Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_sett
 
 #loads the Corebeta .json file that provides information specific to each core
 #Corebeta are .json files for each core name. MOre information about these .json files in CorePy description
-Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['CoreOfStudy']  +'.json')))
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
 
 # Formation_names is an expansion idea to select sub-Formations
 # Creates a str variable to select Formation-specific rows from csv input file. 
@@ -27,15 +27,15 @@ Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_
 Formation_names=corepy.Formation_names(Run_settings["Formation"],Run_settings["Formation_2"])
 
 # RootDir(corename, Formation_names) established the output folder structure
-dirName=corepy.RootDir(Corebeta["corename"], Formation_names) 
+dirName=corepy.RootDir(Corebeta["Lease_Name"], Formation_names) 
 
 
 # Data input - directs to core XRF datafile generated in PCAexample
-coredata = corepy.OutputXRF(Run_settings["CoreOfStudy"],Formation_names)
+coredata = corepy.OutputXRF(Run_settings["Lease_Name"],Formation_names)
 
 ## This is if you want to run the neural model on the attribute data file
 ## Have to uncomment the #coredata line 
-Attribute_file = os.path.join(Root_path + '/CoreData/CoreAttributes/' + Run_settings['CoreOfStudy'] + '/' + Run_settings['CoreOfStudy'] +'_Attribute.csv') 
+Attribute_file = os.path.join(Root_path + '/CoreData/CoreAttributes/' + Run_settings['Lease_Name'] + '/' + Run_settings['Lease_Name'] +'_Attribute.csv') 
 #coredata=pd.read_csv(Attribute_file)
 
 
@@ -102,7 +102,7 @@ y_pred_XGB.columns = ['Chemofacies_XGB']
 Z = coredata.merge(Predicted_chemofacies, left_index=True, right_index=True)
 Z = Z.merge(y_pred_XGB, left_index=True, right_index=True)
 
-Z.to_csv (os.path.join(dirName + '/' +  Run_settings["CoreOfStudy"] + '_' + Formation_names + '.csv'))
+Z.to_csv (os.path.join(dirName + '/' +  Run_settings["Lease_Name"] + '_' + Formation_names + '.csv'))
 
 #Z.to_csv (os.path.join(dirName + '/' +  Run_settings["CoreOfStudy"] + '_' + Formation_names + '_Attribute.csv'))
 

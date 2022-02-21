@@ -15,7 +15,7 @@ import json
 # Root_path, Run_settings, and Corebeta and the two .json core settings files with all input parameters
 Root_path = os.path.dirname(os.getcwd())
 Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
-Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['CoreOfStudy']  +'.json')))
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
 
 # Formation_names is an expansion idea to select sub-Formations
 # Creates a str variable to select Formation-specific rows from csv input file. 
@@ -30,9 +30,9 @@ chemofacies_color= pickle.load(infile)
 infile.close()  
 
 # RootDir(corename, Formation_names) established the output folder structure
-dirName=corepy.RootDir(Corebeta["corename"], Formation_names) 
+dirName=corepy.RootDir(Corebeta["Lease_Name"], Formation_names) 
 
-coredata = corepy.OutputXRF(Run_settings["CoreOfStudy"],Formation_names)
+coredata = corepy.OutputXRF(Run_settings["Lease_Name"],Formation_names)
 # This section runs all necessary functions stored in CorePy
 # coredata is a dataframe from an input .csv file ( _XRF). detection limits and outlier identification is performed 
 #corepy.RootDir(Run_settings['CoreOfStudy'], Formation_names)
@@ -105,8 +105,8 @@ for i in range(n):
 ### OUTPUT FILES ####
 
 # high resolution (.eps) and lower resolution (.png) files are created
-plt.savefig(os.path.join(dirName + '/' + Run_settings['CoreOfStudy'] + '_' + Formation_names + '_PCA' + '.png'),dpi = 300)
-plt.savefig(os.path.join(dirName + '/' + Run_settings['CoreOfStudy'] + '_' + Formation_names + '_PCA' + '.eps'), format = 'eps',dpi = 600)
+plt.savefig(os.path.join(dirName + '/' + Run_settings['Lease_Name'] + '_' + Formation_names + '_PCA' + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings['Lease_Name'] + '_' + Formation_names + '_PCA' + '.eps'), format = 'eps',dpi = 600)
 
 # Outlier and no_outlier dataframes are appended and written as .csv file and saved in output folder
-coredata=corepy.WriteCSV(coredata_no_outliers,coredata_outliers,dirName,Run_settings['CoreOfStudy'],Formation_names,Run_settings["Depth_model"])
+coredata=corepy.WriteCSV(coredata_no_outliers,coredata_outliers,dirName,Run_settings['Lease_Name'],Formation_names,Run_settings["Depth_model"])
