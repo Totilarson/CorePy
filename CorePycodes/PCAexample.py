@@ -5,6 +5,7 @@ import os
 import corepytools as corepy
 import matplotlib.patheffects as PathEffects
 import json
+import settings
 
 # PCAexample.py is a Python script that collects input data, builds folder structure, runs PCA and Kmeans cluster analysis
 # File dependencies: 1) are a_XRF.csv core data and T5iLOD.csv file in /Coredata/COreXRF, 2)  settings.py, and 3) .json files
@@ -15,14 +16,12 @@ import json
 # Root_path, Run_settings, and Corebeta and the two .json core settings files with all input parameters
 Root_path = os.path.dirname(os.getcwd())
 Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
-Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
+#Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
 
 # Formation_names is an expansion idea to select sub-Formations
 # Creates a str variable to select Formation-specific rows from csv input file. 
 # For now Formation_names is Run_settings["Formation"]
 Formation_names=corepy.Formation_names(Run_settings["Formation"],Run_settings["Formation_2"])
-
-
 
 # loads the color palette into a dict called "chemofacies_color
 infile = open('chemocolor','rb')
@@ -30,14 +29,13 @@ chemofacies_color= pickle.load(infile)
 infile.close()  
 
 # RootDir(corename, Formation_names) established the output folder structure
-dirName=corepy.RootDir(Corebeta["Lease_Name"], Formation_names) 
+dirName=corepy.RootDir(Run_settings["Lease_Name"], Formation_names) 
 
 coredata = corepy.OutputXRF(Run_settings["Lease_Name"],Formation_names)
+
+
 # This section runs all necessary functions stored in CorePy
 # coredata is a dataframe from an input .csv file ( _XRF). detection limits and outlier identification is performed 
-#corepy.RootDir(Run_settings['CoreOfStudy'], Formation_names)
-#corepy.MakeXRFdf(Run_settings['CoreOfStudy'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
-#coredata=corepy.MakeXRFdf(Run_settings['CoreOfStudy'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
 
 # TESTING: Training datasets can be substituted for coredata by using these two lines
 #coredata_Training = (os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + Formation_names + '_TrainingDataset.csv'))

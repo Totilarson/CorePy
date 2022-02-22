@@ -26,7 +26,7 @@ chemofacies_color= pickle.load(infile)
 infile.close()
  
 # RootDir(corename, Formation_names) established the output folder structure
-dirName=corepy.RootDir(Corebeta["Lease_Name"], Formation_names) 
+dirName=corepy.RootDir(Run_settings["Lease_Name"], Formation_names) 
 
 # import XRF file from core output folder. OutputXRF(corename,Formation_names)
 coredata = corepy.OutputXRF(Run_settings['Lease_Name'],Formation_names) 

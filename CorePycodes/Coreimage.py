@@ -34,7 +34,7 @@ chemofacies_color= pickle.load(infile)
 infile.close()
  
 # RootDir(corename, Formation_names) established the output folder structure
-dirName=corepy.RootDir(Corebeta["Lease_Name"], Formation_names) 
+dirName=corepy.RootDir(Run_settings["Lease_Name"], Formation_names) 
 
 
 # Import datafiles

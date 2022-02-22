@@ -6,10 +6,11 @@ import corepytools as corepy
 import lasio
 from scipy.interpolate import interp1d
 import numpy as np
+import settings
 
 
 # Attribute_merge.py is run after settings.py
-# Attribute_merge.py puts in limits of detection, filters data by formation, and adds outlier information
+# Attribute_merge.py puts in limits of detection, filters data by formation, adds outlier information, adds -9999 for data not analyzed
 # Attribute_merge.py searches for attribute and wireline data files and merges them into one .csv file
 
 # Output: adds attribute csv files in //CorePy/CoreOutput/CoreName/<Formation>
@@ -29,6 +30,9 @@ dirName=corepy.RootDir(Corebeta["Lease_Name"], Formation_names)
 corepy.RootDir(Run_settings['Lease_Name'], Formation_names)
 corepy.MakeXRFdf(Run_settings['Lease_Name'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
 coredata=corepy.MakeXRFdf(Run_settings['Lease_Name'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
+
+# added this to replace all NaN with -9999
+coredata[Run_settings['elements']] = coredata[Run_settings['elements']].fillna(-999)
 
 # write .csv file here  in case there is no attribute data
 coredata.to_csv (os.path.join(dirName + '/' +  Run_settings["Lease_Name"] + '_' + Formation_names + '.csv'))
@@ -77,7 +81,7 @@ if str(os.path.isfile(LAS_file_path)) == 'True':
     wirelinedata = wirelinedata[wirelinedata['DEPT'] > min(coredata['Wireline_Depth'])]
 
 
-    wirelinedata.to_csv (os.path.join(dirName   + '/' +  Run_settings['CoreOfStudy'] +  '_LAS.csv'))
+    wirelinedata.to_csv (os.path.join(dirName   + '/' +  Run_settings['Lease_Name'] +  '_LAS.csv'))
 
 
     Corebeta['WirelineLogs'] = las.keys()

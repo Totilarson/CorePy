@@ -9,9 +9,9 @@ import pickle
 
 Run_settings = {
 # CoreOfStudy, Depth_model, Formation, Formation_2 define core name (.csv file), Formation (column in .csv file), and Depth_model for plotting (column in.csv file)    
-"Lease_Name" : 'Public',
+"Lease_Name" : 'WallerCreek',
 "Depth_model" : 'Depth_calculated',        # 'XRF_adjusted_depth', 'Depth_calculated' and 'Wireline_Depth' are options in the data file. 
-"Formation" : ['Public Formation'], # Filter the Formation column by specific formations 'Austin Chalk', 'Eagle Ford', 'Wolfcamp', Bone Spring'
+"Formation" : ['Eagle Ford'], # Filter the Formation column by specific formations 'Austin Chalk', 'Eagle Ford', 'Wolfcamp', Bone Spring'
 "Formation_2" : [] , # Leave blank for now.  This function can be used to sample members within a formation.
 
 #RockClassification and Electrofacies are used for plotting. These are outputs in csv file from machine learning classifications
@@ -23,9 +23,9 @@ Run_settings = {
 # 'elements and Elements_plotted needs to be reconsidered
 # 'elements' lists all the elements used in PCA and machine learning classifications. Can be changed depending on what is available or selected
 # 'Elements_plotted' is a plotting variable. These can be changed depending on interest, but the sorting of elements does matter for plots.
-'elements' :   ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe', 'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga','Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo'],
+'elements' :   ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe', 'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga','As','Pb','Se','Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo'],
 'Elements_plotted' :  ['Ca','Al','Si', 'K', 'Mg', 'Mo','V','Ni','Cu','Sr','Mn','Cr','Ti', 'Zr'], 
-
+#'elements' :   ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe', 'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga','Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo'],
 
 # statistic variables
 'outlier_multiplier' : 4,   # outlier_multiplier refers to how many standard deviations away from mean are included as outliers
