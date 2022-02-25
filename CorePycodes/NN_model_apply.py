@@ -57,8 +57,8 @@ infile.close()
 
 
 # Machine learning section
-# important to remember that Run_settings["elements"] has to match training dataset and coredataset
-X = coredata[Run_settings["elements"]].values #makes an array of elements in coredata df
+# important to remember that Run_settings["Model_elements"] has to match training dataset and coredataset
+X = coredata[Run_settings["Model_elements"]].values #makes an array of elements in coredata df
 
 # scale the data
 scaler = StandardScaler()
@@ -91,7 +91,7 @@ Predicted_chemofacies.columns = ["Chemofacies_NN"]
 
 ##### XGB Boost model ######
 
-X_XGB = xgb.DMatrix(coredata[Run_settings["elements"]])
+X_XGB = xgb.DMatrix(coredata[Run_settings["Model_elements"]])
 XGB_predict=XGB_model.predict(X_XGB) 
 y_pred_XGB = np.asarray([np.argmax(line) for line in XGB_predict]) # an array of the predictions for each sample (largest value)
 y_pred_XGB = pd.DataFrame(y_pred_XGB)

@@ -48,7 +48,7 @@ coredata_outliers=corepy.Include_outliers(coredata)
 
 # PCA_analysis(coredata_no_outliers,elements) defined in corepytools
 # x_new is a dataframe of PCA results
-x_new=corepy.PCA_analysis(coredata_no_outliers,Run_settings["elements"]) # matrix of principal components
+x_new=corepy.PCA_analysis(coredata_no_outliers,Run_settings["Model_elements"]) # matrix of principal components
 
 # coredata_no_outliers dataframe gets columns added: PCA1 and PCA2 values, and Chemofacies_PCA clusters
 coredata_no_outliers=corepy.Kmeans_cluster(x_new,coredata_no_outliers,Run_settings["Principal_components"], Run_settings["clusters"], Run_settings["PC1"], Run_settings["PC2"])
@@ -58,9 +58,9 @@ coredata_outliers["Chemofacies_PCA"] = max(coredata_no_outliers.Chemofacies_PCA)
 
 
 #PCA_explained, PCAS_elbow, and pca_vectors defined in corepytools. Used for plotting and interpretation
-pca_explained=corepy.PCA_explained(coredata_no_outliers,Run_settings["elements"])
+pca_explained=corepy.PCA_explained(coredata_no_outliers,Run_settings["Model_elements"])
 PCA_elbow=corepy.Elbow_method(x_new,Run_settings["Principal_components"])
-pca_vectors=corepy.PCA_matrix_elements(coredata_no_outliers,Run_settings["elements"])
+pca_vectors=corepy.PCA_matrix_elements(coredata_no_outliers,Run_settings["Model_elements"])
 
 # Plotting PCA and Kmeans results
 
@@ -94,7 +94,7 @@ n = pca_vectors.shape[0]
 for i in range(n):
    arrow_style = dict(arrowstyle = "-|>", color = 'k', shrinkA = 0, shrinkB = 0, lw = 1, ls = '-')
    plt.annotate('', xy = (pca_vectors[Run_settings["PC1"],i] * 1, pca_vectors[Run_settings["PC2"],i] * 1), xytext = (0,0), arrowprops = arrow_style, zorder = 2)
-   txt_style = plt.text(pca_vectors[Run_settings["PC1"],i] * 1.1, pca_vectors[Run_settings["PC2"],i] * 1.1, Run_settings["elements"][i], color = 'w', ha = 'center', va = 'center', zorder = 3)
+   txt_style = plt.text(pca_vectors[Run_settings["PC1"],i] * 1.1, pca_vectors[Run_settings["PC2"],i] * 1.1, Run_settings["Model_elements"][i], color = 'w', ha = 'center', va = 'center', zorder = 3)
    txt_style.set_path_effects([PathEffects.withStroke(linewidth = 2, foreground = 'black')])
    plt.xlabel("PC{}".format(Run_settings["PC1"]+1))
    plt.ylabel("PC{}".format(Run_settings["PC2"]+1))

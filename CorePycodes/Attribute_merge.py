@@ -75,16 +75,18 @@ if str(os.path.isfile(LAS_file_path)) == 'True':
 
     wirelinedata=las.df()
     wirelinedata=wirelinedata.reset_index() # set up so that the first column is renamed 'DEPT' to keep it simple moving forward
-    wirelinedata.rename(columns={ wirelinedata.columns[0]: "DEPT" }, inplace= True)
-
-    wirelinedata = wirelinedata[wirelinedata['DEPT'] < max(coredata['Wireline_Depth'])]
-    wirelinedata = wirelinedata[wirelinedata['DEPT'] > min(coredata['Wireline_Depth'])]
-
-
+    #wirelinedata.rename(columns={ wirelinedata.columns[0]: "DEPT" }, inplace= True)
+    
+    depth_column_heading = list(wirelinedata)[0] # assumes depth is always the first column in wirelinedata
+    
     wirelinedata.to_csv (os.path.join(dirName   + '/' +  Run_settings['Lease_Name'] +  '_LAS.csv'))
 
+    wirelinedata = wirelinedata[wirelinedata[depth_column_heading] < max(coredata['Wireline_Depth'])]
+    wirelinedata = wirelinedata[wirelinedata[depth_column_heading] > min(coredata['Wireline_Depth'])]
 
     Corebeta['WirelineLogs'] = las.keys()
+    
+    
     with open(os.path.join(Root_path + '/CoreData/CoreBeta/'   + Run_settings['Lease_Name']  + '.json'), 'w') as f:    
         json.dump(Corebeta, f)  
 
@@ -92,7 +94,7 @@ if str(os.path.isfile(LAS_file_path)) == 'True':
     
     #for i in range (0,len(Corebeta['WirelineLogs_NeuralModel'])):
     for i in range (0,len(Corebeta['WirelineLogs'])):
-        x=wirelinedata['DEPT']  # original wireline log depth is always called DEPT
+        x=wirelinedata[depth_column_heading]  # original wireline log depth is always called DEPT...no it is not
         #y=wirelinedata[Corebeta['WirelineLogs_NeuralModel'][i]] # wireline log attribute being cycled over
         y=wirelinedata[Corebeta['WirelineLogs'][i]] # wireline log attribute being cycled over
         f = interp1d(x,y, bounds_error=False, fill_value=-10, kind='linear')
@@ -100,10 +102,9 @@ if str(os.path.isfile(LAS_file_path)) == 'True':
         new_data = np.array([coredata['Wireline_Depth'] , f(coredata['Wireline_Depth'] )])
         new_data=np.transpose(new_data)
     
-        #df[Corebeta['WirelineLogs_NeuralModel'][i]] =  new_data[:, [1]]
         df[Corebeta['WirelineLogs'][i]] =  new_data[:, [1]]
 
-    CoreWirelinedata = (pd.merge(coredata, df, on='Wireline_Depth')) # merge orriginal coredata XRF file with new wireline log values
+    CoreWirelinedata = (pd.merge(coredata, df, on='Wireline_Depth')) # merge original coredata XRF file with new wireline log values
     CoreWirelinedata.to_csv (os.path.join(dirName + '/' +  Run_settings['Lease_Name'] + '_' + Formation_names + '.csv'))
     
     
