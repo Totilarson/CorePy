@@ -5,13 +5,15 @@ import json
 
 # Two things here that could use improvement: core_depth and the locations for the core box cropping
 # look at the four coordinates in the corepy.cropCorebox command
-core_depth = 3978 # top depth of starting corebox photo
+
 
 Root_path = os.path.dirname(os.getcwd())
 Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
 #Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
-
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
 Formation_names = '-'.join(Run_settings["Formation"]+Run_settings["Formation_2"]) # Would like to have Formation_names defined in Corebeta
+
+core_depth = Corebeta['TopOfFirstCorebox'] # top depth of starting corebox phot
 
 corepy.ImageDir(Run_settings['Lease_Name']) #sets up folder structure
 
@@ -31,7 +33,8 @@ if not os.path.exists(CoretubeFolder):
 
 listing = os.listdir(CoreBoxPhotos)
 for i in listing:
-    corepy.cropCorebox((70, 125, 740, 920), i,CoreBoxPhotos,CoreBoxPhotos_cropped) #(left, top, right,bottom)
+    corepy.cropCorebox((Corebeta['CoreBox_crop_points'][0], Corebeta['CoreBox_crop_points'][1], Corebeta['CoreBox_crop_points'][2], Corebeta['CoreBox_crop_points'][3]), i,CoreBoxPhotos,CoreBoxPhotos_cropped) 
+    #(left, top, right,bottom)
     # crop coordinates are done by trial and error
     # change the first four numbers in the list to crop correctly
 
