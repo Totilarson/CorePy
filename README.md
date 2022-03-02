@@ -16,7 +16,7 @@ CorePy is a data analytics tool designed to integrate core-based geological data
  - command line: `git clone https://github.com/Totilarson/CorePy.git` 
  - if it is necessary to delete the local clone use: 'rm -rf .git*'
 2) Navigate to the local repo //CorePy/ and inspect folders 'CoreData' and 'CorePycodes'
-3) 'pip install -r requirements.txt' this will install all the necessary dependencies
+3) Example data structure for XRF data (Public_XRF.csv), attribute data (/CoreData/CoreAttributes/<Lease_Name>/<Formation>)
 
 ```
 
@@ -31,28 +31,31 @@ Install packages with pip: -r requirements.txt
 - CoreData folder contains an example of a high reoslution XRF dataset and corebox photographs
 - Naming patterns for core box sticker location, wireline depths, and elemental concentrations are shown 
 ```
-# Settings.py
+# Open and run settings.py
 ```
 1) In //CorePy/CorePycodes open 'settings.py'
 - 'settings.py' contains variables for all the Python scripts
-- "CoreOfStudy", "Depth_model", "Formation", and "RockClassification" should match values in Public_XRF.csv datafile
+- "Lease_Name" , "Depth_model", "Formation", and "RockClassification" should match values in Public_XRF.csv datafile
 - machine learning parameters are stored here
-- 'chemocolor' is generated here. It makes formation-specific color schemes. If you add a new formation you have to add its colorscheme here 
+- 'chemocolor' is generated here. It makes formation-specific color schemes. If you add a new formation you have to add its colorscheme here
+- Run_settings.json file is created when settings.py is executed. variables are stored here
 ```
 # CoreBeta file
 ```
 - <corename>.json files are stored for each core in //CorePy/CoreData/CoreBeta
 - files provide core-specific data that is referenced in each script
 - Wireline scripts also write data to the .jsom file
+- The .json files can be editted with core specific data.
 ```
-# Attribute_merge.py
+# Open and run Attribute_merge.py
 ```
-- 
 - Merges attribute data from //CorePy/CoreData/CoreAttributes/<core name> with XRF input file
+- Merges wireline data from //CorePy/CoreData/WirelineLogs/<core name> with XRF input file
 - The files are merged based on Core-box-inch input from the XRF and attribute files
+- Wireline log data is resampled based on core XRF data spacing
 - output is a .csv file that merges XRF and attribute data
 - if no attribute data is in folder it will skip over it
-- Running Attirbute_merge.py will build additional output folders
+- Running Attribute_merge.py will build additional output folders
 ```
 # PCAexample
 ```

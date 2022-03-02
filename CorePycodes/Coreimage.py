@@ -48,7 +48,7 @@ file_names=corepy.natural_sort(os.listdir(Tubes_dir))
 
 # This section determines how many coretubes per row in the output image
 rows=math.ceil(len(file_names)/Corebeta['noOfCols'])
-chunksize=50 # number of files to be processed. might fail if folder doesnt have 100 files
+chunksize=25 # number of files to be processed. might fail if folder doesnt have 100 files
 number_chunks=math.ceil(len(file_names)/chunksize)
 
 def chunks(l, n):

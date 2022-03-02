@@ -7,6 +7,7 @@
 "noOfCols":5,
 "coretube_length":2.0,
 "ImageType":"vis",
-"CoreBox_crop_points":[50,150,750,925],
+"CoreBox_crop_points":[70,150,750,900],
 "Photo_depth":"Depth_calculated",
-"TopOfFirstCorebox":3978,"XRF_resolution":0.17}
+"TopOfFirstCorebox":3978,"XRF_resolution":0.17,
+"Attribute_plotted": ["TOC", "TON", "Quartz", "Calcite", "2_1 clay minerals"]}
