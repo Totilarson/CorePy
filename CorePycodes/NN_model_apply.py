@@ -73,7 +73,8 @@ chemo_prob=NN_model.predict_proba(X_total)
 
 # This section is used to identify the unique names of the chemofacies in training dataset and make the headings in the output csv file
 NeuralModel_TrainingDataSet = os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + Formation_names  + '_TrainingDataset.csv')
-NeuralModel_TrainingDataSet = pd.read_csv(NeuralModel_TrainingDataSet).sort_values(by=[Run_settings["Depth_model"]], ascending=False)
+#NeuralModel_TrainingDataSet = pd.read_csv(NeuralModel_TrainingDataSet).sort_values(by=[Run_settings["Depth_model"]], ascending=False)
+NeuralModel_TrainingDataSet = pd.read_csv(NeuralModel_TrainingDataSet).sort_values(by=['Depth_calculated'], ascending=False)
 Chemofacies_count=np.sort(NeuralModel_TrainingDataSet['Chemofacies_train'].unique())
 
 Prediction_matrix_headings=['Chemofacies_NN']

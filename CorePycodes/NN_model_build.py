@@ -22,7 +22,7 @@ from xgboost import plot_importance
 
 # 1) Define root path, 2) load Run_settings file for input variables
 Root_path = os.path.dirname(os.getcwd())
-Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
+#Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
 
 #loads the Corebeta .json file that provides information specific to each core
 #Corebeta are .json files for each core name. MOre information about these .json files in CorePy description
@@ -38,7 +38,7 @@ Formation_names=corepy.Formation_names(Run_settings["Formation"],Run_settings["F
 
 # Directory for stored Machine learning training datasets
 NeuralModel_TrainingDataSet = os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + Formation_names  + '_TrainingDataset.csv')
-NeuralModel_TrainingDataSet = pd.read_csv(NeuralModel_TrainingDataSet).sort_values(by=[Run_settings["Depth_model"]], ascending=False)
+NeuralModel_TrainingDataSet = pd.read_csv(NeuralModel_TrainingDataSet).sort_values(by=['Depth_calculated'], ascending=False)
 
 
 # Making training dataset for Neural model
@@ -57,7 +57,7 @@ X_test = scaler.transform(X_test)
 X_total = scaler.transform(X)
 
 # sklearn.neural_network.MLPClassifer
-scaler = StandardScaler()
+#scaler = StandardScaler()
 mlp = MLPClassifier(hidden_layer_sizes = Run_settings['NN_HiddenLayer_size'] ,random_state =  Run_settings['random_state'] ,  activation = 'relu', solver='sgd', max_iter=2000) 
 
 
@@ -94,9 +94,13 @@ outfile.close()
 
 
 ##### XGBoost model######
+
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = Run_settings['XGB_TrainingData_test_size'], random_state = Run_settings['XGB_TrainingData_random_state'])  ### move this to settings 
 
 feature_names = Run_settings["Model_elements"] # feature names
+
+
 
 
 

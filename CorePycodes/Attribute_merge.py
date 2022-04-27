@@ -17,6 +17,10 @@ import settings
 
 # Root_path, Run_settings, and Corebeta and the two .json core settings files with all input parameters
 Root_path = os.path.dirname(os.getcwd())
+
+# Run_settings and Corebeta contain teh meta data and settings information to run CorePy scripts. 
+# Corebeta: a separate .json files exists for each core and provides core-specific data
+# Run_settings is derived from settings.py and stores model and elemental parameter
 Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
 Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
 
@@ -48,13 +52,13 @@ if str(os.path.isdir(Attribute_dir)) == 'True':
     all_files = os.listdir(Attribute_dir)    
     csv_files = list(filter(lambda f: f.endswith('.csv'), all_files))
 
-    XRF_file = coredata
+    XRF_file = coredata # original XRF file that attribute fuiles will be added to
 
     Merged_file=XRF_file
     # Loop over the attribute files and merge on Core-Box-Inch
     for i in range(len(csv_files)):
         Attribute_file = pd.read_csv(os.path.join(Attribute_dir + '/' + csv_files[i]))
-        # Merging adds duplicate file names so I use these two lines to remove duplicate names
+        # Merging adds duplicate column names so I use these two lines to remove duplicate columns. So instead of pandas using _x or _y to rename columns it uses _drop
         Merged_file = pd.merge(Merged_file, Attribute_file, how='left', on=['Core', 'Box', 'Inch'],suffixes=('', '_drop'))  
         Merged_file.drop([col for col in Merged_file.columns if 'drop' in col], axis=1, inplace=True)
 
@@ -97,7 +101,7 @@ if str(os.path.isfile(LAS_file_path)) == 'True':
         x=wirelinedata[depth_column_heading]  # original wireline log depth is always called DEPT...no it is not
         #y=wirelinedata[Corebeta['WirelineLogs_NeuralModel'][i]] # wireline log attribute being cycled over
         y=wirelinedata[Corebeta['WirelineLogs'][i]] # wireline log attribute being cycled over
-        f = interp1d(x,y, bounds_error=False, fill_value=-10, kind='linear')
+        f = interp1d(x,y, bounds_error=False, fill_value=-999, kind='linear')
 
         new_data = np.array([coredata['Wireline_Depth'] , f(coredata['Wireline_Depth'] )])
         new_data=np.transpose(new_data)

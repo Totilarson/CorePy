@@ -17,15 +17,15 @@ Run_settings = {
 #RockClassification and Electrofacies are used for plotting. These are outputs in csv file from machine learning classifications
 # both XGBoost  (Chemofacies_XGB) and Neural Network (Chemofacies_NN) classifications are calculated. 
 #User can chose which to apply to figures adn subsequent calculations
-"RockClassification" : 'Chemofacies_PCA',   # Chemofacies_PCA, Chemofacies_NN, Chemofacies_XGB, and Chemofacies_train are options
+"RockClassification" : 'Chemofacies_NN',   # Chemofacies_PCA, Chemofacies_NN, Chemofacies_XGB, and Chemofacies_train are options
 "Electrofacies" : 'Electrofacies_NN', # 'Electrofacies_XGB' or 'Electrofacies_NN'
 
 # 'elements and Elements_plotted needs to be reconsidered
 # 'elements' lists all the elements used in PCA and machine learning classifications. Can be changed depending on what is available or selected
 # 'Elements_plotted' is a plotting variable. These can be changed depending on interest, but the sorting of elements does matter for plots.
-'elements' :   ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe', 'Ba', 'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga','As','Pb','Se','Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo'],
-'Elements_plotted' :  ['Ca','Al','Si', 'K', 'Mg', 'Mo','V','Ni','Cu','Sr','Mn','Cr','Ti', 'Zr'], 
-'Model_elements' :   ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe', 'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga','Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo'],
+'elements' :         ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe', 'Ba', 'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga','As','Pb','Se','Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo'],
+'Elements_plotted' :  ['Ca','Al','Si', 'K', 'Sr', 'Mo','V','Ni','Cu','Mg','Mn','Cr','Ti', 'Zr','Fe','Th','Zn','Na'], 
+'Model_elements' :   ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe',       'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga',               'Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo'],
 #'Model_elements' :   ['Al', 'Si','K', 'Ca'],
 
 # statistic variables
@@ -58,23 +58,24 @@ Run_settings = {
 'num_round' : 5,  # the number of training iterations
 
 'XGB_TrainingData_test_size' : 0.30,
-'XGB_TrainingData_random_state' :0
+'XGB_TrainingData_random_state' :0,
+
 }
 
 
 # This section creates a colorscheme in the dict file that is formation specific
 # Additional formation names can be added as the project requires
 if Run_settings['Formation'] == ['Austin Chalk']:
-    Run_settings['ColorScheme'] = [1,     2,      3,    4,     7,      5,      6,     8,     999,   9999] #Austin Chalk
+    Run_settings['ColorScheme'] = [1,     2,      3,    4,     6,      5,      8,     7,     999,   9999] #Austin Chalk
 if Run_settings['Formation'] == ['Eagle Ford']:
     Run_settings['ColorScheme'] =  [5    ,4      ,2    ,1      ,3      ,6     ,999     ,999    ,999    ,999] #Eagle Ford
 if Run_settings['Formation'] == ['Wolfcamp']:
     Run_settings['ColorScheme'] =  [1,     0,      2,    5,    6,    8,      4,     3,     9     ,7]  #Wolfcamp
 if Run_settings['Formation'] == ['Bone Spring']:    
     Run_settings['ColorScheme'] =  [0   ,1      ,4    ,3      ,2      ,8      ,7    ,5       ,6     ,9 ]  #Bone Spring
-if Run_settings['Formation'] == ['Bone Spring_Lime']:
+if Run_settings['Formation'] == ['Bone Spring Lime']:
     Run_settings['ColorScheme'] = [0   ,1      ,4    ,3      ,2      ,7      ,6    ,999       ,5     ,8 ]  #Bone Spring_Lime
-if Run_settings['Formation'] == ['Bone Spring_Lime']:
+if Run_settings['Formation'] == ['Bone Spring Lime']:
     Run_settings['ColorScheme'] = [0   ,1      ,4    ,3      ,2      ,7      ,6    ,999       ,5     ,8 ]  #Bone Spring_Lime
 if Run_settings['Formation'] == ['Public Formation']:
     Run_settings['ColorScheme'] = [0   ,1      ,4    ,3      ,2      ,7      ,6    ,999       ,5     ,8 ]  #Public Formation
@@ -82,6 +83,7 @@ if Run_settings['Formation'] == ['Public Formation']:
 # This is an additional function that is not applied yet. Can be expanded to included FOrmation_2, but not used yet
 # 
 Run_settings['Formation_names'] = str(Run_settings['Formation'])
+
 
 
 # This section creates a json file for ColorScheme called 'chemocolor' that is applied across all plots

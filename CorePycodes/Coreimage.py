@@ -7,6 +7,7 @@ import pickle
 import math
 import corepytools as corepy
 import json
+import pandas as pd
 
 
 # Coreimage.py takes core image files that are depth registered LH_6732_6735.png, for example
@@ -40,6 +41,9 @@ dirName=corepy.RootDir(Run_settings["Lease_Name"], Formation_names)
 # Import datafiles
 # Coredata for XRF files and core tube photos. Directories were created by corepytools
 coredata = corepy.OutputXRF(Run_settings["Lease_Name"],Formation_names)
+
+#coredata=pd.read_csv((os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + Formation_names + '_TrainingDataset.csv')))
+
 Tubes_dir = os.path.join(Root_path +   str('/CoreData/CoreTubes') + '/' + Run_settings["Lease_Name"] + '_tubes_vis')
 
 #makes a list of the file names and sorts them top to bottom so they are called correctly in the loop
@@ -48,7 +52,7 @@ file_names=corepy.natural_sort(os.listdir(Tubes_dir))
 
 # This section determines how many coretubes per row in the output image
 rows=math.ceil(len(file_names)/Corebeta['noOfCols'])
-chunksize=25 # number of files to be processed. might fail if folder doesnt have 100 files
+chunksize=60 # number of files to be processed. might fail if folder doesnt have 100 files
 number_chunks=math.ceil(len(file_names)/chunksize)
 
 def chunks(l, n):
@@ -101,6 +105,6 @@ for h in range(len(a)):
                 axs[i,j].add_patch(rect) # Add the patch to the Axes
 
     plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names +  '_' + str(photo_top) + '.png'),dpi = 300)
-    #plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names +  '_' + str(photo_top) + '.eps'),format='eps',dpi = 600)
+    plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names +  '_' + str(photo_top) + '.eps'),format='eps',dpi = 600)
     
 #plt.savefig(os.path.join(dirName + '/' + Run_settings["CoreOfStudy"] + '_' + Formation_names +  '_' + str(photo_top) + '.png'),dpi = 300)

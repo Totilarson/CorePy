@@ -52,6 +52,41 @@ plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Form
 plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_AttributeBoxplot' + '.eps'),format='eps',dpi = 600)
 
 
+fig, ((ax1, ax2,), (ax3, ax4), (ax5, ax6)) = plt.subplots(nrows=3, ncols=2, sharex=False, sharey=False, figsize=(10,15))
+
+sns.scatterplot(x=attribute_plotted[0], y=attribute_plotted[2], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax1, edgecolor='black')
+ax1.legend([])
+
+sns.scatterplot(x=attribute_plotted[1], y=attribute_plotted[2], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax2, edgecolor='black')
+ax2.legend([])
+
+sns.scatterplot(x=attribute_plotted[3], y=attribute_plotted[0], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax3, edgecolor='black')
+ax3.legend([])
+ax3.set(xscale="log")
+ax3.grid(which = 'minor')
+ax3.grid(which = 'major')
+
+sns.scatterplot(x=attribute_plotted[3], y=attribute_plotted[1], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax4, edgecolor='black')
+ax4.legend([])
+ax4.set(xscale="log")
+ax4.grid(which = 'minor')
+ax4.grid(which = 'major')
+#sns.scatterplot(x=Run_settings["Elements_plotted"][1], y=Run_settings["Elements_plotted"][7], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax5, edgecolor='black')
+#ax5.legend([])
+
+#sns.scatterplot(x=Run_settings["Elements_plotted"][0], y=Run_settings["Elements_plotted"][9], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax6, edgecolor='black')
+#ax6.legend([])
+
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_AttributeCrossPlot_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_AttributeCrossPlot_' + Run_settings["RockClassification"] + '.eps'),format='eps',dpi = 600)
+
+
+
+
+
+
+
+
 # This section defines descriptive statistics for each chemofacies. Median, Q3, and Q1
 Median_calc=attributedata.groupby(Run_settings["RockClassification"]).quantile(0.50)[attribute_plotted]
 Q3_calc=attributedata.groupby(Run_settings["RockClassification"]).quantile(0.75)[attribute_plotted]
@@ -85,13 +120,20 @@ fig, axs = plt.subplots(nrows=1, ncols=n, figsize=(15,15),sharey=True)
 
 coredata = Attribute_corelog # cheating here. Should rename throughout
 
+Depth_figure_top =  min(Attribute_corelog[Run_settings["Depth_model"]])
+Depth_figure_bottom = max(Attribute_corelog[Run_settings["Depth_model"]])
+
+
+#Depth_figure_top = 10820
+#Depth_figure_bottom = 10892
+
 plt.subplot(1, n, 1)
 for i in range(len(Attribute_corelog)):
     Q = [0, 0, coredata[Run_settings["RockClassification"]][i]+2, coredata[Run_settings["RockClassification"]][i]+2]
     Z = [coredata[Run_settings["Depth_model"]][i]+Corebeta["XRF_resolution"], coredata[Run_settings["Depth_model"]][i], coredata[Run_settings["Depth_model"]][i], coredata[Run_settings["Depth_model"]][i]+Corebeta["XRF_resolution"]]
        
     plt.fill(Q, Z,c=chemofacies_color[coredata[Run_settings["RockClassification"]][i]], linewidth=0.0)
-    plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
+    plt.ylim(Depth_figure_bottom,Depth_figure_top)
     plt.xlim((0,6))
     plt.xlabel("RockClass", fontsize=18)
     plt.ylabel(Run_settings["Depth_model"], fontsize=18)
@@ -100,110 +142,110 @@ for i in range(len(Attribute_corelog)):
     
     
 plt.subplot(1, n, 2)
-y_av = corepy.movingaverage(Attribute_corelog[Run_settings["Elements_plotted"][2]]/Attribute_corelog[Run_settings["Elements_plotted"][1]], Run_settings["moving_avg"])
+y_av = corepy.movingaverage(Attribute_corelog[Run_settings["Elements_plotted"][10]], Run_settings["moving_avg"])
 axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue')
 #plt.xlim([0,10])
-plt.ylim((max(Attribute_corelog[Run_settings["Depth_model"]]),min(Attribute_corelog[Run_settings["Depth_model"]])))
-plt.yticks([])
+plt.ylim(Depth_figure_bottom,Depth_figure_top)
+#plt.yticks([])
 plt.xticks(fontsize=14)
 #plt.xscale('log')
 plt.xlabel(Run_settings["Elements_plotted"][3], fontsize=18)
-plt.xlabel('Si/Al', fontsize=18)
+plt.xlabel(Run_settings["Elements_plotted"][10], fontsize=18)
 
 plt.subplot(1,n, 3)
-y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][6]]/coredata[Run_settings["Elements_plotted"][2]], Run_settings["moving_avg"])
+y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][7]], Run_settings["moving_avg"])
 axs=plt.plot(y_av,coredata[Run_settings["Depth_model"]], color='blue')
 #plt.xlim([0,0.02])
-plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
-plt.yticks([])
+plt.ylim(Depth_figure_bottom,Depth_figure_top)
+#plt.yticks([])
 plt.xticks(fontsize=14)
 #plt.xscale('log')
 plt.xlabel(Run_settings["Elements_plotted"][2], fontsize=18)
-plt.xlabel('Mo/Al', fontsize=18)
+plt.xlabel(Run_settings["Elements_plotted"][7], fontsize=18)
 
 
 plt.subplot(1, n, 4)
-y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][8]]/coredata[Run_settings["Elements_plotted"][2]], Run_settings["moving_avg"])
+y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][4]], Run_settings["moving_avg"])
 axs=plt.plot(y_av,coredata[Run_settings["Depth_model"]], color='blue')
-plt.ylim((max(coredata[Run_settings["Depth_model"]]),min(coredata[Run_settings["Depth_model"]])))
+plt.ylim(Depth_figure_bottom,Depth_figure_top)
 #plt.xlim([0,10])
-plt.yticks([])
+#plt.yticks([])
 plt.xticks(fontsize=14)
 #plt.xscale('log')
 plt.xlabel(Run_settings["Elements_plotted"][1], fontsize=18)
-plt.xlabel('Ni/Al', fontsize=18)
+plt.xlabel(Run_settings["Elements_plotted"][4], fontsize=18)
  
 plt.subplot(1,n,5)
 y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[0]  + '_median'))], Run_settings["moving_avg"])
 axs = sns.scatterplot(x=attribute_plotted[0] , y=Run_settings["Depth_model"], hue=Run_settings["RockClassification"],s=150, edgecolor='black',data = attributedata,palette=chemofacies_color) 
 axs.legend([])
-axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
+#axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
 
 #plt.xlim([0,30])
-plt.ylim((max(Attribute_corelog[Run_settings["Depth_model"]]),min(Attribute_corelog[Run_settings["Depth_model"]])))
-plt.yticks([])
+plt.ylim(Depth_figure_bottom,Depth_figure_top)
+#plt.yticks([])
 plt.xticks(fontsize=14)
 plt.xlabel(attribute_plotted[0], fontsize=18)
-plt.ylabel('')
+#plt.ylabel('')
 
 
 plt.subplot(1,n,6)
 y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[1]  + '_median'))], Run_settings["moving_avg"])
 axs = sns.scatterplot(x=attribute_plotted[1] , y=Run_settings["Depth_model"], edgecolor='black',hue=Run_settings["RockClassification"], s=150,data = attributedata,palette=chemofacies_color) 
 axs.legend([])
-axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
+#axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
 
 
-plt.xlim([0,30])
-plt.ylim((max(Attribute_corelog[Run_settings["Depth_model"]]),min(Attribute_corelog[Run_settings["Depth_model"]])))
-plt.yticks([])
+#plt.xlim([0,40])
+plt.ylim(Depth_figure_bottom,Depth_figure_top)
+#plt.yticks([])
 plt.xticks(fontsize=14)
 plt.xlabel(attribute_plotted[1], fontsize=18)
-plt.ylabel('')
+#plt.ylabel('')
 
 
-plt.subplot(1,n,7)
+plt.subplot(1,n,8)
 y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[2]  + '_median'))], Run_settings["moving_avg"])
 
-axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
+#axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
 axs = sns.scatterplot(x=attribute_plotted[2] , y=Run_settings["Depth_model"],edgecolor='black', hue=Run_settings["RockClassification"],s=150, data = attributedata,palette=chemofacies_color) 
 axs.legend([])
 
 #plt.xlim([50,100])
-plt.ylim((max(Attribute_corelog[Run_settings["Depth_model"]]),min(Attribute_corelog[Run_settings["Depth_model"]])))
-plt.yticks([])
+plt.ylim(Depth_figure_bottom,Depth_figure_top)
+#plt.yticks([])
 plt.xticks(fontsize=14)
 plt.xlabel(attribute_plotted[2], fontsize=18)
-plt.ylabel('')
+#plt.ylabel('')
 
 
-plt.subplot(1,n,8)
+plt.subplot(1,n,7)
 y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[3]  + '_median'))], Run_settings["moving_avg"])
 
 axs = sns.scatterplot(x=attribute_plotted[3] , y=Run_settings["Depth_model"],edgecolor='black', hue=Run_settings["RockClassification"],s=150, data = attributedata,palette=chemofacies_color) 
 axs.legend([])
-axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
+#axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
 
 #plt.xlim([0,3])
-plt.ylim((max(Attribute_corelog[Run_settings["Depth_model"]]),min(Attribute_corelog[Run_settings["Depth_model"]])))
-plt.yticks([])
+plt.ylim(Depth_figure_bottom,Depth_figure_top)
+#plt.yticks([])
 plt.xticks(fontsize=14)
 plt.xlabel(attribute_plotted[3], fontsize=18)
-plt.ylabel('')
+#plt.ylabel('')
 
 plt.subplot(1,n,9)
 y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[4]  + '_median'))], Run_settings["moving_avg"])
 
 axs = sns.scatterplot(x=attribute_plotted[4] , y=Run_settings["Depth_model"],edgecolor='black', hue=Run_settings["RockClassification"],s=150, data = attributedata,palette=chemofacies_color) 
 axs.legend([])
-axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
+#axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
 
 #plt.xlim([0,3])
-plt.ylim((max(Attribute_corelog[Run_settings["Depth_model"]]),min(Attribute_corelog[Run_settings["Depth_model"]])))
-plt.yticks([])
+plt.ylim(Depth_figure_bottom,Depth_figure_top)
+#plt.yticks([])
 plt.xticks(fontsize=14)
 plt.xlabel(attribute_plotted[4], fontsize=18)
-plt.ylabel('')
+#plt.ylabel('')
 
 plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_Attributelog' + '.png'),dpi = 300)
 plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_Attributelog' + '.eps'),format='eps',dpi = 600)
