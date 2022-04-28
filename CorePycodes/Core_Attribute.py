@@ -35,6 +35,10 @@ attributedata=pd.read_csv(attributeimport)
 attribute_plotted= Corebeta['Attribute_plotted']
 Elements_plotted=Run_settings["Elements_plotted"]
 
+
+
+
+
 fig, (ax1,ax2,ax3,ax4,ax5) = plt.subplots(ncols=5, figsize=(30,5))
 sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[0], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax1,dodge =False,width=0.75)
 sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[1], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax2,dodge =False,width=0.75)
@@ -249,3 +253,19 @@ plt.xlabel(attribute_plotted[4], fontsize=18)
 
 plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_Attributelog' + '.png'),dpi = 300)
 plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_Attributelog' + '.eps'),format='eps',dpi = 600)
+
+fig, (ax1,ax2,ax3,ax4,ax5) = plt.subplots(ncols=5, figsize=(30,5))
+sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[0], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax1,dodge =False,width=0.75)
+sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[1], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax2,dodge =False,width=0.75)
+sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[2], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax3,dodge =False,width=0.75)
+sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[3], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax4,dodge =False,width=0.75)
+sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[4], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax5,dodge =False,width=0.75)
+
+ax1.legend([])
+ax2.legend([])
+ax3.legend([])
+ax4.legend([])
+ax5.legend([])
+
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_AttributeBoxplot' + '.png'),dpi = 300)
+plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_AttributeBoxplot' + '.eps'),format='eps',dpi = 600)

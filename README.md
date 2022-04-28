@@ -8,37 +8,48 @@ CorePy is a data analytics tool designed to integrate core-based geological data
 - CorePy consists of individual scripts and Pip install python package called corepytools
 ```
 
-# Installation
+# Helpful notes
 ```
 1) Additional notes and tips about GitHub and steps I use are here: https://github.com/Totilarson/MyCheatSheet 
-- fork the CorePy repo to your github account
-- make a local clone:
+```
+
+# Installation
+```
+1) fork the CorePy repo to your github account
+2) command line: navigate to the folder you want to install CorePy
+3) make a local clone:
  - command line: `git clone https://github.com/Totilarson/CorePy.git` 
  - if it is necessary to delete the local clone use: 'rm -rf .git*'
-2) Navigate to the local repo //CorePy/ and inspect folders 'CoreData' and 'CorePycodes'
-3) Example data structure for XRF data (Public_XRF.csv), attribute data (/CoreData/CoreAttributes/<Lease_Name>/<Formation>)
-
 ```
 
 # Package Dependencies
 ```
-Install packages with pip: -r requirements.txt
+pip install -r requirements.txt
 
 ```
 
-# Data examples
+# Getting familiar with CorePy data structures
 ```
-- CoreData folder contains an example of a high reoslution XRF dataset and corebox photographs
+1) Inspect //CorePy/Data
+- CoreData folder contains folders to store XRF, attribute, and beta data specific to each core.
+- Open the Public_XRF file and undertand that each XRF data point is depth referenced using Core-Box-inch sticker references
+- Open CoreAttributes folder. The folder 'Public' is the core name and in that folder are _TOC, _UCS, and _XRD attribute files
+- All attribute files are linked with the XRF file using core-box-inch referencing
 - Naming patterns for core box sticker location, wireline depths, and elemental concentrations are shown 
+2) Inpect /Coredata/Corebeta folder
+- Public.json contains core-specific data that is accessed by CorePy scripts. Wireline logs are also written to this files
+
 ```
-# Open and run settings.py
+# Getting familiar with CorePycodes
 ```
-1) In //CorePy/CorePycodes open 'settings.py'
+1) There are a series of codes in Corepy codes that have specific functions. The general path is to select the core in settings.py, then run Attribute_merge.py to build integrated datasets
+2) Settings.py
 - 'settings.py' contains variables for all the Python scripts
-- "Lease_Name" , "Depth_model", "Formation", and "RockClassification" should match values in Public_XRF.csv datafile
-- machine learning parameters are stored here
+- "Lease_Name" , "Depth_model", "Formation", and "RockClassification" are the primary values that are changed by the user
+- machine learning parameters are stored in settings.py
 - 'chemocolor' is generated here. It makes formation-specific color schemes. If you add a new formation you have to add its colorscheme here
 - Run_settings.json file is created when settings.py is executed. variables are stored here
+- Elements: the complete list of elements analyzed by XRF. Elements_plotted: a specific order of elements for plotting. Model_elements: elements included in machine learning classification
 ```
 # CoreBeta file
 ```
@@ -60,8 +71,8 @@ Install packages with pip: -r requirements.txt
 # PCAexample
 ```
 - Running PCAexample.py will run PCA-Kmeans.
-- Output files are in output folder. CSV file includes additional columns of data
-- Settings.py writes a Run_settings.json file that is accessed by other scripts
+- Output files are in output folder. CSV file includes additional columns of data with colun titles Chemofacies_PCA
+- the number of K-means clusters is selected in the settings.py file
 - Machine learning parameters for Neural model and XGBoost clustering have been added to settings
 ```
 
@@ -71,37 +82,37 @@ Install packages with pip: -r requirements.txt
 - An example training dataset is included in //CorePy/CoreData/CoreNeuralModel
 - model parameters are output _XGB and __NN files in //CorePy/CoreData/CoreNeuralModel
 - output .csv file has additional classification columns
+- machine learning parameters are stored in settings.py
 
 ```
-
-# Corebox_Crop.py
-```
-- This code does take trial and error to get the bounding parameters correct
-- line 38 "corepy.cropCorebox((70, 125, 740, 920)" those four values are to be adjusted
-- line 17: core_depth = 3978. This is adjusted to match core box photos
-- Corebox photos are unique and it takes time to get this part correct
-```
-
 # CorePy_plotting.py 
 ```
-1) provides additional elemenal plotting
+1) Elemental plots and depth chemostratigraphy plots
  - elemental cross plots. Elements are selected from Run_settings['Elements_plotted']
  - elements plotted with respect to depth: Depth model selected by: Run_settings['Depth_model']
  - element box plots. majors and trace
  - pie chart of chemofacies abundance
  - Depth referenced chemostrat column output in a folder //CorePy/CoreOutput/CrossSection/
-``` 
+```
 
-
+# Corebox_Crop.py
+```
+- This code does take trial and error to get the bounding parameters correct
+- line 36 Corebeta['CoreBox_crop_points'] are stored for each core and need to be adjusted
+- line 17: core_depth = 3978. This is adjusted to match core box photos. Problem with this is that corebox depth gaps screw up the numbering
+- Corebox photos are unique and it takes time to get this part correct
+- the output are coretubes that are depth referenced
+```
 # Coreimage.py
 ```
 - Designed to overlay chemofacies results on corebox photographs
 - Requires coreboxphotographs be converted to 'coretubes'
 - Coretubes are created from Corebox_Crop.py
 - Coretubes are depth registered and in folder //CorePy/CoreData/CoreTubes/
+- 'Every core is unique'....typically Depth_calculated is used to identify the position of the XRF sticker, but there are issues specific to each core
+- the primary problem is when a core box overlaps another corebox 
 
 ```
-
 
 # Core_attribute.py
 ```
