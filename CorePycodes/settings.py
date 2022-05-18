@@ -26,11 +26,12 @@ Run_settings = {
 'elements' :         ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe', 'Ba', 'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga','As','Pb','Se','Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo'],
 'Elements_plotted' :  ['Ca','Al','Si', 'K', 'Sr', 'Mo','V','Ni','Cu','Mg','Mn','Cr','Ti', 'Zr','Fe','Th','Zn','Na'], 
 'Model_elements' :   ['Na', 'Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe',       'V', 'Cr', 'Co', 'Ni', 'Cu', 'Zn', 'Ga',               'Th', 'Rb', 'U', 'Sr', 'Y', 'Zr', 'Nb', 'Mo'],
-#'Model_elements' :   ['Al', 'Si','K', 'Ca'],
+
+#'Model_elements' :   ['Mg', 'Al', 'Si', 'P', 'S', 'K', 'Ca', 'Ti','Mn', 'Fe',            'V', 'Cr',        'Ni', 'Cu', 'Zn',                                 'U', 'Sr',      'Zr'            ], #BPX
 
 # statistic variables
 'outlier_multiplier' : 4,   # outlier_multiplier refers to how many standard deviations away from mean are included as outliers
-'clusters' : 4,             # clusters refers to the number of K-means clusters to be calculated
+'clusters' : 5,             # clusters refers to the number of K-means clusters to be calculated
 'Principal_components' : 4, # Principal_components refers to the number (n) of principal components applied to K-means clustering algorithm (zero through n)
 'PC1' :  0,       # For plotting purposes PC1 and PC2 are used to plot PCA results and also add two columns onto the output .csv datafile
 'PC2' :  1,       # For plotting purposes PC1 and PC2 are used to plot PCA results and also add two columns onto the output .csv datafile
@@ -68,9 +69,12 @@ Run_settings = {
 if Run_settings['Formation'] == ['Austin Chalk']:
     Run_settings['ColorScheme'] = [1,     2,      3,    4,     6,      5,      8,     7,     999,   9999] #Austin Chalk
 if Run_settings['Formation'] == ['Eagle Ford']:
-    Run_settings['ColorScheme'] =  [5    ,4      ,2    ,1      ,3      ,6     ,999     ,999    ,999    ,999] #Eagle Ford
+    Run_settings['ColorScheme'] =  [5    ,4      ,2    ,1      ,3      ,6     ,999     ,8    ,7    ,9] #Eagle Ford
+    Run_settings['Elements_Depth'] = ['Ca','Sr','Mn', 'Al', 'Mo', 'Ni'] # Eagle Ford
+
 if Run_settings['Formation'] == ['Wolfcamp']:
     Run_settings['ColorScheme'] =  [1,     0,      2,    5,    6,    8,      4,     3,     9     ,7]  #Wolfcamp
+    Run_settings['Elements_Depth'] = ['Ca','Sr','Mn', 'Al', 'Mo', 'Ni'] # Wolfcamp
 if Run_settings['Formation'] == ['Bone Spring']:    
     Run_settings['ColorScheme'] =  [0   ,1      ,4    ,3      ,2      ,8      ,7    ,5       ,6     ,9 ]  #Bone Spring
 if Run_settings['Formation'] == ['Bone Spring Lime']:
@@ -79,6 +83,10 @@ if Run_settings['Formation'] == ['Bone Spring Lime']:
     Run_settings['ColorScheme'] = [0   ,1      ,4    ,3      ,2      ,7      ,6    ,999       ,5     ,8 ]  #Bone Spring_Lime
 if Run_settings['Formation'] == ['Public Formation']:
     Run_settings['ColorScheme'] = [0   ,1      ,4    ,3      ,2      ,7      ,6    ,999       ,5     ,8 ]  #Public Formation
+    Run_settings['Elements_Depth'] = ['Ca','Sr','Mn', 'Al', 'Mo', 'Ni'] # Public Formation
+if Run_settings['Formation'] == ['Spraberry']:
+    Run_settings['ColorScheme'] = [1   ,2      ,3    ,4      ,5      ,6      ,7    ,8       ,9     ,10 ]  #Spraberry Formation
+    Run_settings['Elements_Depth'] = ['Ca','Sr','Mn', 'Al', 'Mo', 'Ni'] # Wolfcamp
 
 # This is an additional function that is not applied yet. Can be expanded to included FOrmation_2, but not used yet
 # 

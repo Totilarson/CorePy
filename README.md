@@ -38,6 +38,7 @@ pip install -r requirements.txt
 - Naming patterns for core box sticker location, wireline depths, and elemental concentrations are shown 
 2) Inpect /Coredata/Corebeta folder
 - Public.json contains core-specific data that is accessed by CorePy scripts. Wireline logs are also written to this files
+- several settings have been shifted to the Public.json file, and this will become the repository for formation tops
 
 ```
 # Getting familiar with CorePycodes
@@ -50,6 +51,7 @@ pip install -r requirements.txt
 - 'chemocolor' is generated here. It makes formation-specific color schemes. If you add a new formation you have to add its colorscheme here
 - Run_settings.json file is created when settings.py is executed. variables are stored here
 - Elements: the complete list of elements analyzed by XRF. Elements_plotted: a specific order of elements for plotting. Model_elements: elements included in machine learning classification
+- Run_settings['Elements_Depth'] was added and is formation-specific. Through time, there are key elements for each formation and I wanted an easy place to store them
 ```
 # CoreBeta file
 ```
@@ -98,8 +100,9 @@ pip install -r requirements.txt
 # Corebox_Crop.py
 ```
 - This code does take trial and error to get the bounding parameters correct
-- line 36 Corebeta['CoreBox_crop_points'] are stored for each core and need to be adjusted
-- line 17: core_depth = 3978. This is adjusted to match core box photos. Problem with this is that corebox depth gaps screw up the numbering
+- line 37 Corebeta['CoreBox_crop_points'] are stored for each core in the Corebeta .json file. They need to be adjusted depending on the core box photos
+- Core depths are collected from the file name. The file name structure is: PublicCore_3978.jpg where 3978 refers to the top depth of the box.
+- top and bottom depths for each core tube are calculated based on the box top depth, core tube length, and number of tubes in a box. This data is stored in the corebeta .json file
 - Corebox photos are unique and it takes time to get this part correct
 - the output are coretubes that are depth referenced
 ```

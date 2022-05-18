@@ -8,7 +8,7 @@ import json
 import settings
 
 # PCAexample.py is a Python script that collects input data, builds folder structure, runs PCA and Kmeans cluster analysis
-# File dependencies: 1) are a_XRF.csv core data and T5iLOD.csv file in /Coredata/COreXRF, 2)  settings.py, and 3) .json files
+# File dependencies: 1) are a_XRF.csv core data and T5iLOD.csv file in /Coredata/CoreXRF, 2)  settings.py, and 3) .json files
 # Two .json files: 1) names after core of study, and 2) chemocolor.json
 # outputs: a folder CoreOutput/CoreName/Formation, a summary plot, and a csv file with columns added to input csv file
 # outliers are identified (csv column), values are replaced with detection limits, Kmeans cluster are identified (csv column), PCA1 and PCA2 values are added
@@ -104,7 +104,7 @@ for i in range(n):
 
 # high resolution (.eps) and lower resolution (.png) files are created
 plt.savefig(os.path.join(dirName + '/' + Run_settings['Lease_Name'] + '_' + Formation_names + '_PCA' + '.png'),dpi = 300)
-plt.savefig(os.path.join(dirName + '/' + Run_settings['Lease_Name'] + '_' + Formation_names + '_PCA' + '.eps'), format = 'eps',dpi = 600)
+#plt.savefig(os.path.join(dirName + '/' + Run_settings['Lease_Name'] + '_' + Formation_names + '_PCA' + '.eps'), format = 'eps',dpi = 600)
 
 # Outlier and no_outlier dataframes are appended and written as .csv file and saved in output folder
 coredata=corepy.WriteCSV(coredata_no_outliers,coredata_outliers,dirName,Run_settings['Lease_Name'],Formation_names,Run_settings["Depth_model"])

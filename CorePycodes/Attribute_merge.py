@@ -2,7 +2,6 @@ import os
 import pandas as pd
 import json
 import corepytools as corepy
-#import sys
 import lasio
 from scipy.interpolate import interp1d
 import numpy as np
@@ -36,7 +35,7 @@ corepy.MakeXRFdf(Run_settings['Lease_Name'],Run_settings["elements"],Run_setting
 coredata=corepy.MakeXRFdf(Run_settings['Lease_Name'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
 
 # added this to replace all NaN with -9999
-coredata[Run_settings['elements']] = coredata[Run_settings['elements']].fillna(-999)
+coredata[Run_settings['elements']] = coredata[Run_settings['elements']].fillna(-999) # change to -999.25 to make LAS 2.0 compliant
 
 # write .csv file here  in case there is no attribute data
 coredata.to_csv (os.path.join(dirName + '/' +  Run_settings["Lease_Name"] + '_' + Formation_names + '.csv'))
@@ -110,5 +109,4 @@ if str(os.path.isfile(LAS_file_path)) == 'True':
 
     CoreWirelinedata = (pd.merge(coredata, df, on='Wireline_Depth')) # merge original coredata XRF file with new wireline log values
     CoreWirelinedata.to_csv (os.path.join(dirName + '/' +  Run_settings['Lease_Name'] + '_' + Formation_names + '.csv'))
-    
     

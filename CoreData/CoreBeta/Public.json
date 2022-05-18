@@ -1,9 +1,10 @@
 {"Lease_Name":"Public","Lease":"Public core No. 1",
 "corenameAbrev":null,"API":-999,"State":"Texas","County":"Public","noOfCols":5,
 "coretube_length":2.0,
+"corenameAbrev": "PC", 
 "ImageType":"vis",
-"CoreBox_crop_points":null,
-"Photo_depth":"Depth_calculated",
-"TopOfFirstCorebox":null,
+"CoreBox_crop_points": [75, 150, 750, 925], 
+ "coretube_length": 2.0,
+"Photo_depth": "Depth_calculated", 
 "XRF_resolution":0.166666,
 "Attribute_plotted": ["TOC", "Illite/Mica", "Quartz", "Calcite", "Average_UCS_MPa"]}
