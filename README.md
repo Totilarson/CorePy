@@ -126,6 +126,12 @@ pip install -r requirements.txt
 - It is necessasry to add "Attribute_plotted" to the core .json file
 ```
 
+# Using IrfanView to crop, resize, and batch rename files
+```
+- download IrfanView https://www.irfanview.com/
+- rotate images: Image -> Custom/Fine rotation. Adjust angle until left side of box is vertical. 'OK'. File -> Save (Original Folder) -> 'Save'
+- cropping photos: Edit -> Create custom crop selection -> "Save and draw on image"...move box crop to desired cropping. Edit -> Crop Selection (cut out) -> Save Original Folder
+
 ## About the authors
 
 CorePy is being developed by Toti Larson at the University of Texas at Austin, Bureau of Economic Geology, Mudrocks Systems Research Laboratory (MSRL) research consortium.
