@@ -129,8 +129,12 @@ pip install -r requirements.txt
 # Using IrfanView to crop, resize, and batch rename files
 ```
 - download IrfanView https://www.irfanview.com/
-- rotate images: Image -> Custom/Fine rotation. Adjust angle until left side of box is vertical. 'OK'. File -> Save (Original Folder) -> 'Save'
-- cropping photos: Edit -> Create custom crop selection -> "Save and draw on image"...move box crop to desired cropping. Edit -> Crop Selection (cut out) -> Save Original Folder
+- rotate images: Image -> Custom/Fine rotation. Adjust angle until left side of box is vertical. 
+  'OK'. File -> Save (Original Folder) -> 'Save'
+- cropping photos: Edit -> Create custom crop selection -> "Save and draw on image"...move box 
+  crop to desired cropping. Edit -> Crop Selection (cut out) -> Save Original Folder
+```
+
 
 ## About the authors
 
