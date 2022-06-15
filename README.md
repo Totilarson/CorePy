@@ -133,6 +133,14 @@ pip install -r requirements.txt
   'OK'. File -> Save (Original Folder) -> 'Save'
 - cropping photos: Edit -> Create custom crop selection -> "Save and draw on image"...move box 
   crop to desired cropping. Edit -> Crop Selection (cut out) -> Save Original Folder
+- cropping photos (2) -> manually click on each photo to crop. Faster this way and you can visualize
+  if teh core photo needs to be rotated.
+- Crop photo notes -> the goal is to be consistent. Having some of teh cardboard box around the photo
+  is OK    
+  Batch Rename: File -> Batch conversion/rename -> batch rename -> Batch rename settings (options) -> 
+  Name pattern: R1_#####_#####, starting counter: 10500. increment: 12, where 12 is the length of the core box.
+  Add all files -> Sort files: "by name, ascending natural"
+  Start batch : I put them in a separate file so nothing gets deleted
 ```
 
 
