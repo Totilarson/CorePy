@@ -43,8 +43,14 @@ coredata = corepy.OutputXRF(Run_settings["Lease_Name"],Formation_names)
 
 # Remove_outliers and Include_outliers are defined in corepytools are return two dataframes: coredata_no_outliers and coredata_outliers
 # This is important to remove outliers for PCA, and then adding back the outliers (labeled as outliers) to the final output csv file
-coredata_no_outliers=corepy.Remove_outliers(coredata)
-coredata_outliers=corepy.Include_outliers(coredata)
+#coredata_no_outliers =  corepy.Remove_outliers(coredata)
+#coredata_outliers =  corepy.Include_outliers(coredata)
+
+coredata_no_outliers = coredata.loc[coredata['Outliers'] == False]
+coredata_outliers = coredata.loc[coredata['Outliers'] == True]
+
+
+
 
 # PCA_analysis(coredata_no_outliers,elements) defined in corepytools
 # x_new is a dataframe of PCA results
@@ -88,7 +94,7 @@ scalex = 1.0/(xs.max() - xs.min())
 scaley = 1.0/(ys.max() - ys.min())
 
 
-sns.scatterplot(coredata_no_outliers.PCA1*scalex, coredata_no_outliers.PCA2*scaley, hue=coredata_no_outliers.Chemofacies_PCA, s=30,palette=chemofacies_color,edgecolor='black', zorder=1, legend=False)
+sns.scatterplot(coredata_no_outliers.PCA1*scalex, coredata_no_outliers.PCA2*scaley, hue=coredata_no_outliers.Chemofacies_PCA, s=30,palette='deep',edgecolor='black', zorder=1, legend=False)
 
 n = pca_vectors.shape[0]
 for i in range(n):

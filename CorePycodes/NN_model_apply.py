@@ -19,7 +19,7 @@ Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_sett
 
 #loads the Corebeta .json file that provides information specific to each core
 #Corebeta are .json files for each core name. MOre information about these .json files in CorePy description
-#Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
+Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
 
 # Formation_names is an expansion idea to select sub-Formations
 # Creates a str variable to select Formation-specific rows from csv input file. 
@@ -33,6 +33,7 @@ dirName=corepy.RootDir(Run_settings["Lease_Name"], Formation_names)
 # Data input - directs to core XRF datafile generated in PCAexample
 coredata = corepy.OutputXRF(Run_settings["Lease_Name"],Formation_names)
 
+
 ## This is if you want to run the neural model on the attribute data file
 ## Have to uncomment the #coredata line 
 Attribute_file = os.path.join(Root_path + '/CoreData/CoreAttributes/' + Run_settings['Lease_Name'] + '/' + Run_settings['Lease_Name'] +'_Attribute.csv') 
@@ -41,6 +42,9 @@ Attribute_file = os.path.join(Root_path + '/CoreData/CoreAttributes/' + Run_sett
 
 # to prevent duplicating column names, these column names are dropped 
 coredata = coredata.drop(columns=['Chemofacies_train', 'Chemofacies_NN', 'Chemofacies_XGB'],errors='ignore')
+
+#coredata_nosulfur = coredata[coredata['S_contamination']==False]
+#coredata_sulfur = coredata[coredata['S_contamination']==True]
 
 # Loads machine learning files generated from NN_model_build
 
@@ -51,9 +55,9 @@ infile = open(NN_file,'rb')
 NN_model= pickle.load(infile)
 infile.close()
 
-infile = open(XGB_file,'rb')
-XGB_model= pickle.load(infile)
-infile.close()
+#infile = open(XGB_file,'rb')
+#XGB_model= pickle.load(infile)
+#infile.close()
 
 
 # Machine learning section
@@ -92,20 +96,53 @@ Predicted_chemofacies.columns = ["Chemofacies_NN"]
 
 ##### XGB Boost model ######
 
-X_XGB = xgb.DMatrix(coredata[Run_settings["Model_elements"]])
-XGB_predict=XGB_model.predict(X_XGB) 
-y_pred_XGB = np.asarray([np.argmax(line) for line in XGB_predict]) # an array of the predictions for each sample (largest value)
-y_pred_XGB = pd.DataFrame(y_pred_XGB)
-y_pred_XGB.columns = ['Chemofacies_XGB']
+#X_XGB = xgb.DMatrix(coredata[Run_settings["Model_elements"]])
+#XGB_predict=XGB_model.predict(X_XGB) 
+#y_pred_XGB = np.asarray([np.argmax(line) for line in XGB_predict]) # an array of the predictions for each sample (largest value)
+#y_pred_XGB = pd.DataFrame(y_pred_XGB)
+#y_pred_XGB.columns = ['Chemofacies_XGB']
 
 
 # Adds 'Predicted_chemofacies' dataframe to coredata, then adds XGB predicted chemofacies
 Z = coredata.merge(Predicted_chemofacies, left_index=True, right_index=True)
-Z = Z.merge(y_pred_XGB, left_index=True, right_index=True)
+#Z = Z.merge(y_pred_XGB, left_index=True, right_index=True)
 
-Z.to_csv (os.path.join(dirName + '/' +  Run_settings["Lease_Name"] + '_' + Formation_names + '.csv'))
-
-
+Z.to_csv (os.path.join(dirName + '/' +  Run_settings["Lease_Name"] + '_' + Formation_names + '.csv'),index=False)
 
 
+#coredata = wirelinedata
 
+
+
+#KingdomExport = Z[['Wireline_Depth','Chemofacies_NN']] # take two coluns from wirelinedate
+#KingdomExport['UWI']=Corebeta["API"]
+##KingdomExport['End Depth']= KingdomExport['Wireline_Depth'] + Corebeta['XRF_resolution']
+#KingdomExport['Start Depth']= KingdomExport['Wireline_Depth']
+
+
+#Chemofacies_Predict =[]
+
+#for row in KingdomExport['Chemofacies_NN']:
+ #           if row == 0 :    Chemofacies_Predict.append('BS_asMS')
+  #          elif row == 1:   Chemofacies_Predict.append('BS_cSS')
+   #         elif row == 2:  Chemofacies_Predict.append('BS_dSS')
+    #        elif row == 3:  Chemofacies_Predict.append('B2_dMS')
+     #       elif row == 4:  Chemofacies_Predict.append('BS_csMS')
+      #      elif row == 5:  Chemofacies_Predict.append('BS_sSSl')
+       #     elif row == 6:  Chemofacies_Predict.append('BS_sSS')
+        #    elif row == 7:  Chemofacies_Predict.append('BS_sMS')
+         #   elif row == 8:  Chemofacies_Predict.append('WC_cSS')
+          #  elif row == 9:  Chemofacies_Predict.append('WC_dMS2')
+           # elif row == 10:  Chemofacies_Predict.append('WC_dMS')
+#            elif row == 11:  Chemofacies_Predict.append('WC_aMS')
+ #           elif row == 12:  Chemofacies_Predict.append('WC_csMS')
+  #          elif row == 13:  Chemofacies_Predict.append('WC_sMS')
+   #         elif row == 14:  Chemofacies_Predict.append('WC_sMS2')
+    #        else:           Chemofacies_Predict.append('Not_Rated')
+#KingdomExport['Chemofacies'] = Chemofacies_Predict
+
+
+
+# Two options: first line will overprint the file. Second line appends to a longer file
+#KingdomExport.to_csv (os.path.join(Root_path + '/CoreData/IntervalExport/IntervalsExport/' + 'Chemofacies.csv'),index=False)
+#KingdomExport.to_csv (os.path.join(Root_path + '/CoreData/IntervalExport/IntervalsExport/' + 'Chemofacies.csv'),index=False, mode='a',header=False)

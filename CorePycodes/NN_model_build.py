@@ -104,7 +104,7 @@ feature_names = Run_settings["Model_elements"] # feature names
 
 
 
-dtrain = xgb.DMatrix(X_train, label=y_train,feature_names=feature_names)
+train = xgb.DMatrix(X_train, label=y_train,feature_names=feature_names)
 dtest = xgb.DMatrix(X_test, label=y_test,feature_names=feature_names)
 
 
@@ -117,32 +117,32 @@ param = {
 num_round = Run_settings['num_round']  # the number of training iterations
 
 
-XGB_model = xgb.train(param, dtrain, num_round) #XGBoost model 
+#XGB_model = xgb.train(param, dtrain, num_round) #XGBoost model 
 
-preds = XGB_model.predict(dtest) # dtest is built off of X_test
-y_pred_XGB = np.asarray([np.argmax(line) for line in preds]) # an array of the predictions for each sample (largest value)
+#preds = XGB_model.predict(dtest) # dtest is built off of X_test
+#y_pred_XGB = np.asarray([np.argmax(line) for line in preds]) # an array of the predictions for each sample (largest value)
 
 #Feature importance
-fig, (ax1) = plt.subplots(ncols=1, figsize=(20,5))
-ax1 = plot_importance(XGB_model)
-plt.show()
+#fig, (ax1) = plt.subplots(ncols=1, figsize=(20,5))
+#ax1 = plot_importance(XGB_model)
+#plt.show()
 
-cnf_matrix = metrics.confusion_matrix(y_test, y_pred_XGB)
-sns.heatmap(cnf_matrix, annot=True)
-plt.show()
+#cnf_matrix = metrics.confusion_matrix(y_test, y_pred_XGB)
+#sns.heatmap(cnf_matrix, annot=True)
+#plt.show()
 
-XGB_file=os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + 'XGB_model_' + Formation_names)
+#XGB_file=os.path.join(Root_path + '/CoreData/CoreNeuralModel/' + 'XGB_model_' + Formation_names)
 
-outfile = open(XGB_file,'wb')
-pickle.dump(XGB_model,outfile)
-outfile.close()
+#outfile = open(XGB_file,'wb')
+#pickle.dump(XGB_model,outfile)
+#outfile.close()
 
 #import corepytools as corepy
 #coredata = corepy.OutputXRF(Run_settings["CoreOfStudy"],Formation_names)
 #X_XGB = NeuralModel_TrainingDataSet[Run_settings["Model_elements"]]
-X = NeuralModel_TrainingDataSet[Run_settings["Model_elements"]]
-ddata = xgb.DMatrix(X)
+#X = NeuralModel_TrainingDataSet[Run_settings["Model_elements"]]
+#ddata = xgb.DMatrix(X)
 
-preds_2 = XGB_model.predict(ddata) # dtest is built off of X_test
+#preds_2 = XGB_model.predict(ddata) # dtest is built off of X_test
 
-y_pred_XGB_2 = np.asarray([np.argmax(line) for line in preds_2]) # an array of the predictions for each sample (largest value)
+#y_pred_XGB_2 = np.asarray([np.argmax(line) for line in preds_2]) # an array of the predictions for each sample (largest value)

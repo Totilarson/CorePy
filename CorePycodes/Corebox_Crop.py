@@ -1,7 +1,8 @@
 import os
 import corepytools as corepy
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 import json
+#from PIL import ImageFont
 
 # Two things here that could use improvement: core_depth and the locations for the core box cropping
 # look at the four coordinates in the corepy.cropCorebox command
@@ -36,8 +37,8 @@ for i in listing:
     
     corepy.cropCorebox((Corebeta['CoreBox_crop_points'][0], Corebeta['CoreBox_crop_points'][1], Corebeta['CoreBox_crop_points'][2], Corebeta['CoreBox_crop_points'][3]), i,CoreBoxPhotos,CoreBoxPhotos_cropped) 
     #(left, top, right,bottom)
-    # crop coordinates are done by trial and error
-    # change the first four numbers in the list to crop correctly
+    #crop coordinates are done by trial and error
+    #change the first four numbers in the list to crop correctly
 
 ## SECTION 2: This section takes uniform cropped images and cuts them into individual coretubes
 
@@ -56,10 +57,18 @@ def cropCoretubes(imageFileName):
         bottom_x = core_width + core_width*(i-1)
         bottom_y = height
         imgCrop = imgOpen.crop((top_x, top_y, bottom_x, bottom_y))
+              
+        
         
         top_depth=os.path.splitext(imageFileName)[0].split('_') # grabs the top depth and bottom depth from the file name
         core_depth=float(top_depth[1]) #1
         core_depth = (core_depth + float(Corebeta['coretube_length']) * (i-1)  )
+        
+        imgDraw = ImageDraw.Draw(imgCrop)
+        font = ImageFont.truetype("arial.ttf", 25)
+        textWidth, textHeight = imgDraw.textsize(str(core_depth))
+        imgDraw.text((((core_width-10) -textWidth)/2, 10), str(core_depth), font = font, fill = 'yellow')
+
         
         imageName = Corebeta['corenameAbrev'] + '_' + str(core_depth) + '_' + str(core_depth + Corebeta['coretube_length']) + '.png'
         croppedimagePath = os.path.join(CoretubeFolder, imageName)

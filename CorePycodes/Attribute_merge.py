@@ -22,7 +22,6 @@ Root_path = os.path.dirname(os.getcwd())
 # Run_settings is derived from settings.py and stores model and elemental parameter
 Run_settings=json.load(open(os.path.join(Root_path + '/CorePycodes/' + 'Run_settings' + '.json')))
 Corebeta=json.load(open(os.path.join(Root_path + '/CoreData/CoreBeta/'   +  Run_settings['Lease_Name']  +'.json')))
-
 # Formation_names is an expansion idea to select sub-Formations
 # Creates a str variable to select Formation-specific rows from csv input file. 
 # For now Formation_names is Run_settings["Formation"]
@@ -34,8 +33,20 @@ corepy.RootDir(Run_settings['Lease_Name'], Formation_names)
 corepy.MakeXRFdf(Run_settings['Lease_Name'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
 coredata=corepy.MakeXRFdf(Run_settings['Lease_Name'],Run_settings["elements"],Run_settings["outlier_multiplier"],Run_settings["Depth_model"],Formation_names)
 
+
+
+
 # added this to replace all NaN with -9999
 coredata[Run_settings['elements']] = coredata[Run_settings['elements']].fillna(-999) # change to -999.25 to make LAS 2.0 compliant
+
+# added this to highlight all the data with sulfur concentrations greater than 4% as surface contaminated
+coredata['S_contamination'] = np.where(coredata['S'] >= 4, True, False)
+
+coredata = coredata[coredata['S_contamination']==False]
+
+coredata_no_outliers=corepy.Remove_outliers(coredata)
+coredata_outliers=corepy.Include_outliers(coredata)    
+
 
 # write .csv file here  in case there is no attribute data
 coredata.to_csv (os.path.join(dirName + '/' +  Run_settings["Lease_Name"] + '_' + Formation_names + '.csv'))
@@ -106,7 +117,12 @@ if str(os.path.isfile(LAS_file_path)) == 'True':
         new_data=np.transpose(new_data)
     
         df[Corebeta['WirelineLogs'][i]] =  new_data[:, [1]]
+         
 
     CoreWirelinedata = (pd.merge(coredata, df, on='Wireline_Depth')) # merge original coredata XRF file with new wireline log values
-    CoreWirelinedata.to_csv (os.path.join(dirName + '/' +  Run_settings['Lease_Name'] + '_' + Formation_names + '.csv'))
+       
     
+    CoreWirelinedata.columns = CoreWirelinedata.columns.str.replace(r'_x$', '')   # remove duplicate column headings that have _x
+    
+    CoreWirelinedata.to_csv (os.path.join(dirName + '/' +  Run_settings['Lease_Name'] + '_' + Formation_names + '.csv'),index=False)
+

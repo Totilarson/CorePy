@@ -39,47 +39,68 @@ Elements_plotted=Run_settings["Elements_plotted"]
 
 
 
-fig, (ax1,ax2,ax3,ax4,ax5) = plt.subplots(ncols=5, figsize=(30,5))
+fig, (ax1,ax2,ax3,ax4,ax5,ax6,ax7,ax8,ax9) = plt.subplots(ncols=9, figsize=(50,5))
 sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[0], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax1,dodge =False,width=0.75)
 sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[1], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax2,dodge =False,width=0.75)
 sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[2], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax3,dodge =False,width=0.75)
 sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[3], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax4,dodge =False,width=0.75)
 sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[4], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax5,dodge =False,width=0.75)
+sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[5], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax6,dodge =False,width=0.75)
+sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[6], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax7,dodge =False,width=0.75)
+sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[7], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax8,dodge =False,width=0.75)
+sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[8], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax9,dodge =False,width=0.75)
+#sns.swarmplot(x=Run_settings["RockClassification"], y=attribute_plotted[0],  color = 'black', data=attributedata,ax=ax1)
+#sns.swarmplot(x=Run_settings["RockClassification"], y=attribute_plotted[1],   color = 'black',data=attributedata,ax=ax2)
+#sns.swarmplot(x=Run_settings["RockClassification"], y=attribute_plotted[2],   color = 'black',data=attributedata,ax=ax3)
+#sns.swarmplot(x=Run_settings["RockClassification"], y=attribute_plotted[3],  color = 'black', data=attributedata,ax=ax4)
+#sns.swarmplot(x=Run_settings["RockClassification"], y=attribute_plotted[4],  color = 'black',data=attributedata,ax=ax5)
+#sns.swarmplot(x=Run_settings["RockClassification"], y=attribute_plotted[5],  color = 'black', data=attributedata,ax=ax6)
+#sns.swarmplot(x=Run_settings["RockClassification"], y=attribute_plotted[6],  color = 'black',data=attributedata,ax=ax7)
 
+#sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[7], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax8,dodge =False,width=0.75)
 ax1.legend([])
 ax2.legend([])
 ax3.legend([])
 ax4.legend([])
 ax5.legend([])
-
+ax6.legend([])
+ax7.legend([])
+ax8.legend([])
+ax9.legend([])
+#ax3.set(ylim=(0.65, 1))
+#ax4.set(ylim=(0, 200))
 plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_AttributeBoxplot' + '.png'),dpi = 300)
 plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_AttributeBoxplot' + '.eps'),format='eps',dpi = 600)
 
 
 fig, ((ax1, ax2,), (ax3, ax4), (ax5, ax6)) = plt.subplots(nrows=3, ncols=2, sharex=False, sharey=False, figsize=(10,15))
 
-sns.scatterplot(x=attribute_plotted[0], y=attribute_plotted[2], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax1, edgecolor='black')
+sns.scatterplot(x=attribute_plotted[3], y=attribute_plotted[4], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax1, edgecolor='black')
 ax1.legend([])
 
-sns.scatterplot(x=attribute_plotted[1], y=attribute_plotted[2], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax2, edgecolor='black')
+sns.scatterplot(x=attribute_plotted[0], y=attribute_plotted[4], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax2, edgecolor='black')
 ax2.legend([])
 
-sns.scatterplot(x=attribute_plotted[3], y=attribute_plotted[0], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax3, edgecolor='black')
+sns.scatterplot(x=attribute_plotted[2], y=attribute_plotted[4], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax3, edgecolor='black')
 ax3.legend([])
-ax3.set(xscale="log")
-ax3.grid(which = 'minor')
-ax3.grid(which = 'major')
+#ax3.set(xscale="log")
+#ax3.grid(which = 'minor')
+#ax3.grid(which = 'major')
 
-sns.scatterplot(x=attribute_plotted[3], y=attribute_plotted[1], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax4, edgecolor='black')
+sns.scatterplot(x=attribute_plotted[3], y=attribute_plotted[2], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax4, edgecolor='black')
 ax4.legend([])
-ax4.set(xscale="log")
-ax4.grid(which = 'minor')
-ax4.grid(which = 'major')
-#sns.scatterplot(x=Run_settings["Elements_plotted"][1], y=Run_settings["Elements_plotted"][7], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax5, edgecolor='black')
-#ax5.legend([])
+#ax4.set(xscale="log")
+#ax4.grid(which = 'minor')
+#ax4.grid(which = 'major')
+ax4.set(ylim=(0.6, 1.1))
+ax4.set(xlim=(0, 150))
 
-#sns.scatterplot(x=Run_settings["Elements_plotted"][0], y=Run_settings["Elements_plotted"][9], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax6, edgecolor='black')
-#ax6.legend([])
+
+sns.scatterplot(x=attribute_plotted[3], y=attribute_plotted[5], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax5, edgecolor='black')
+ax5.legend([])
+
+sns.scatterplot(x=attribute_plotted[0], y=attribute_plotted[5], hue=Run_settings["RockClassification"],data=coredata, palette=chemofacies_color,ax=ax6, edgecolor='black')
+ax6.legend([])
 
 plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_AttributeCrossPlot_' + Run_settings["RockClassification"] + '.png'),dpi = 300)
 plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_AttributeCrossPlot_' + Run_settings["RockClassification"] + '.eps'),format='eps',dpi = 600)
@@ -146,40 +167,40 @@ for i in range(len(Attribute_corelog)):
     
     
 plt.subplot(1, n, 2)
-y_av = corepy.movingaverage(Attribute_corelog[Run_settings["Elements_plotted"][10]], Run_settings["moving_avg"])
+y_av = corepy.movingaverage(Attribute_corelog[Run_settings["Elements_Depth"][4]]/Attribute_corelog[Run_settings["Elements_Depth"][3]], Run_settings["moving_avg"])
+#y_av = corepy.movingaverage(Attribute_corelog[Run_settings["Elements_Depth"][4]], Run_settings["moving_avg"])
 axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue')
 #plt.xlim([0,10])
 plt.ylim(Depth_figure_bottom,Depth_figure_top)
 #plt.yticks([])
 plt.xticks(fontsize=14)
 #plt.xscale('log')
-plt.xlabel(Run_settings["Elements_plotted"][3], fontsize=18)
-plt.xlabel(Run_settings["Elements_plotted"][10], fontsize=18)
+plt.xlabel('Mo/Al', fontsize=18)
+
+
 
 plt.subplot(1,n, 3)
-y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][7]], Run_settings["moving_avg"])
+y_av = corepy.movingaverage(coredata[Run_settings["Elements_Depth"][2]], Run_settings["moving_avg"])
 axs=plt.plot(y_av,coredata[Run_settings["Depth_model"]], color='blue')
 #plt.xlim([0,0.02])
 plt.ylim(Depth_figure_bottom,Depth_figure_top)
 #plt.yticks([])
 plt.xticks(fontsize=14)
 #plt.xscale('log')
-plt.xlabel(Run_settings["Elements_plotted"][2], fontsize=18)
-plt.xlabel(Run_settings["Elements_plotted"][7], fontsize=18)
+plt.xlabel(Run_settings["Elements_Depth"][2], fontsize=18)
 
-
-plt.subplot(1, n, 4)
-y_av = corepy.movingaverage(coredata[Run_settings["Elements_plotted"][4]], Run_settings["moving_avg"])
+plt.subplot(1,n, 4)
+y_av = corepy.movingaverage(coredata[Run_settings["Elements_Depth"][5]], Run_settings["moving_avg"])
 axs=plt.plot(y_av,coredata[Run_settings["Depth_model"]], color='blue')
+#plt.xlim([0,0.02])
 plt.ylim(Depth_figure_bottom,Depth_figure_top)
-#plt.xlim([0,10])
 #plt.yticks([])
 plt.xticks(fontsize=14)
 #plt.xscale('log')
-plt.xlabel(Run_settings["Elements_plotted"][1], fontsize=18)
-plt.xlabel(Run_settings["Elements_plotted"][4], fontsize=18)
- 
-plt.subplot(1,n,5)
+plt.xlabel(Run_settings["Elements_Depth"][5], fontsize=18)
+
+
+plt.subplot(1, n, 5)
 y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[0]  + '_median'))], Run_settings["moving_avg"])
 axs = sns.scatterplot(x=attribute_plotted[0] , y=Run_settings["Depth_model"], hue=Run_settings["RockClassification"],s=150, edgecolor='black',data = attributedata,palette=chemofacies_color) 
 axs.legend([])
@@ -191,11 +212,24 @@ plt.ylim(Depth_figure_bottom,Depth_figure_top)
 plt.xticks(fontsize=14)
 plt.xlabel(attribute_plotted[0], fontsize=18)
 #plt.ylabel('')
-
-
+ 
 plt.subplot(1,n,6)
 y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[1]  + '_median'))], Run_settings["moving_avg"])
-axs = sns.scatterplot(x=attribute_plotted[1] , y=Run_settings["Depth_model"], edgecolor='black',hue=Run_settings["RockClassification"], s=150,data = attributedata,palette=chemofacies_color) 
+axs = sns.scatterplot(x=attribute_plotted[1] , y=Run_settings["Depth_model"], hue=Run_settings["RockClassification"],s=150, edgecolor='black',data = attributedata,palette=chemofacies_color) 
+axs.legend([])
+#axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
+
+#plt.xlim([0,30])
+plt.ylim(Depth_figure_bottom,Depth_figure_top)
+#plt.yticks([])
+plt.xticks(fontsize=14)
+plt.xlabel(attribute_plotted[1], fontsize=18)
+#plt.ylabel('')
+
+
+plt.subplot(1,n,7)
+y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[2]  + '_median'))], Run_settings["moving_avg"])
+axs = sns.scatterplot(x=attribute_plotted[2] , y=Run_settings["Depth_model"], edgecolor='black',hue=Run_settings["RockClassification"], s=150,data = attributedata,palette=chemofacies_color) 
 axs.legend([])
 #axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
 
@@ -204,43 +238,41 @@ axs.legend([])
 plt.ylim(Depth_figure_bottom,Depth_figure_top)
 #plt.yticks([])
 plt.xticks(fontsize=14)
-plt.xlabel(attribute_plotted[1], fontsize=18)
+plt.xlabel(attribute_plotted[2], fontsize=18)
 #plt.ylabel('')
 
-
 plt.subplot(1,n,8)
-y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[2]  + '_median'))], Run_settings["moving_avg"])
+y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[6]  + '_median'))], Run_settings["moving_avg"])
+
+axs = sns.scatterplot(x=attribute_plotted[6] , y=Run_settings["Depth_model"],edgecolor='black', hue=Run_settings["RockClassification"],s=150, data = attributedata,palette=chemofacies_color) 
+axs.legend([])
+#axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
+
+#plt.xlim([0,3])
+#plt.ylim(Depth_figure_bottom,Depth_figure_top)
+#plt.yticks([])
+plt.xticks(fontsize=14)
+plt.xlabel(attribute_plotted[6], fontsize=18)
+#plt.ylabel('')
+
+plt.subplot(1,n,9)
+y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[7]  + '_median'))], Run_settings["moving_avg"])
 
 #axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
-axs = sns.scatterplot(x=attribute_plotted[2] , y=Run_settings["Depth_model"],edgecolor='black', hue=Run_settings["RockClassification"],s=150, data = attributedata,palette=chemofacies_color) 
+axs = sns.scatterplot(x=attribute_plotted[7] , y=Run_settings["Depth_model"],edgecolor='black', hue=Run_settings["RockClassification"],s=150, data = attributedata,palette=chemofacies_color) 
 axs.legend([])
 
 #plt.xlim([50,100])
 plt.ylim(Depth_figure_bottom,Depth_figure_top)
 #plt.yticks([])
 plt.xticks(fontsize=14)
-plt.xlabel(attribute_plotted[2], fontsize=18)
-#plt.ylabel('')
-
-
-plt.subplot(1,n,7)
-y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[3]  + '_median'))], Run_settings["moving_avg"])
-
-axs = sns.scatterplot(x=attribute_plotted[3] , y=Run_settings["Depth_model"],edgecolor='black', hue=Run_settings["RockClassification"],s=150, data = attributedata,palette=chemofacies_color) 
-axs.legend([])
-#axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
-
-#plt.xlim([0,3])
-plt.ylim(Depth_figure_bottom,Depth_figure_top)
-#plt.yticks([])
-plt.xticks(fontsize=14)
-plt.xlabel(attribute_plotted[3], fontsize=18)
+plt.xlabel(attribute_plotted[7], fontsize=18)
 #plt.ylabel('')
 
 plt.subplot(1,n,9)
-y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[4]  + '_median'))], Run_settings["moving_avg"])
+#y_av = corepy.movingaverage(Attribute_corelog[(os.path.join(attribute_plotted[5]  + '_median'))], Run_settings["moving_avg"])
 
-axs = sns.scatterplot(x=attribute_plotted[4] , y=Run_settings["Depth_model"],edgecolor='black', hue=Run_settings["RockClassification"],s=150, data = attributedata,palette=chemofacies_color) 
+#axs = sns.scatterplot(x=attribute_plotted[5] , y=Run_settings["Depth_model"],edgecolor='black', hue=Run_settings["RockClassification"],s=150, data = attributedata,palette=chemofacies_color) 
 axs.legend([])
 #axs=plt.plot(y_av,Attribute_corelog[Run_settings["Depth_model"]], color='blue',linewidth=1.0)
 
@@ -248,24 +280,9 @@ axs.legend([])
 plt.ylim(Depth_figure_bottom,Depth_figure_top)
 #plt.yticks([])
 plt.xticks(fontsize=14)
-plt.xlabel(attribute_plotted[4], fontsize=18)
+#plt.xlabel(attribute_plotted[5], fontsize=18)
 #plt.ylabel('')
 
 plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_Attributelog' + '.png'),dpi = 300)
 plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_Attributelog' + '.eps'),format='eps',dpi = 600)
 
-fig, (ax1,ax2,ax3,ax4,ax5) = plt.subplots(ncols=5, figsize=(30,5))
-sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[0], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax1,dodge =False,width=0.75)
-sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[1], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax2,dodge =False,width=0.75)
-sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[2], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax3,dodge =False,width=0.75)
-sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[3], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax4,dodge =False,width=0.75)
-sns.boxplot(x=Run_settings["RockClassification"], y=attribute_plotted[4], hue=Run_settings["RockClassification"], palette=chemofacies_color, data=attributedata,ax=ax5,dodge =False,width=0.75)
-
-ax1.legend([])
-ax2.legend([])
-ax3.legend([])
-ax4.legend([])
-ax5.legend([])
-
-plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_AttributeBoxplot' + '.png'),dpi = 300)
-plt.savefig(os.path.join(dirName + '/' + Run_settings["Lease_Name"] + '_' + Formation_names + '_AttributeBoxplot' + '.eps'),format='eps',dpi = 600)
